@@ -52,20 +52,20 @@ button {
 .jh-app {
   display: grid;
   grid-template-columns: var(--jh-sidebar-w) 1fr;
-  min-height: 100vh;
+  min-height: calc(100vh / 1.1);
 }
 
 .jh-sidebar-wrap {
   position: sticky;
   top: 0;
-  height: 100vh;
+  height: calc(100vh / 1.1);
 }
 
 .jh-main { min-width: 0; }
 
 /* ───────── Sidebar (Bold variant baked in) ───────── */
 .jh-sidebar {
-  height: 100vh;
+  height: calc(100vh / 1.1);
   display: flex;
   flex-direction: column;
   padding: 40px 36px 32px;
@@ -1176,7 +1176,7 @@ button {
     position: fixed;
     top: 0;
     left: 0;
-    height: 100vh;
+    height: calc(100vh / 1.1);
     width: 280px;
     z-index: 40;
     transform: translateX(-100%);
@@ -1250,7 +1250,7 @@ button {
 
 /* 404 page */
 .jh-404 {
-  min-height: 100vh;
+  min-height: calc(100vh / 1.1);
   display: flex;
   flex-direction: column;
   justify-content: center;
