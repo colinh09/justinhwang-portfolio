@@ -1,0 +1,12 @@
+node_modules
+.next
+out
+.env*.local
+.DS_Store
+*.tsbuildinfo
+next-env.d.ts
+
+# Local design bundle artifacts
+design-bundle.tar
+design-bundle.gz
+design-extract/
