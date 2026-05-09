@@ -253,9 +253,11 @@ button {
   .jh-hero.jh-section { max-width: 1920px; }
 }
 
-@media (min-width: 2200px) {
-  .jh-section { max-width: 2200px; padding: 152px 128px; }
-  .jh-hero.jh-section { max-width: 2200px; }
+/* Ultrawide tier — only triggers above the MacBook's CSS width (2560px) so
+   16" laptops keep the standard 1800+ layout and only true ultrawides scale up. */
+@media (min-width: 2600px) {
+  .jh-section { max-width: 2600px; padding: 168px 144px; }
+  .jh-hero.jh-section { max-width: 2600px; }
 }
 
 .jh-eyebrow {
@@ -1270,19 +1272,37 @@ button {
   .jh-card__title { font-size: 20px; }
 }
 
-@media (min-width: 2200px) {
-  .jh-hero .jh-display { font-size: clamp(72px, 16cqi, 152px); }
-  .jh-hero .jh-lede { font-size: clamp(28px, 2.6vw, 44px); max-width: 1300px; }
-  .jh-hero .jh-prose { font-size: 21px; max-width: 76ch; }
+/* Ultrawide tier — scales beyond what 16" laptops see. Triggers above the
+   MacBook's CSS width (2560px) so only true ultrawides bump up further. */
+@media (min-width: 2600px) {
+  .jh-hero .jh-display { font-size: clamp(80px, 14cqi, 168px); }
+  .jh-hero .jh-lede { font-size: clamp(38px, 2.6vw, 60px); max-width: 1500px; }
+  .jh-hero .jh-prose { font-size: 23px; max-width: 80ch; }
   .jh-hero .jh-about-grid {
-    grid-template-columns: minmax(0, 1fr) minmax(500px, 620px);
-    gap: 144px;
+    grid-template-columns: minmax(0, 1fr) minmax(560px, 700px);
+    gap: 168px;
   }
-  .jh-grid { gap: 48px 44px; }
-  .jh-sec-title { font-size: clamp(60px, 5.0vw, 96px); }
-  .jh-sec-head { max-width: 1180px; margin-bottom: 84px; }
-  .jh-card__body { padding: 36px 36px 38px; }
-  .jh-card__title { font-size: 22px; }
+  .jh-grid { gap: 56px 52px; }
+  .jh-sec-title { font-size: clamp(72px, 5.4vw, 116px); }
+  .jh-sec-num { font-size: 28px; }
+  .jh-kicker { font-size: 16px; letter-spacing: 0.22em; }
+  .jh-sec-head { max-width: 1360px; margin-bottom: 100px; }
+  .jh-card__body { padding: 42px 42px 44px; }
+  .jh-card__title { font-size: 26px; }
+  .jh-eyebrow { font-size: 16px; letter-spacing: 0.22em; }
+  .jh-about-h { font-size: 15px; letter-spacing: 0.2em; }
+  .jh-about-list strong { font-size: 24px; }
+  .jh-about-list span { font-size: 16px; }
+  .jh-about-tools li { font-size: 16px; padding: 9px 18px; }
+  .jh-connect-list a { font-size: 24px; padding: 20px 0; }
+  .jh-connect-list__cue { font-size: 17px; }
+  .jh-service__num { font-size: 20px; }
+  .jh-service__title { font-size: 38px; }
+  .jh-service__desc { font-size: 18px; max-width: 54ch; }
+  .jh-service { padding: 64px 60px 68px; }
+  .jh-contact__big { font-size: clamp(64px, 6.0vw, 156px); }
+  .jh-contact__row { font-size: 18px; }
+  .jh-about-card { padding: 32px 34px; }
 }
 
 /* Skip-to-content link (visually hidden until focused) */
