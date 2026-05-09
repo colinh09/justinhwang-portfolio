@@ -20,6 +20,10 @@
 
 * { box-sizing: border-box; }
 
+/* Global 10% enlargement — matches the "looks better at 110% browser zoom" feel
+   without forcing users to zoom themselves. */
+html { zoom: 1.1; }
+
 html, body {
   margin: 0;
   padding: 0;
@@ -744,32 +748,23 @@ button {
 /* Footer / Contact */
 .jh-footer { padding-bottom: 60px; }
 
-.jh-contact {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-  margin-bottom: 64px;
-}
-
-.jh-contact-form-wrap {
+.jh-contact-block {
   max-width: 640px;
   margin-bottom: 80px;
 }
 
-.jh-contact-form-h {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  font-size: 11px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--jh-mute);
-  margin-bottom: 28px;
+.jh-contact-intro {
+  margin: 0 0 40px;
 }
-.jh-contact-form-rule {
-  flex: 0 0 36px;
-  height: 1px;
-  background: var(--jh-line);
+.jh-contact-intro a {
+  color: var(--jh-ink);
+  border-bottom: 1px solid var(--jh-line);
+  padding-bottom: 1px;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+.jh-contact-intro a:hover {
+  color: var(--jh-accent);
+  border-color: var(--jh-accent);
 }
 
 .jh-contact__big {
