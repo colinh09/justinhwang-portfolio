@@ -1,5 +1,7 @@
 "use client";
 
+import { SITE } from "@/lib/content";
+
 interface NavItem {
   id: string;
   label: string;
@@ -19,6 +21,10 @@ interface Props {
 }
 
 export default function Sidebar({ activeSection, onNav }: Props) {
+  const [first, ...rest] = SITE.profile.name.split(" ");
+  const nameParts = rest.length ? [first, rest.join(" ")] : [first];
+  const locationLine = SITE.profile.locations.join(" · ");
+
   return (
     <aside className="jh-sidebar">
       <div>
@@ -27,19 +33,17 @@ export default function Sidebar({ activeSection, onNav }: Props) {
           <img
             className="jh-sidebar__avatar"
             src="/justin.jpg"
-            alt="Portrait of Justin Hwang"
+            alt={`Portrait of ${SITE.profile.name}`}
             width={64}
             height={64}
           />
           <div className="jh-sidebar__name">
-            <span>Justin</span>
-            <span>Hwang</span>
+            {nameParts.map((part) => (
+              <span key={part}>{part}</span>
+            ))}
           </div>
         </div>
-        <div className="jh-sidebar__title">
-          Senior Project Controls Engineer
-          <span className="jh-sep"> · </span>PMP
-        </div>
+        <div className="jh-sidebar__title">{SITE.profile.jobTitle}</div>
       </div>
 
       <div className="jh-divider" />
@@ -64,15 +68,19 @@ export default function Sidebar({ activeSection, onNav }: Props) {
           <span className="jh-status__dot" />
           <span className="jh-status__text">
             <span className="jh-status__live">Currently at</span>
-            <span className="jh-status__co">Naik Group</span>
+            <span className="jh-status__co">
+              {SITE.profile.currentEmployer}
+            </span>
           </span>
         </div>
         <div className="jh-meta">
-          <div>
-            New York, NY <span className="jh-sep">·</span> Seattle, WA
-          </div>
-          <a href="mailto:JKH.Build@gmail.com">JKH.Build@gmail.com</a>
-          <a href="/Justin_Hwang_Resume.pdf" target="_blank" rel="noopener noreferrer">
+          <div>{locationLine}</div>
+          <a href={`mailto:${SITE.profile.email}`}>{SITE.profile.email}</a>
+          <a
+            href={SITE.profile.resumePath}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             Download CV ↓
           </a>
         </div>

@@ -1,3 +1,7 @@
+import constructionProjects from "@/content/construction-projects.json";
+import technicalProjects from "@/content/technical-projects.json";
+import services from "@/content/services.json";
+import site from "@/content/site.json";
 import type {
   ConstructionProject,
   Role,
@@ -5,6 +9,7 @@ import type {
   TechProject,
 } from "./types";
 
+// Filter chip values are tied to the type system; not editable from JSON.
 export const SECTORS: Sector[] = [
   "Transit",
   "K-12",
@@ -21,244 +26,42 @@ export const ROLES: Role[] = [
   "Procurement",
 ];
 
-export const TECH_PROJECTS: TechProject[] = [
-  {
-    id: "tech-1",
-    title: "Schedule Health Dashboard",
-    blurb:
-      "Power BI cockpit pulling from P6 — float erosion, critical path drift, and milestone risk in one view.",
-    tags: ["Power BI", "Primavera P6", "DAX"],
-    swatch: "#1c2a3a",
-    label: "DASHBOARD",
-    detail:
-      "A live reporting layer that ingests weekly P6 XER exports, normalises activity codes across three contractor schedules, and exposes float consumption, predecessor slippage, and look-ahead risk to PMs without them ever opening Primavera. Reduced status-meeting prep from 4 hours to 20 minutes.",
-  },
-  {
-    id: "tech-2",
-    title: "Change Order Reconciliation Engine",
-    blurb:
-      "SQL + Python pipeline reconciling PCO logs against Procore commitments across 14 active projects.",
-    tags: ["SQL", "Python", "Procore"],
-    swatch: "#2d2218",
-    label: "PIPELINE",
-    detail:
-      "ETL pipeline that pulls daily snapshots from Procore, normalises change-order numbering across legacy and active projects, and flags PCOs missing back-up or stuck in approval >14 days. Surfaced $4.2M in unbilled approved changes in the first month.",
-  },
-  {
-    id: "tech-3",
-    title: "Quantity Takeoff Toolkit",
-    blurb:
-      "TypeScript utilities on top of On-Screen Takeoff exports — unit normalisation and crew-rate modelling.",
-    tags: ["TypeScript", "On-Screen Takeoff", "RSMeans"],
-    swatch: "#1f2a1a",
-    label: "TOOLKIT",
-    detail:
-      "Set of typed utilities for converting OST exports into RSMeans-aligned line items, with crew composition, productivity rates, and regional cost factors baked in. Used to prep $230M+ of fit-out estimates with consistent assumptions across estimators.",
-  },
-  {
-    id: "tech-4",
-    title: "Cashflow & Earned Value Model",
-    blurb:
-      "Excel + Power Query model rolling up planned vs earned vs actual across a portfolio of 6 projects.",
-    tags: ["Excel", "Power Query", "EVM"],
-    swatch: "#2a1f2c",
-    label: "MODEL",
-    detail:
-      "Portfolio-level earned value model used by ownership for monthly draw forecasting. Combines schedule-derived BCWS curves with vendor invoicing actuals, surfacing CPI/SPI trends per project and aggregate cash exposure.",
-  },
-];
+export const TECH_PROJECTS = technicalProjects as unknown as TechProject[];
+export const CONSTRUCTION_PROJECTS =
+  constructionProjects as unknown as ConstructionProject[];
 
-export const CONSTRUCTION_PROJECTS: ConstructionProject[] = [
-  {
-    id: "p1",
-    title: "Gateway / Tonnelle Avenue Bridge",
-    sub: "Bridge & Utility Relocation",
-    location: "North Bergen, NJ",
-    sector: "Transit",
-    role: "Project Controls",
-    value: "$180M+",
-    dates: "2024 — Present",
-    swatch: "#2d3a4a",
-    label: "GATEWAY",
-    contributions: [
-      "Prepared independent cost estimates and led negotiations to fair and reasonable settlements on contract modifications",
-      "Forecasted estimate-to-complete and reallocated budgeted funds across underrunning and overrunning bid items",
-      "Maintained WBS continuity through reallocation, ensuring timely contractor payment without disrupting cost reporting",
-    ],
-    description:
-      "A complex infrastructure package supporting the Gateway Program — utility relocation and a new roadway bridge over the Hudson Tunnel Project ROW. Responsibilities span change management, commercial correspondence, risk assessment, and field inspection. Established final quantities for compensation of unit price bid items and negotiated settlements within capital plan constraints to support successful, on-budget delivery.",
-  },
-  {
-    id: "p2",
-    title: "MTA C&D — 21 Escalators & 37 Elevators",
-    sub: "Vertical Transportation Replacement, 23 Stations",
-    location: "New York, NY",
-    sector: "Transit",
-    role: "Change Manager",
-    value: "—",
-    dates: "2022 — 2024",
-    swatch: "#3a2a1c",
-    label: "MTA VT",
-    contributions: [
-      "Provided technical guidance for the commercial team's change management function across two design-build contracts",
-      "Audited previously negotiated change orders, identifying material quantity discrepancies and unsubstantiated labor production rates",
-      "Led scope reconciliation meetings with the contractor — resulting in formal acknowledgment of the identified overstatements",
-      "Prepared independent cost estimates for both construction and design across a high volume of changes on both contracts",
-    ],
-    description:
-      "Program management consultancy for two MTA design-build contracts covering replacement of 21 escalators at six subway stations and 37 elevators at 17 stations. Builders: Skanska and Forte/Gramercy JV. Designer: Stantec. Reviewed and corrected previously assessed scope, identified overlooked credits, and provided technical grounding for change order presentations to the client's executive committees.",
-  },
-  {
-    id: "p3",
-    title: "MTA C&D — CAMS, Fire Alarm & Sprinkler",
-    sub: "20 NYCT Stations & Facilities",
-    location: "New York, NY",
-    sector: "Transit",
-    role: "Change Manager",
-    value: "—",
-    dates: "2022 — 2024",
-    swatch: "#2a2530",
-    label: "MTA LS",
-    contributions: [
-      "Prepared independent cost estimates for change order pricing across all 20 facilities",
-      "Negotiated equitable settlements with the contractor while ensuring compliance with agency standards",
-      "Authored contractual and technical correspondence supporting change order submissions against commercial requirements",
-    ],
-    description:
-      "Comprehensive change management support for a design-build contract replacing the central alarm monitoring system and upgrading fire protection across 20 MTA NYCT stations and facilities. Heavy coordination with agency standards and commercial requirements while maintaining strong client and contractor relationships.",
-  },
-  {
-    id: "p4",
-    title: "Stony Brook Medical — ASC",
-    sub: "Advanced Specialty Care, 170k SF Adaptive Reuse",
-    location: "Lake Grove, NY",
-    sector: "Higher Ed",
-    role: "Procurement",
-    value: "31-yr Lease",
-    dates: "2020 — 2022",
-    swatch: "#1f2f2a",
-    label: "STONY BROOK",
-    contributions: [
-      "Led procurement as a standalone workstream to meet aggressive schedule during acute supply chain disruption",
-      "Managed competitive bidding and negotiation of A/E service contracts and subcontractors",
-      "Procured long-lead critical equipment including elevators, escalators, emergency generators and rooftop units",
-    ],
-    description:
-      "Adaptive reuse of a former Sears anchor store into a 170,000 SF medical facility, with phased expansion to 270,000 SF under a 31-year lease with Stony Brook Medical. Procurement was structured as a standalone workstream to meet an aggressive schedule during a period of acute supply chain disruption and extended lead times.",
-  },
-  {
-    id: "p5",
-    title: "50 Hudson Yards — BlackRock HQ",
-    sub: "Corporate HQ Fit-Out, 970k SF, 15 Floors",
-    location: "New York, NY",
-    sector: "Corporate Interiors",
-    role: "Estimator",
-    value: "$230M",
-    dates: "2019 — 2020",
-    swatch: "#2c2418",
-    label: "50 HY",
-    contributions: [
-      "Prepared independent cost estimate for the architectural scope of 7 floors during design development",
-      "Led detailed page-turn reconciliation sessions with the contractor's estimator to align, level, and refine their proposal",
-      "Coordinated MEP and structural estimating contributions into the final consolidated deliverable",
-    ],
-    description:
-      "Owner's representative cost consultancy on a 970,000 SF, 15-floor office fit-out including auditorium and café spaces, with a total project cost of $230M. Prepared an independent cost estimate followed by detailed page-turn reconciliation against project scope and evolving design intent.",
-  },
-  {
-    id: "p6",
-    title: "311 W 42nd St — The Ellery",
-    sub: "Mixed-Use Tower, 372k SF, 7 & 31 Stories",
-    location: "New York, NY",
-    sector: "Residential",
-    role: "Estimator",
-    value: "$337M",
-    dates: "2019 — 2020",
-    swatch: "#2a2026",
-    label: "ELLERY",
-    contributions: [
-      "Lead architectural estimator for owner's rep cost consultancy across the full mixed-use program",
-      "Prepared independent cost estimate during DD with breakouts for lobby, amenity, pool, kitchen millwork, podium, and tower scopes",
-      "Led reconciliation meetings with the building owners to justify cost discrepancies with the contractor's estimate",
-      "Coordinated delivery of structural and MEP estimates from the project team into the final integrated deliverable",
-    ],
-    description:
-      "Owner's rep cost consultancy services for a 372,014 SF, 7- and 31-story mixed-use building with retail on the lower floors and residential and amenity floors above. Final construction cost: $337M. The estimate was delivered with various cost breakouts at the client's request to facilitate value engineering efforts.",
-  },
-  {
-    id: "p7",
-    title: "MTA Mentor Program — Constructability",
-    sub: "Independent Cost & Constructability Reviews",
-    location: "New York, NY",
-    sector: "Transit",
-    role: "Estimator",
-    value: "Various",
-    dates: "2018 — 2019",
-    swatch: "#1f2a36",
-    label: "LIRO",
-    contributions: [
-      "Prepared independent project cost, cost comparison, and change order estimates for the mentor program",
-      "Conducted constructability reviews of bid documents to assess risk and identify drawing conflicts",
-      "Evaluated whether projects' construction cost would exceed the cost limit for the mentor program",
-    ],
-    description:
-      "Owner's representative work for the LiRo Group on the MTA mentor program. Independent cost estimating and constructability assessment of bid documents to surface drawing conflicts, scope risk, and cost-limit exposure across a rolling portfolio of small-business participation projects.",
-  },
-  {
-    id: "p8",
-    title: "Steel Equities Portfolio",
-    sub: "Medical Office, Warehouse & Film Studio Fit-Outs",
-    location: "Bethpage, NY",
-    sector: "Corporate Interiors",
-    role: "Project Manager",
-    value: "Multi-Site",
-    dates: "2020 — 2022",
-    swatch: "#2c2418",
-    label: "STEEL EQ",
-    contributions: [
-      "Prepared detailed pre-construction cost estimates and schedules to inform lease terms across the portfolio",
-      "Procured materials for all trades across multiple concurrent projects",
-      "Served as PM for multiple concurrent office fit-out projects from design through delivery as part of the landlord's construction team",
-      "Collaborated closely with tenants to deliver customized spaces alongside lease execution",
-    ],
-    description:
-      "Landlord-side estimator and project manager across a multi-asset Long Island portfolio — medical office, warehouse, and film studio fit-out projects. Owned both pre-lease cost intelligence (estimating, schedule) and post-lease execution (procurement, PM) so tenant fit-outs landed on the lease terms they were priced against.",
-  },
-  {
-    id: "p9",
-    title: "Gardiner & Theobald — Capital Projects",
-    sub: "Pre-Construction Estimating, $10M – $350M",
-    location: "New York, NY",
-    sector: "Corporate Interiors",
-    role: "Estimator",
-    value: "$10M – $350M",
-    dates: "2019 — 2020",
-    swatch: "#2c2418",
-    label: "G&T",
-    contributions: [
-      "Prepared pre-construction cost estimates for capital projects priced between $10M and $350M",
-      "Led page-turn and cost estimate reviews with contractors to level bid proposals and confirm full scope coverage",
-      "Oversaw multidisciplinary estimating efforts and consolidated team contributions into high-quality final deliverables",
-    ],
-    description:
-      "Cost-management consultancy work spanning a wide spectrum of capital projects. Led estimate consolidation across architectural, structural, and MEP disciplines and coordinated deliverable schedules to support owner-side procurement decisions.",
-  },
-  {
-    id: "p10",
-    title: "Gilbane LiRo JV — Buffalo Schools",
-    sub: "Construction Management, K-12 & Higher Ed",
-    location: "Buffalo, NY",
-    sector: "K-12",
-    role: "Project Controls",
-    value: "Multi-Site",
-    dates: "2016 — 2017",
-    swatch: "#2a2f1c",
-    label: "GLJV",
-    contributions: [
-      "Developed and maintained manpower reports, two-week look-aheads, open item logs, meeting minutes, and change order logs",
-      "Performed architectural, electrical, and life safety inspections of drywall, ceiling tie wire, spray fireproofing, putty packs, and firestopping",
-    ],
-    description:
-      "Field engineering on the Gilbane / LiRo joint venture supporting K-12 and higher-ed capital work in the Buffalo region. Day-to-day project controls reporting and field-level life-safety inspection across active sites.",
-  },
-];
+export interface Service {
+  n: string;
+  title: string;
+  desc: string;
+}
+export const SERVICES = services as Service[];
+
+export interface Credential {
+  name: string;
+  issuer: string;
+}
+
+export interface Profile {
+  name: string;
+  jobTitle: string;
+  currentEmployer: string;
+  locations: string[];
+  email: string;
+  linkedinUrl: string;
+  resumePath: string;
+}
+
+export interface HeroContent {
+  eyebrow: string;
+  bio: string[];
+}
+
+export interface SiteContent {
+  profile: Profile;
+  hero: HeroContent;
+  credentials: Credential[];
+  toolkit: string[];
+}
+
+export const SITE = site as SiteContent;

@@ -59,6 +59,8 @@ button {
   position: sticky;
   top: 0;
   height: calc(100vh / 1.1);
+  will-change: transform;
+  transform: translateZ(0);
 }
 
 .jh-main { min-width: 0; }
@@ -240,6 +242,22 @@ button {
   scroll-margin-top: 0;
 }
 
+
+@media (min-width: 1500px) {
+  .jh-section { max-width: 1680px; padding: 108px 88px; }
+  .jh-hero.jh-section { max-width: 1720px; }
+}
+
+@media (min-width: 1800px) {
+  .jh-section { max-width: 1920px; padding: 132px 112px; }
+  .jh-hero.jh-section { max-width: 1920px; }
+}
+
+@media (min-width: 2200px) {
+  .jh-section { max-width: 2200px; padding: 152px 128px; }
+  .jh-hero.jh-section { max-width: 2200px; }
+}
+
 .jh-eyebrow {
   font-size: 11px;
   letter-spacing: 0.16em;
@@ -266,7 +284,8 @@ button {
 }
 
 .jh-display--inline {
-  white-space: nowrap;
+  white-space: normal;
+  text-wrap: balance;
 }
 
 .jh-display--xl {
@@ -286,7 +305,7 @@ button {
   opacity: 1;
   transform: translateY(0);
 }
-.jh-word { display: block; white-space: nowrap; }
+.jh-word { display: inline-block; white-space: nowrap; }
 
 .jh-lede {
   font-family: var(--jh-display-font);
@@ -329,8 +348,18 @@ button {
 }
 
 
+.jh-hero__lead {
+  container-type: inline-size;
+}
+
+/* Size the name to its own column so "Justin Hwang" always fits on one line
+   from phone width up to ultrawide. 16cqi sizes the font to ~16% of column
+   width — enough headroom for ~12 chars of the display font. The breakpoint
+   maxes below cap the size on bigger monitors so the name doesn't get
+   absurdly large. */
 .jh-hero .jh-display {
-  font-size: clamp(36px, 4.8vw, 72px);
+  font-size: clamp(28px, 16cqi, 88px);
+  white-space: nowrap;
 }
 
 .jh-eyebrow--under {
@@ -610,6 +639,8 @@ button {
   display: flex;
   flex-direction: column;
   gap: 20px;
+  will-change: transform;
+  transform: translateZ(0);
 }
 
 .jh-about-card {
@@ -1205,6 +1236,53 @@ button {
 @media (min-width: 901px) and (max-width: 1180px) {
   :root { --jh-pad: 56px; --jh-sidebar-w: 280px; }
   .jh-grid--const { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* Scale the hero up on larger screens so it doesn't feel stranded.
+   Below 1500px we keep the original laptop-friendly proportions. */
+@media (min-width: 1500px) {
+  .jh-hero .jh-display { font-size: clamp(46px, 16cqi, 100px); }
+  .jh-hero .jh-lede { font-size: clamp(22px, 2.2vw, 32px); max-width: 880px; }
+  .jh-hero .jh-prose { font-size: 18px; max-width: 64ch; }
+  .jh-hero .jh-about-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(360px, 440px);
+    gap: 96px;
+  }
+  .jh-grid--const { grid-template-columns: repeat(4, 1fr); }
+  .jh-grid { gap: 36px 32px; }
+  .jh-sec-title { font-size: clamp(36px, 4.2vw, 64px); }
+  .jh-sec-head { max-width: 880px; margin-bottom: 64px; }
+  .jh-card__body { padding: 26px 26px 28px; }
+}
+
+@media (min-width: 1800px) {
+  .jh-hero .jh-display { font-size: clamp(56px, 16cqi, 124px); }
+  .jh-hero .jh-lede { font-size: clamp(26px, 2.4vw, 36px); max-width: 1080px; }
+  .jh-hero .jh-prose { font-size: 19px; max-width: 70ch; }
+  .jh-hero .jh-about-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(420px, 520px);
+    gap: 112px;
+  }
+  .jh-grid { gap: 40px 36px; }
+  .jh-sec-title { font-size: clamp(46px, 4.6vw, 78px); }
+  .jh-sec-head { max-width: 1000px; margin-bottom: 72px; }
+  .jh-card__body { padding: 30px 30px 32px; }
+  .jh-card__title { font-size: 20px; }
+}
+
+@media (min-width: 2200px) {
+  .jh-hero .jh-display { font-size: clamp(72px, 16cqi, 152px); }
+  .jh-hero .jh-lede { font-size: clamp(28px, 2.6vw, 44px); max-width: 1300px; }
+  .jh-hero .jh-prose { font-size: 21px; max-width: 76ch; }
+  .jh-hero .jh-about-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(500px, 620px);
+    gap: 144px;
+  }
+  .jh-grid { gap: 48px 44px; }
+  .jh-sec-title { font-size: clamp(60px, 5.0vw, 96px); }
+  .jh-sec-head { max-width: 1180px; margin-bottom: 84px; }
+  .jh-card__body { padding: 36px 36px 38px; }
+  .jh-card__title { font-size: 22px; }
 }
 
 /* Skip-to-content link (visually hidden until focused) */

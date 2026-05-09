@@ -1,0 +1,38 @@
+[
+  {
+    "id": "tech-1",
+    "title": "Schedule Health Dashboard",
+    "blurb": "Power BI cockpit pulling from P6 — float erosion, critical path drift, and milestone risk in one view.",
+    "tags": ["Power BI", "Primavera P6", "DAX"],
+    "swatch": "#1c2a3a",
+    "label": "DASHBOARD",
+    "detail": "A live reporting layer that ingests weekly P6 XER exports, normalises activity codes across three contractor schedules, and exposes float consumption, predecessor slippage, and look-ahead risk to PMs without them ever opening Primavera. Reduced status-meeting prep from 4 hours to 20 minutes."
+  },
+  {
+    "id": "tech-2",
+    "title": "Change Order Reconciliation Engine",
+    "blurb": "SQL + Python pipeline reconciling PCO logs against Procore commitments across 14 active projects.",
+    "tags": ["SQL", "Python", "Procore"],
+    "swatch": "#2d2218",
+    "label": "PIPELINE",
+    "detail": "ETL pipeline that pulls daily snapshots from Procore, normalises change-order numbering across legacy and active projects, and flags PCOs missing back-up or stuck in approval >14 days. Surfaced $4.2M in unbilled approved changes in the first month."
+  },
+  {
+    "id": "tech-3",
+    "title": "Quantity Takeoff Toolkit",
+    "blurb": "TypeScript utilities on top of On-Screen Takeoff exports — unit normalisation and crew-rate modelling.",
+    "tags": ["TypeScript", "On-Screen Takeoff", "RSMeans"],
+    "swatch": "#1f2a1a",
+    "label": "TOOLKIT",
+    "detail": "Set of typed utilities for converting OST exports into RSMeans-aligned line items, with crew composition, productivity rates, and regional cost factors baked in. Used to prep $230M+ of fit-out estimates with consistent assumptions across estimators."
+  },
+  {
+    "id": "tech-4",
+    "title": "Cashflow & Earned Value Model",
+    "blurb": "Excel + Power Query model rolling up planned vs earned vs actual across a portfolio of 6 projects.",
+    "tags": ["Excel", "Power Query", "EVM"],
+    "swatch": "#2a1f2c",
+    "label": "MODEL",
+    "detail": "Portfolio-level earned value model used by ownership for monthly draw forecasting. Combines schedule-derived BCWS curves with vendor invoicing actuals, surfacing CPI/SPI trends per project and aggregate cash exposure."
+  }
+]
