@@ -4,7 +4,7 @@ import SectionHeader from "./SectionHeader";
 export default function ContactFooter() {
   return (
     <section id="contact" className="jh-section jh-footer">
-      <SectionHeader num="06" kicker="Contact" title="Get in touch." />
+      <SectionHeader num="04" kicker="Contact" title="Get in touch." />
       <div className="jh-contact">
         <a className="jh-contact__big" href="mailto:JKH.Build@gmail.com">
           JKH.Build@gmail.com

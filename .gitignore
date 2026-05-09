@@ -10,3 +10,4 @@ next-env.d.ts
 design-bundle.tar
 design-bundle.gz
 design-extract/
+.vercel

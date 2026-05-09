@@ -13,12 +13,13 @@ export default function TechSection({ onOpen }: Props) {
   return (
     <section id="technical" className="jh-section">
       <SectionHeader
-        num="02"
+        num="01"
         kicker="Technical Work"
-        title="Tools I've built."
+        title="Technical projects."
       />
       <p className="jh-sec-intro">
-        Internal tools to reduce manual work in project controls.
+        Internal tools, dashboards, and models to reduce manual work in
+        project controls.
       </p>
       <div className="jh-grid jh-grid--tech">
         {TECH_PROJECTS.map((p) => (

@@ -26,7 +26,7 @@ const SERVICES = [
 export default function ServicesSection() {
   return (
     <section id="services" className="jh-section">
-      <SectionHeader num="05" kicker="Services" title="Capabilities." />
+      <SectionHeader num="03" kicker="Services" title="Capabilities." />
       <div className="jh-services">
         {SERVICES.map((s) => (
           <div key={s.n} className="jh-service">

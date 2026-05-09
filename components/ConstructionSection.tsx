@@ -63,9 +63,9 @@ export default function ConstructionSection({ onOpen }: Props) {
   return (
     <section id="construction" className="jh-section">
       <SectionHeader
-        num="03"
+        num="02"
         kicker="Construction Work"
-        title="Selected projects."
+        title="Construction projects."
       />
       <div className="jh-filters">
         <FilterRow

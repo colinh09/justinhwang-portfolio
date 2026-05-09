@@ -9,7 +9,6 @@ const NAV_ITEMS: NavItem[] = [
   { id: "hero", label: "Index" },
   { id: "technical", label: "Technical Projects" },
   { id: "construction", label: "Construction Projects" },
-  { id: "about", label: "About" },
   { id: "services", label: "Services" },
   { id: "contact", label: "Contact" },
 ];
@@ -29,8 +28,8 @@ export default function Sidebar({ activeSection, onNav }: Props) {
             className="jh-sidebar__avatar"
             src="/justin.jpg"
             alt="Portrait of Justin Hwang"
-            width={48}
-            height={48}
+            width={64}
+            height={64}
           />
           <div className="jh-sidebar__name">
             <span>Justin</span>

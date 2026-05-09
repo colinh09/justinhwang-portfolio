@@ -6,7 +6,6 @@ import Sidebar from "./Sidebar";
 import Hero from "./Hero";
 import TechSection from "./TechSection";
 import ConstructionSection from "./ConstructionSection";
-import AboutSection from "./AboutSection";
 import ServicesSection from "./ServicesSection";
 import ContactFooter from "./ContactFooter";
 import Modal from "./Modal";
@@ -16,7 +15,6 @@ const SECTION_IDS = [
   "hero",
   "technical",
   "construction",
-  "about",
   "services",
   "contact",
 ];
@@ -73,9 +71,6 @@ export default function Portfolio() {
         </FadeUp>
         <FadeUp>
           <ConstructionSection onOpen={setActiveProject} />
-        </FadeUp>
-        <FadeUp>
-          <AboutSection />
         </FadeUp>
         <FadeUp>
           <ServicesSection />

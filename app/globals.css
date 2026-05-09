@@ -14,7 +14,7 @@
   --jh-accent: #1F4E3C;
   --jh-display-font: "Newsreader", "Fraunces", Georgia, serif;
   --jh-sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --jh-sidebar-w: 280px;
+  --jh-sidebar-w: 300px;
   --jh-pad: 96px;
 }
 
@@ -73,13 +73,13 @@ button {
 .jh-sidebar__id {
   display: flex;
   align-items: center;
-  gap: 14px;
-  margin-bottom: 14px;
+  gap: 16px;
+  margin-bottom: 16px;
 }
 
 .jh-sidebar__avatar {
-  width: 48px;
-  height: 48px;
+  width: 64px;
+  height: 64px;
   border-radius: 50%;
   object-fit: cover;
   object-position: center 30%;
@@ -90,7 +90,7 @@ button {
 
 .jh-sidebar__name {
   font-family: var(--jh-display-font);
-  font-size: 28px;
+  font-size: 34px;
   line-height: 0.95;
   letter-spacing: -0.025em;
   font-weight: 500;
@@ -100,11 +100,11 @@ button {
 .jh-sidebar__name > span { white-space: nowrap; }
 
 .jh-sidebar__title {
-  font-size: 12px;
-  letter-spacing: 0.02em;
+  font-size: 11px;
+  letter-spacing: 0;
   color: #a59986;
   line-height: 1.5;
-  max-width: 200px;
+  white-space: nowrap;
 }
 
 .jh-divider {
@@ -231,7 +231,8 @@ button {
 /* ───────── Main / Sections ───────── */
 .jh-section {
   padding: var(--jh-pad);
-  max-width: 1180px;
+  max-width: 1320px;
+  margin: 0 auto;
   scroll-margin-top: 0;
 }
 
@@ -245,12 +246,11 @@ button {
 
 /* Hero */
 .jh-hero {
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding-top: var(--jh-pad);
-  padding-bottom: var(--jh-pad);
+  padding-top: clamp(96px, 14vh, 160px);
+  padding-bottom: clamp(96px, 14vh, 160px);
 }
 
 .jh-display {
@@ -259,6 +259,10 @@ button {
   letter-spacing: -0.025em;
   line-height: 0.95;
   margin: 0;
+}
+
+.jh-display--inline {
+  white-space: nowrap;
 }
 
 .jh-display--xl {
@@ -282,25 +286,24 @@ button {
 
 .jh-lede {
   font-family: var(--jh-display-font);
-  font-style: italic;
-  font-size: clamp(22px, 2.4vw, 32px);
+  font-style: normal;
+  font-size: clamp(22px, 2.2vw, 30px);
   line-height: 1.35;
   max-width: 640px;
-  margin: 0;
-  color: var(--jh-ink-2);
+  margin: 28px 0 0;
+  color: var(--jh-ink);
   letter-spacing: -0.01em;
-  font-weight: 300;
+  font-weight: 400;
 }
 
 .jh-lede em {
   font-style: normal;
   color: var(--jh-accent);
-  background: linear-gradient(transparent 65%, color-mix(in srgb, var(--jh-accent) 14%, transparent) 65%);
-  padding: 0 0.06em;
+  font-weight: 500;
 }
 
 .jh-sub {
-  font-size: 16px;
+  font-size: clamp(15px, 1.2vw, 17px);
   color: var(--jh-mute);
   max-width: 480px;
   margin-top: 24px;
@@ -312,12 +315,22 @@ button {
   display: grid;
   grid-template-columns: 1.2fr 1fr;
   gap: 80px;
-  align-items: end;
+  align-items: center;
+}
+
+.jh-hero__divider {
+  height: 1px;
+  background: var(--jh-line);
+  margin: clamp(30px, 3.7vh, 48px) 0 clamp(24px, 3vh, 36px);
 }
 
 
 .jh-hero .jh-display {
-  font-size: clamp(48px, 6.8vw, 112px);
+  font-size: clamp(36px, 4.8vw, 72px);
+}
+
+.jh-eyebrow--under {
+  margin: 8px 0 0;
 }
 
 /* Section header */
@@ -453,6 +466,11 @@ button {
   letter-spacing: -0.012em;
   line-height: 1.2;
   font-weight: 450;
+  min-height: calc(1.2em * 2);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .jh-card__location, .jh-card__blurb {
@@ -644,6 +662,38 @@ button {
   border: 1px solid #2c261e;
   border-radius: 999px;
   color: #d8cdb9;
+}
+
+.jh-connect-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+.jh-connect-list li { border-top: 1px solid #2c261e; }
+.jh-connect-list li:first-child { border-top: 0; padding-top: 0; }
+.jh-connect-list a {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 14px 0;
+  font-family: var(--jh-display-font);
+  font-size: 17px;
+  letter-spacing: -0.01em;
+  color: #d8cdb9;
+  transition: color 0.15s ease;
+}
+.jh-connect-list a:hover { color: var(--jh-accent); }
+.jh-connect-list__cue {
+  font-family: var(--jh-sans);
+  font-size: 13px;
+  color: #a59986;
+  transition: color 0.15s ease, transform 0.15s ease;
+}
+.jh-connect-list a:hover .jh-connect-list__cue {
+  color: var(--jh-accent);
+  transform: translate(2px, -1px);
 }
 
 /* Services */
@@ -894,16 +944,15 @@ button {
 .jh-modal {
   position: fixed;
   inset: 0;
-  background: rgba(15, 12, 8, 0.55);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
+  background: rgba(15, 12, 8, 0.72);
   z-index: 50;
   display: flex;
   align-items: flex-start;
   justify-content: center;
   padding: 56px 24px;
   overflow-y: auto;
-  animation: jh-modal-in 0.25s ease;
+  animation: jh-modal-in 0.15s ease-out;
+  will-change: opacity;
 }
 
 @keyframes jh-modal-in {
@@ -919,11 +968,13 @@ button {
   overflow: hidden;
   position: relative;
   box-shadow: 0 40px 80px -30px rgba(0, 0, 0, 0.4);
-  animation: jh-modal-pop 0.35s cubic-bezier(.2, .7, .2, 1);
+  animation: jh-modal-pop 0.2s cubic-bezier(.2, .7, .2, 1);
+  contain: layout style paint;
+  will-change: transform, opacity;
 }
 
 @keyframes jh-modal-pop {
-  from { transform: translateY(20px); opacity: 0; }
+  from { transform: translateY(12px); opacity: 0; }
   to   { transform: translateY(0); opacity: 1; }
 }
 
@@ -1157,7 +1208,7 @@ button {
 }
 
 @media (min-width: 901px) and (max-width: 1180px) {
-  :root { --jh-pad: 56px; --jh-sidebar-w: 240px; }
+  :root { --jh-pad: 56px; --jh-sidebar-w: 280px; }
   .jh-grid--const { grid-template-columns: repeat(2, 1fr); }
 }
 
