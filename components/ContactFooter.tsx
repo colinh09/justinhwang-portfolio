@@ -13,7 +13,7 @@ export default function ContactFooter() {
         <p className="jh-prose jh-contact-intro">
           Send a message below, or email{" "}
           <a href={`mailto:${SITE.profile.email}`}>{SITE.profile.email}</a>{" "}
-          directly for time-sensitive requests. Also reachable on{" "}
+          directly. Also reachable on{" "}
           <a
             href={SITE.profile.linkedinUrl}
             target="_blank"
