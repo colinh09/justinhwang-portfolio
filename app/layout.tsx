@@ -7,7 +7,7 @@ const SITE_URL =
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Justin Hwang — Senior Project Controls Engineer",
+    default: "Justin Hwang — Senior Project Controls Engineer · PMP",
     template: "%s · Justin Hwang",
   },
   description:
@@ -29,22 +29,22 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: SITE_URL,
-    title: "Justin Hwang — Senior Project Controls Engineer",
+    title: "Justin Hwang — Senior Project Controls Engineer · PMP",
     description:
       "Twelve years at the intersection of design intent and commercial reality across transit, healthcare, residential, and Class-A corporate interiors.",
     siteName: "Justin Hwang",
     images: [
       {
         url: "/website_preview.png",
-        width: 1200,
-        height: 630,
+        width: 1757,
+        height: 1117,
         alt: "Justin Hwang — Portfolio",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Justin Hwang — Senior Project Controls Engineer",
+    title: "Justin Hwang — Senior Project Controls Engineer · PMP",
     description:
       "Twelve years at the intersection of design intent and commercial reality across transit, healthcare, residential, and Class-A corporate interiors.",
     images: ["/website_preview.png"],
