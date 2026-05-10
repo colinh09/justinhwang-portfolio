@@ -25,7 +25,7 @@
     "location": "New York, NY",
     "sector": "Transit",
     "role": "Change Manager",
-    "value": "—",
+    "value": "$146M + $192M",
     "dates": "2026 — Present",
     "swatch": "#3a2a1c",
     "label": "MTA",
@@ -45,20 +45,39 @@
     "location": "New York, NY",
     "sector": "Transit",
     "role": "Change Manager",
-    "value": "$$52M",
+    "value": "$52M",
     "dates": "2025 — Present",
     "swatch": "#2a2530",
     "label": "MTA",
     "image": "/images/projects/construction/cams.jpg",
     "contributions": [
+      "Prepared an independent cost estimates for the additional replacement of 101 precast panels above the 23 identified in the project requirements",
+      "Negotiated equitable settlements with the contractor while ensuring compliance with agency standards",
+      "Authored contractual and technical correspondence supporting change order submissions against commercial requirements"
+    ],
+    "description": "Consultant CM support on a design-build contract for ADA accessibility upgrades at two Bronx subway stations: 167th Street  and Kingsbridge Road, with Forte Construction Corp as design-builder and Stantec as designer."
+  },
+  {
+    "id": "p4",
+    "title": "MTA C&D — Pkg 7 Accessibility Upgrades at 2 Stations",
+    "sub": "Construction Management",
+    "location": "New York, NY",
+    "sector": "Transit",
+    "role": "Change Manager",
+    "value": "$104M",
+    "dates": "2026 — Present",
+    "swatch": "#2a2530",
+    "label": "MTA",
+    "image": "/images/projects/construction/pkg7.jpg",
+    "contributions": [
       "Prepared independent cost estimates for change order independent cost esimates",
       "Negotiated equitable settlements with the contractor while ensuring compliance with agency standards",
       "Authored contractual and technical correspondence supporting change order submissions against commercial requirements"
     ],
-    "description": "This project involved replacing the central alarm monitoring system and upgrading fire protection systems across 20 MTA NYCT stations and facilities. Provided comprehensive change management support, preparing independent cost estimates and negotiating equitable settlements with the contractor while ensuring compliance with agency standards and commercial requirements."
+    "description": "Consultant CM support on a design-build contract for ADA accessibility upgrades at two Bronx subway stations: 167th Street  and Kingsbridge Road, with Forte Construction Corp as design-builder and Stantec as designer. This project required close coordination with the NYC Department of Transportation to maintain street functionality and represents a cost-effective model for accessibility improvements and remains on schedule for completion in the second quarter of next year. "
   },
   {
-    "id": "p4",
+    "id": "p5",
     "title": "Stony Brook Medical — Advanced Specialty Care",
     "sub": "Procurement Manager",
     "location": "Lake Grove, NY",
@@ -77,7 +96,7 @@
     "description": "Adaptive reuse of a former Sears anchor store into a 170,000 SF medical facility, with phased expansion to 270,000 SF under a 31-year lease with Stony Brook Medical. Procurement was structured as a standalone workstream to meet an aggressive schedule during a period of acute supply chain disruption and extended lead times."
   },
   {
-    "id": "p5",
+    "id": "p6",
     "title": "50 Hudson Yards — BlackRock HQ",
     "sub": "Preconstruction Estimating",
     "location": "New York, NY",
@@ -96,7 +115,7 @@
     "description": "Owner's representative cost consultancy on a 970,000 SF, 15-floor office fit-out including auditorium and café spaces, with a total project cost of $230M. Prepared an independent cost estimate followed by detailed page-turn reconciliation against project scope and evolving design intent."
   },
   {
-    "id": "p6",
+    "id": "p7",
     "title": "311 W 42nd St — The Ellery",
     "sub": "Preconstruction Estimating",
     "location": "New York, NY",
@@ -116,7 +135,7 @@
     "description": "Owner's rep cost consultancy services for a 372,014 SF, 7- and 31-story mixed-use building with retail on the lower floors and residential and amenity floors above. Final construction cost: $337M. The estimate was delivered with various cost breakouts at the client's request to facilitate value engineering efforts."
   },
   {
-    "id": "p7",
+    "id": "p8",
     "title": "3333 New Hyde Park Rd — Various Tenant Fit-outs",
     "sub": "Real Estate Development",
     "location": "New Hyde Park, NY",
@@ -136,7 +155,7 @@
     "description": "Landlord-side estimator and project manager across a multi-asset Long Island portfolio — medical office, warehouse, and film studio fit-out projects. Owned both pre-lease cost intelligence (estimating, schedule) and post-lease execution (procurement, PM) so tenant fit-outs landed on the lease terms they were priced against."
   },
   {
-    "id": "p8",
+    "id": "p9",
     "title": "SUNY at Buffalo - Cooke and Hochstetter Halls",
     "sub": "Pre-Construction Estimating",
     "location": "Buffalo, NY",
@@ -156,7 +175,7 @@
     "description": "Renovation of a 1971 space into a state-of-the-art research facility for graduate, postdoctoral, and faculty research in biology and geology. Provided cost consultancy to Ashley McGraw Architects during Schematic Design, Design Development, and Construction Document phases."
   },
     {
-    "id": "p9",
+    "id": "p10",
     "title": "School Construction Authority - Mentor Program",
     "sub": "Change Management",
     "location": "New York, NY",
@@ -175,7 +194,7 @@
     "description": "Owner's representative work for the LiRo Group on the MTA mentor program. Independent cost estimating and constructability assessment of bid documents to surface drawing conflicts, scope risk, and cost-limit exposure across a rolling portfolio of small-business participation projects."
   },
     {
-    "id": "p10",
+    "id": "p11",
     "title": "SUNY at Buffalo - Jacobs School of Medicine",
     "sub": "Construction Management",
     "location": "Buffalo, NY",
