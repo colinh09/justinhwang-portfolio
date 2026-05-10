@@ -29,6 +29,7 @@
     "dates": "2026 — Present",
     "swatch": "#3a2a1c",
     "label": "MTA",
+    "image": "/images/projects/construction/37elevators.jpg",
     "contributions": [
       "Reviewed and corrected previously assessed scope, identified overlooked credits, and provided technical grounding for change order presentations to the client's executive committees.",
       "Audited previously negotiated change orders, identifying material quantity discrepancies and unsubstantiated labor production rates",
@@ -48,6 +49,7 @@
     "dates": "2025 — Present",
     "swatch": "#2a2530",
     "label": "MTA",
+    "image": "/images/projects/construction/cams.jpg",
     "contributions": [
       "Prepared independent cost estimates for change order independent cost esimates",
       "Negotiated equitable settlements with the contractor while ensuring compliance with agency standards",
@@ -148,7 +150,8 @@
     "contributions": [
       "Prepared pre-construction cost estimates for capital projects priced between $10M and $350M",
       "Led page-turn and cost estimate reviews with contractors to level bid proposals and confirm full scope coverage",
-      "Oversaw multidisciplinary estimating efforts and consolidated team contributions into high-quality final deliverables"
+      "Oversaw multidisciplinary estimating efforts and consolidated team contributions into high-quality final deliverables",
+      "Rendering by Ashley-Mcgraw A/E"
     ],
     "description": "Renovation of a 1971 space into a state-of-the-art research facility for graduate, postdoctoral, and faculty research in biology and geology. Provided cost consultancy to Ashley McGraw Architects during Schematic Design, Design Development, and Construction Document phases."
   },
@@ -163,6 +166,7 @@
     "dates": "2018 — 2019",
     "swatch": "#1f2a36",
     "label": "SCA",
+    "image": "/images/projects/construction/sca.jpg",  
     "contributions": [
       "Prepared independent project cost, cost comparison, and change order estimates for the mentor program",
       "Conducted constructability reviews of bid documents to assess risk and identify drawing conflicts",
@@ -184,7 +188,8 @@
     "image": "/images/projects/construction/jacobsschoolofmedicine.jpg",
     "contributions": [
       "Developed and maintained manpower reports, two-week look-aheads, open item logs, meeting minutes, and change order logs",
-      "Performed architectural, electrical, and life safety inspections of drywall, ceiling tie wire, spray fireproofing, putty packs, and firestopping"
+      "Performed architectural, electrical, and life safety inspections of drywall, ceiling tie wire, spray fireproofing, putty packs, and firestopping",
+      "Rendering by HOK"
     ],
     "description": "New academic and research facility on Buffalo’s Niagara Medical Campus / University at Buffalo’s downtown campus. The project consists of 628,000 square feet across two L-shaped, 10-story structures connected by a 7-story atrium. The facility houses administrative offices, academic departments, teaching labs, advanced general patient care simulation spaces, surgical simulation spaces, and a BSL-3 dedicated lab. The building envelope features a unitized curtainwall system, aluminum metal panels, and 2,800 rain screen terracotta panels. The project achieved LEED Gold certification."
   }
