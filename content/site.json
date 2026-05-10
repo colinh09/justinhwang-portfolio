@@ -1,8 +1,8 @@
 {
   "profile": {
-    "name": "Justin Hwang",
-    "jobTitle": "Senior Project Controls Engineer · PMP",
-    "currentEmployer": "Naik Group",
+    "name": "Justin Hwang, PMP",
+    "jobTitle": "Senior Project Controls Engineer",
+    "currentEmployer": "Artheon",
     "locations": ["New York, NY", "Seattle, WA"],
     "email": "JKH.Build@gmail.com",
     "linkedinUrl": "https://www.linkedin.com/in/justinnynj/",
@@ -14,13 +14,13 @@
       "— the place where what was designed, what's being built, and what it's going to cost stop agreeing with each other.",
       "My background spans preconstruction estimating, procurement, project management, and commercial management across transit infrastructure, commercial buildings, and other sectors. That breadth wasn’t a career plan — it came from repeatedly stepping into unfamiliar scope and closing knowledge gaps quickly enough to add real value.",
       "I approach unfamiliar scope by breaking down the sequence of work, closing knowledge gaps through the right conversations, and taking ownership of the learning curve. That approach, compounded over a decade of project delivery, has put me in a position to engage any project stakeholder on a technical level, lead clients to informed decisions they can defend, and represent client interests in front of industry experts in their own trades.",
-      "Currently at Artheon"
+      "Currently employed at Artheon"
     ]
   },
   "credentials": [
     { "name": "B.Eng Civil", "issuer": "SUNY at Buffalo" },
     { "name": "PMP", "issuer": "Project Management Institute" },
-    { "name": "AACE Member", "issuer": "Cost & Schedule Forums" }
+    { "name": "Member (CCP in progress)", "issuer": "AACE" }
   ],
   "toolkit": [
     "Power BI",
