@@ -14,7 +14,7 @@
   --jh-accent: #1F4E3C;
   --jh-display-font: "Newsreader", "Fraunces", Georgia, serif;
   --jh-sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --jh-sidebar-w: 300px;
+  --jh-sidebar-w: clamp(280px, 16vw, 320px);
   --jh-pad: 96px;
 }
 
@@ -256,6 +256,12 @@ button {
 /* Ultrawide tier — only triggers above the MacBook's CSS width (2560px) so
    16" laptops keep the standard 1800+ layout and only true ultrawides scale up. */
 @media (min-width: 2600px) {
+  :root { --jh-sidebar-w: 340px; }
+  .jh-sidebar { padding: 48px 44px 40px; }
+  .jh-sidebar__avatar { width: 72px; height: 72px; }
+  .jh-sidebar__name { font-size: 38px; }
+  .jh-nav__item { font-size: 15px; padding: 11px 0; }
+  .jh-nav__num { font-size: 11px; width: 22px; }
   .jh-section { max-width: 2600px; padding: 168px 144px; }
   .jh-hero.jh-section { max-width: 2600px; }
 }
@@ -312,7 +318,7 @@ button {
 .jh-lede {
   font-family: var(--jh-display-font);
   font-style: normal;
-  font-size: clamp(22px, 2.2vw, 30px);
+  font-size: clamp(22px, calc(14px + 2cqi), 40px);
   line-height: 1.35;
   max-width: 640px;
   margin: 28px 0 0;
@@ -611,18 +617,18 @@ button {
 /* About */
 .jh-about-grid {
   display: grid;
-  grid-template-columns: 1.4fr 1fr;
-  gap: 80px;
+  grid-template-columns: minmax(0, 1fr) clamp(220px, calc(30vw - 78px), 540px);
+  gap: clamp(40px, 5vw, 112px);
   align-items: start;
 }
 
 
 .jh-prose {
-  font-size: 17px;
+  font-size: clamp(15px, calc(13px + 0.6cqi), 21px);
   line-height: 1.65;
   color: var(--jh-ink-2);
   margin: 0 0 22px;
-  max-width: 56ch;
+  max-width: 60ch;
   text-wrap: pretty;
 }
 
@@ -1235,21 +1241,35 @@ button {
   .jh-contact { margin-bottom: 48px; }
 }
 
-@media (min-width: 901px) and (max-width: 1180px) {
+@media (min-width: 901px) and (max-width: 1320px) {
   :root { --jh-pad: 56px; --jh-sidebar-w: 280px; }
   .jh-grid--const { grid-template-columns: repeat(2, 1fr); }
+  /* On tight laptops, stack hero so the text isn't crushed by the sidebar. */
+  .jh-about-grid { grid-template-columns: 1fr; gap: 48px; }
+  .jh-about-side { position: static; }
+}
+
+/* On standard desktop widths (1181-2599), tighten the hero sidebar cards so
+   they don't feel oversized next to the bio text. Both the tight (~25%) and
+   wide (~30%) sidebar modes use these reduced card sizes. The 2600+
+   ultrawide tier overrides them back up. */
+@media (min-width: 1321px) and (max-width: 2599px) {
+  .jh-hero .jh-about-card { padding: 20px 22px; }
+  .jh-hero .jh-about-h { font-size: 10px; margin-bottom: 12px; letter-spacing: 0.13em; }
+  .jh-hero .jh-about-list { gap: 12px; }
+  .jh-hero .jh-about-list strong { font-size: 16px; }
+  .jh-hero .jh-about-list span { font-size: 11.5px; }
+  .jh-hero .jh-about-tools li { font-size: 11.5px; padding: 4px 10px; }
+  .jh-hero .jh-connect-list a { font-size: 16px; padding: 12px 0; }
+  .jh-hero .jh-connect-list__cue { font-size: 12px; }
 }
 
 /* Scale the hero up on larger screens so it doesn't feel stranded.
    Below 1500px we keep the original laptop-friendly proportions. */
 @media (min-width: 1500px) {
   .jh-hero .jh-display { font-size: clamp(46px, 16cqi, 100px); }
-  .jh-hero .jh-lede { font-size: clamp(22px, 2.2vw, 32px); max-width: 880px; }
-  .jh-hero .jh-prose { font-size: 18px; max-width: 64ch; }
-  .jh-hero .jh-about-grid {
-    grid-template-columns: minmax(0, 1fr) minmax(360px, 440px);
-    gap: 96px;
-  }
+  .jh-hero .jh-lede { max-width: 880px; }
+  .jh-hero .jh-prose { max-width: 64ch; }
   .jh-grid--const { grid-template-columns: repeat(4, 1fr); }
   .jh-grid { gap: 36px 32px; }
   .jh-sec-title { font-size: clamp(36px, 4.2vw, 64px); }
@@ -1259,12 +1279,8 @@ button {
 
 @media (min-width: 1800px) {
   .jh-hero .jh-display { font-size: clamp(56px, 16cqi, 124px); }
-  .jh-hero .jh-lede { font-size: clamp(26px, 2.4vw, 36px); max-width: 1080px; }
-  .jh-hero .jh-prose { font-size: 19px; max-width: 70ch; }
-  .jh-hero .jh-about-grid {
-    grid-template-columns: minmax(0, 1fr) minmax(420px, 520px);
-    gap: 112px;
-  }
+  .jh-hero .jh-lede { max-width: 1080px; }
+  .jh-hero .jh-prose { max-width: 70ch; }
   .jh-grid { gap: 40px 36px; }
   .jh-sec-title { font-size: clamp(46px, 4.6vw, 78px); }
   .jh-sec-head { max-width: 1000px; margin-bottom: 72px; }
