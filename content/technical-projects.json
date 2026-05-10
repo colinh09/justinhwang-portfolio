@@ -6,7 +6,7 @@
     "tags": ["Power BI", "Power Query", "Excel", "VBA", "DAX", "Python"],
     "swatch": "#1c2a3a",
     "label": "DASHBOARD",
-    "detail": "A Power BI dashboard reconciling planned vs. actual labor hours across a 58-device MTA elevator and escalator replacement project. Integrates weekly labor projections, daily Vantagepoint timesheet exports, and subconsultant timesheets through an Excel + Power Query reconciliation layer, with DAX measures handling weekly-to-daily grain conversion and report supersession. Built with anonymized data; preserves real firm names and project context.",
+    "detail": "Power BI dashboard reconciling planned vs. actual labor on a 58-device MTA elevator and escalator replacement project, modeled on a real A/E firm FP&A workflow. Ingests weekly Vantagepoint Project Labor Exports (real Deltek schema), sub timesheets in as-provided formats, and supersession-controlled revisions of the labor projection. Power Query handles date parsing, employee normalization, functional group derivation, and report supersession; light VBA orchestrates refresh and validation. VP exports are batch-processed weekly rather than consolidated, matching production cadence. Source data is accepted as-is and cleaned in the transformation layer — including dropping the unreliable Actual columns from projections, since Vantagepoint is the authoritative source for actuals. Built with anonymized data: real firm names preserved, employee names replaced via persistent Faker mapping. Vantagepoint actuals are AI-generated with documented assumptions; the generation scripts are themselves deliverables demonstrating the data structures production would consume.",
     "images": ["/placeholder-1.svg", "/placeholder-2.svg", "/placeholder-3.svg"]
   },
   {
