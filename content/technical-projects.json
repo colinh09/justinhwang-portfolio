@@ -6,7 +6,8 @@
     "tags": ["Power BI", "Power Query", "Excel", "VBA", "DAX", "Python"],
     "swatch": "#1c2a3a",
     "label": "DASHBOARD",
-    "detail": "A Power BI dashboard reconciling planned vs. actual labor hours across a 58-device MTA elevator and escalator replacement project. Integrates weekly labor projections, daily Vantagepoint timesheet exports, and subconsultant timesheets through an Excel + Power Query reconciliation layer, with DAX measures handling weekly-to-daily grain conversion and report supersession. Built with anonymized data; preserves real firm names and project context."
+    "detail": "A Power BI dashboard reconciling planned vs. actual labor hours across a 58-device MTA elevator and escalator replacement project. Integrates weekly labor projections, daily Vantagepoint timesheet exports, and subconsultant timesheets through an Excel + Power Query reconciliation layer, with DAX measures handling weekly-to-daily grain conversion and report supersession. Built with anonymized data; preserves real firm names and project context.",
+    "images": ["/placeholder-1.svg", "/placeholder-2.svg", "/placeholder-3.svg"]
   },
   {
     "id": "tech-2",
@@ -15,7 +16,8 @@
     "tags": ["Claude"],
     "swatch": "#2d2218",
     "label": "AI",
-    "detail": "ETL pipeline that pulls daily snapshots from Procore, normalises change-order numbering across legacy and active projects, and flags PCOs missing back-up or stuck in approval >14 days. Surfaced $4.2M in unbilled approved changes in the first month."
+    "detail": "ETL pipeline that pulls daily snapshots from Procore, normalises change-order numbering across legacy and active projects, and flags PCOs missing back-up or stuck in approval >14 days. Surfaced $4.2M in unbilled approved changes in the first month.",
+    "images": ["/placeholder-1.svg", "/placeholder-2.svg", "/placeholder-3.svg"]
   },
   {
     "id": "tech-3",
@@ -24,7 +26,8 @@
     "tags": ["TypeScript", "On-Screen Takeoff", "RSMeans"],
     "swatch": "#1f2a1a",
     "label": "Schedule",
-    "detail": "A Primavera P6 schedule built from the Project Requirements and Design Criteria for a design-build transit projects performing ADA upgrades at 2 stations."
+    "detail": "A Primavera P6 schedule built from the Project Requirements and Design Criteria for a design-build transit projects performing ADA upgrades at 2 stations.",
+    "images": ["/placeholder-1.svg", "/placeholder-2.svg", "/placeholder-3.svg"]
   },
   {
     "id": "tech-4",
@@ -33,6 +36,7 @@
     "tags": ["Excel", "Power Query", "EVM"],
     "swatch": "#2a1f2c",
     "label": "MODEL",
-    "detail": "Portfolio-level earned value model used by ownership for monthly draw forecasting. Combines schedule-derived BCWS curves with vendor invoicing actuals, surfacing CPI/SPI trends per project and aggregate cash exposure."
+    "detail": "Portfolio-level earned value model used by ownership for monthly draw forecasting. Combines schedule-derived BCWS curves with vendor invoicing actuals, surfacing CPI/SPI trends per project and aggregate cash exposure.",
+    "images": ["/placeholder-1.svg", "/placeholder-2.svg", "/placeholder-3.svg"]
   }
 ]

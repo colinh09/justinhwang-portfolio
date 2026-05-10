@@ -2,6 +2,7 @@ export type Sector =
   | "Transit"
   | "K-12"
   | "Higher Ed"
+  | "Healthcare"
   | "Corporate Interiors"
   | "Residential";
 
@@ -10,7 +11,9 @@ export type Role =
   | "Estimator"
   | "Change Manager"
   | "Project Manager"
-  | "Procurement";
+  | "Project Engineer"
+  | "Procurement Manager"
+  | "Commercial Manager";
 
 export interface ConstructionProject {
   id: string;
@@ -35,6 +38,7 @@ export interface TechProject {
   swatch: string;
   label: string;
   detail: string;
+  images?: string[];
 }
 
 export type AnyProject = ConstructionProject | TechProject;

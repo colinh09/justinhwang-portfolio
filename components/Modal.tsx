@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useId, useRef } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { CONSTRUCTION_PROJECTS } from "@/lib/content";
 import { isTechProject, type AnyProject } from "@/lib/types";
 
@@ -18,6 +18,11 @@ export default function Modal({ project, onClose }: Props) {
   const titleId = useId();
   const dialogRef = useRef<HTMLDivElement | null>(null);
   const triggerRef = useRef<HTMLElement | null>(null);
+  const [imgIdx, setImgIdx] = useState(0);
+
+  useEffect(() => {
+    setImgIdx(0);
+  }, [project?.id]);
 
   useEffect(() => {
     if (!project) return;
@@ -63,6 +68,11 @@ export default function Modal({ project, onClose }: Props) {
   if (!project) return null;
 
   const tech = isTechProject(project);
+  const images = tech ? project.images ?? [] : [];
+  const hasImages = images.length > 0;
+  const prev = () =>
+    setImgIdx((i) => (i - 1 + images.length) % images.length);
+  const next = () => setImgIdx((i) => (i + 1) % images.length);
   const related = !tech
     ? CONSTRUCTION_PROJECTS.filter(
         (p) =>
@@ -102,9 +112,55 @@ export default function Modal({ project, onClose }: Props) {
 
         <div
           className="jh-modal__hero"
-          style={{ background: project.swatch }}
+          style={{ background: hasImages ? "#0d0a07" : project.swatch }}
         >
-          <div className="jh-thumb__grid" />
+          {hasImages ? (
+            <>
+              {images.map((src, i) => (
+                <img
+                  key={src}
+                  src={src}
+                  alt={`${project.title} — image ${i + 1}`}
+                  className={`jh-modal__hero-img ${i === imgIdx ? "is-active" : ""}`}
+                />
+              ))}
+              {images.length > 1 && (
+                <>
+                  <button
+                    type="button"
+                    className="jh-modal__hero-nav jh-modal__hero-nav--prev"
+                    onClick={prev}
+                    aria-label="Previous image"
+                  >
+                    ‹
+                  </button>
+                  <button
+                    type="button"
+                    className="jh-modal__hero-nav jh-modal__hero-nav--next"
+                    onClick={next}
+                    aria-label="Next image"
+                  >
+                    ›
+                  </button>
+                  <div className="jh-modal__hero-dots" role="tablist">
+                    {images.map((_, i) => (
+                      <button
+                        key={i}
+                        type="button"
+                        className={`jh-modal__hero-dot ${i === imgIdx ? "is-active" : ""}`}
+                        onClick={() => setImgIdx(i)}
+                        aria-label={`Go to image ${i + 1}`}
+                        aria-selected={i === imgIdx}
+                        role="tab"
+                      />
+                    ))}
+                  </div>
+                </>
+              )}
+            </>
+          ) : (
+            <div className="jh-thumb__grid" />
+          )}
           <div className="jh-modal__hero-label">{project.label}</div>
         </div>
 

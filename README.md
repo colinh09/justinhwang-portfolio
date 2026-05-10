@@ -62,8 +62,8 @@ content/
 **Field guide:**
 
 - `id`: any unique string. Convention: `p1`, `p2`, … (just bump the next number)
-- `sector`: must be exactly one of `Transit`, `K-12`, `Higher Ed`, `Corporate Interiors`, `Residential` (the filter chips depend on these)
-- `role`: must be exactly one of `Project Controls`, `Estimator`, `Change Manager`, `Project Manager`, `Procurement`
+- `sector`: must be exactly one of `Transit`, `K-12`, `Higher Ed`, `Healthcare`, `Corporate Interiors`, `Residential` (the filter chips depend on these)
+- `role`: must be exactly one of `Project Controls`, `Estimator`, `Change Manager`, `Project Manager`, `Project Engineer`, `Procurement Manager`, `Commercial Manager`
 - `value`: the construction value or contract value as a string. Use `"—"` (em-dash) if not applicable; the value cell hides automatically.
 - `swatch`: a dark hex color for the card thumbnail. Pick one that sort of suggests the project (steel-blue for transit, terracotta for residential, etc.)
 - `label`: short uppercase label that floats over the card thumbnail. Keep it under 12 characters.
@@ -80,9 +80,12 @@ Same pattern, but in `content/technical-projects.json`. Schema:
   "tags": ["Power BI", "Python", "SQL"],
   "swatch": "#1c2a3a",
   "label": "DASHBOARD",
-  "detail": "1–3 sentences with deeper detail, shown when someone clicks the card to open the modal."
+  "detail": "1–3 sentences with deeper detail, shown when someone clicks the card to open the modal.",
+  "images": ["/tech-5-screen-1.png", "/tech-5-screen-2.png"]
 }
 ```
+
+`images` is **optional**. When provided, the modal shows a carousel (with prev/next arrows and dots) instead of the colored swatch. Drop the image files in `public/`, then reference them by path (e.g., `"/dashboard-screenshot.png"`). If you only want one image, pass an array with one entry — arrows and dots are hidden automatically. Omit the field entirely to keep the swatch.
 
 ### Editing the bio
 
@@ -105,8 +108,8 @@ If you don't want to think about JSON syntax, paste this prompt to ChatGPT or Cl
 >   "title": "string",
 >   "sub": "string",
 >   "location": "string",
->   "sector": "Transit" | "K-12" | "Higher Ed" | "Corporate Interiors" | "Residential",
->   "role": "Project Controls" | "Estimator" | "Change Manager" | "Project Manager" | "Procurement",
+>   "sector": "Transit" | "K-12" | "Higher Ed" | "Healthcare" | "Corporate Interiors" | "Residential",
+>   "role": "Project Controls" | "Estimator" | "Change Manager" | "Project Manager" | "Project Engineer" | "Procurement Manager" | "Commercial Manager",
 >   "value": "string (e.g. $120M, or — if unknown)",
 >   "dates": "string (e.g. 2025 — Present)",
 >   "swatch": "hex color string (dark; e.g. #2d3a4a)",

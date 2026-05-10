@@ -14,6 +14,7 @@ export const SECTORS: Sector[] = [
   "Transit",
   "K-12",
   "Higher Ed",
+  "Healthcare",
   "Corporate Interiors",
   "Residential",
 ];
@@ -23,7 +24,9 @@ export const ROLES: Role[] = [
   "Estimator",
   "Change Manager",
   "Project Manager",
-  "Procurement",
+  "Project Engineer",
+  "Procurement Manager",
+  "Commercial Manager",
 ];
 
 export const TECH_PROJECTS = technicalProjects as unknown as TechProject[];

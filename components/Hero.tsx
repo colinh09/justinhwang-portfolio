@@ -45,7 +45,7 @@ export default function Hero() {
           </div>
           <p className="jh-lede">
             I work at the intersection of <em>design intent</em> and{" "}
-            <em>commercial reality</em>.
+            <em>commercial reality</em>
           </p>
 
           <div className="jh-hero__divider" />
