@@ -11,19 +11,19 @@
   },
   {
     "id": "tech-2",
-    "title": "Prompt Engineering - Change Order Entitlement Analysis",
-    "blurb": "SQL + Python pipeline reconciling PCO logs against Procore commitments across 14 active projects.",
-    "tags": ["Claude"],
+    "title": "PowerBI - Project Schedule Earned Value Dashboard",
+    "blurb": "Construction schedule performance dashboard computing SV, SPI, and float erosion from weekly P6 exports and field progress data.",
+    "tags": ["Power BI", "Power Query", "Excel", "DAX", "Python", "Primavera P6"],
     "swatch": "#2d2218",
-    "label": "AI",
-    "detail": "ETL pipeline that pulls daily snapshots from Procore, normalises change-order numbering across legacy and active projects, and flags PCOs missing back-up or stuck in approval >14 days. Surfaced $4.2M in unbilled approved changes in the first month.",
+    "label": "DASHBOARD & SCHEDULE",
+    "detail": "Power BI dashboard tracking planned vs. actual schedule performance on a 58-device MTA elevator and escalator replacement project, modeled on standard construction project controls workflow. Ingests weekly Primavera P6 schedule exports (XER and Excel formats), field progress reports in as-submitted formats, and supersession-controlled revisions of the master schedule baseline. Power Query handles activity ID normalization, date parsing, progress calculation, and revision supersession; light VBA orchestrates refresh and validation. P6 exports are batch-processed weekly rather than consolidated, matching production cadence. Source data is accepted as-is and cleaned in the transformation layer. DAX measures compute Schedule Variance (SV), Schedule Performance Index (SPI), float erosion, and critical path activity status. Built with anonymized data: real firm names preserved, project structure preserved, individual activity descriptions and contractor names replaced via persistent mapping. Schedule data is AI-generated where production access isn't available, with documented assumptions; generation scripts are themselves deliverables.",
     "images": ["/placeholder-1.svg", "/placeholder-2.svg", "/placeholder-3.svg"]
   },
   {
     "id": "tech-3",
     "title": "Primavera P6 - Sample Schedule Built from RFP Documents",
     "blurb": "Preliminary schedule built to learn the mechanical skills of using Primavera P6.",
-    "tags": ["TypeScript", "On-Screen Takeoff", "RSMeans"],
+    "tags": ["Primavera P6"],
     "swatch": "#1f2a1a",
     "label": "SCHEDULE",
     "detail": "A Primavera P6 schedule built from the Project Requirements and Design Criteria for a design-build transit projects performing ADA upgrades at 2 stations.",
@@ -32,11 +32,11 @@
   {
     "id": "tech-4",
     "title": "Projectify",
-    "blurb": "Rough order of magnitude estimate single page web application for Office Fit-outs",
+    "blurb": "Rough order of magnitude estimate single page web application for Medical Office Fit-outs",
     "tags": ["Javascript", "D3.js", "Git"],
     "swatch": "#2a1f2c",
     "label": "WEB DEVELOPMENT",
-    "detail": "A data visualization tool built to help commercial building owners and prospective tenants forecast tenant fit-out costs at the concept stage, before design documents are available. Users input square footage and select a construction type to generate rough-order-of-magnitude (ROM) projections driven by $/SF benchmarks compiled from completed medical office fit-outs. Results render on an interactive D3.js bar chart that allows real-time scope adjustment, giving stakeholders immediate visibility into cost drivers and value engineering opportunities. The tool reflects core project controls principles — historical benchmarking, parametric estimating, and visual reporting — applied to early-stage feasibility decisions where cost certainty is lowest and the impact of scope choices is highest..",
+    "detail": "A data visualization tool built to help commercial building owners and prospective tenants forecast tenant fit-out costs at the concept stage, before design documents are available. Users input square footage and select a construction type to generate rough-order-of-magnitude (ROM) projections driven by $/SF benchmarks compiled from completed medical office fit-outs. Results render on an interactive D3.js bar chart that allows real-time scope adjustment, giving stakeholders immediate visibility into cost drivers and value engineering opportunities. The tool reflects core project controls principles — historical benchmarking, parametric estimating, and visual reporting — applied to early-stage feasibility decisions where cost certainty is lowest and the impact of scope choices is highest.",
     "images": ["/placeholder-1.svg", "/placeholder-2.svg", "/placeholder-3.svg"]
   }
 ]
