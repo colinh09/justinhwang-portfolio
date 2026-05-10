@@ -5,7 +5,7 @@
     "sub": "Construction Management",
     "location": "North Bergen, NJ",
     "sector": "Transit",
-    "role": "Project Controls",
+    "role": "Commercial Manager",
     "value": "$30M+",
     "dates": "2024 — 2026",
     "swatch": "#2d3a4a",
@@ -70,7 +70,7 @@
     "label": "MTA",
     "image": "/images/projects/construction/pkg7.jpg",
     "contributions": [
-      "Prepared independent cost estimates for change order independent cost esimates",
+      "Prepared an independent cost estimates for the additional replacement of 101 precast panels above the 23 identified in the project requirements",
       "Negotiated equitable settlements with the contractor while ensuring compliance with agency standards",
       "Authored contractual and technical correspondence supporting change order submissions against commercial requirements"
     ],
@@ -179,7 +179,7 @@
     "title": "School Construction Authority - Mentor Program",
     "sub": "Change Management",
     "location": "New York, NY",
-    "sector": "Transit",
+    "sector": "K-12",
     "role": "Estimator",
     "value": "< $750K",
     "dates": "2018 — 2019",
@@ -191,7 +191,7 @@
       "Conducted constructability reviews of bid documents to assess risk and identify drawing conflicts",
       "Evaluated whether projects' construction cost would exceed the cost limit for the mentor program"
     ],
-    "description": "Owner's representative work for the LiRo Group on the MTA mentor program. Independent cost estimating and constructability assessment of bid documents to surface drawing conflicts, scope risk, and cost-limit exposure across a rolling portfolio of small-business participation projects."
+    "description": "an agency program to teach MWBE contractors agency standards on construction projects with values less than $750k. Contractors were mentored on critical agency procedures including change management, asbestos abatement, and coordination with the schools engineer."
   },
     {
     "id": "p11",
@@ -199,7 +199,7 @@
     "sub": "Construction Management",
     "location": "Buffalo, NY",
     "sector": "Higher Ed",
-    "role": "Project Controls",
+    "role": "Project Engineer",
     "value": "$375M",
     "dates": "2016 — 2017",
     "swatch": "#2a2f1c",
