@@ -25,18 +25,18 @@
     "blurb": "Preliminary schedule built to learn the mechanical skills of using Primavera P6.",
     "tags": ["TypeScript", "On-Screen Takeoff", "RSMeans"],
     "swatch": "#1f2a1a",
-    "label": "Schedule",
+    "label": "SCHEDULE",
     "detail": "A Primavera P6 schedule built from the Project Requirements and Design Criteria for a design-build transit projects performing ADA upgrades at 2 stations.",
     "images": ["/placeholder-1.svg", "/placeholder-2.svg", "/placeholder-3.svg"]
   },
   {
     "id": "tech-4",
-    "title": "Cashflow & Earned Value Model",
-    "blurb": "Excel + Power Query model rolling up planned vs earned vs actual across a portfolio of 6 projects.",
-    "tags": ["Excel", "Power Query", "EVM"],
+    "title": "Projectify",
+    "blurb": "Rough order of magnitude estimate single page web application for Office Fit-outs",
+    "tags": ["Javascript", "D3.js", "Git"],
     "swatch": "#2a1f2c",
-    "label": "MODEL",
-    "detail": "Portfolio-level earned value model used by ownership for monthly draw forecasting. Combines schedule-derived BCWS curves with vendor invoicing actuals, surfacing CPI/SPI trends per project and aggregate cash exposure.",
+    "label": "WEB DEVELOPMENT",
+    "detail": "A data visualization tool built to help commercial building owners and prospective tenants forecast tenant fit-out costs at the concept stage, before design documents are available. Users input square footage and select a construction type to generate rough-order-of-magnitude (ROM) projections driven by $/SF benchmarks compiled from completed medical office fit-outs. Results render on an interactive D3.js bar chart that allows real-time scope adjustment, giving stakeholders immediate visibility into cost drivers and value engineering opportunities. The tool reflects core project controls principles — historical benchmarking, parametric estimating, and visual reporting — applied to early-stage feasibility decisions where cost certainty is lowest and the impact of scope choices is highest..",
     "images": ["/placeholder-1.svg", "/placeholder-2.svg", "/placeholder-3.svg"]
   }
 ]
