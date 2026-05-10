@@ -11,11 +11,11 @@
     "swatch": "#2d3a4a",
     "label": "GDC",
     "contributions": [
-      "Prepared independent cost estimates and led negotiations to fair and reasonable settlements on contract modifications",
-      "Forecasted estimate-to-complete and reallocated budgeted funds across underrunning and overrunning bid items",
-      "Maintained WBS continuity through reallocation, ensuring timely contractor payment without disrupting cost reporting"
+      "Prepared independent cost estimates for change orders and led negotiations to fair and reasonable settlements",
+      "Forecasted estimate-to-complete (EAC) and negotiated final settlements of change orders within the remaining budget, mitigating potential cost overrun.",
+      "Maintained WBS continuity and reallocated budgeted funds from underrunning bid items to those projected to overrun, ensuring timely contractor payment without disrupting cost reporting structure."
     ],
-    "description": "A complex infrastructure package supporting the Gateway Program — utility relocation and a new roadway bridge over the Hudson Tunnel Project ROW. Responsibilities span change management, commercial correspondence, risk assessment, and field inspection. Established final quantities for compensation of unit price bid items and negotiated settlements within capital plan constraints to support successful, on-budget delivery."
+    "description": "A complex infrastructure package supporting the Gateway Program — utility relocation and a new roadway bridge over the Hudson Tunnel Project ROW. Responsibilities span change management, commercial correspondence, risk assessment, and field inspection."
   },
   {
     "id": "p2",
@@ -25,16 +25,16 @@
     "sector": "Transit",
     "role": "Change Manager",
     "value": "—",
-    "dates": "2022 — 2024",
+    "dates": "2026 — Present",
     "swatch": "#3a2a1c",
     "label": "MTA",
     "contributions": [
-      "Provided technical guidance for the commercial team's change management function across two design-build contracts",
+      "Reviewed and corrected previously assessed scope, identified overlooked credits, and provided technical grounding for change order presentations to the client's executive committees.",
       "Audited previously negotiated change orders, identifying material quantity discrepancies and unsubstantiated labor production rates",
       "Led scope reconciliation meetings with the contractor — resulting in formal acknowledgment of the identified overstatements",
       "Prepared independent cost estimates for both construction and design across a high volume of changes on both contracts"
     ],
-    "description": "Program management consultancy for two MTA design-build contracts covering replacement of 21 escalators at six subway stations and 37 elevators at 17 stations. Builders: Skanska and Forte/Gramercy JV. Designer: Stantec. Reviewed and corrected previously assessed scope, identified overlooked credits, and provided technical grounding for change order presentations to the client's executive committees."
+    "description": "Program management consultancy for two MTA design-build contracts covering replacement of 21 escalators at six subway stations and 37 elevators at 17 stations. Builders: Skanska and Forte/Gramercy JV. Designer: Stantec."
   },
   {
     "id": "p3",
@@ -43,26 +43,26 @@
     "location": "New York, NY",
     "sector": "Transit",
     "role": "Change Manager",
-    "value": "—",
-    "dates": "2022 — 2024",
+    "value": "$$52M",
+    "dates": "2025 — Present",
     "swatch": "#2a2530",
     "label": "MTA",
     "contributions": [
-      "Prepared independent cost estimates for change order pricing across all 20 facilities",
+      "Prepared independent cost estimates for change order independent cost esimates",
       "Negotiated equitable settlements with the contractor while ensuring compliance with agency standards",
       "Authored contractual and technical correspondence supporting change order submissions against commercial requirements"
     ],
-    "description": "Comprehensive change management support for a design-build contract replacing the central alarm monitoring system and upgrading fire protection across 20 MTA NYCT stations and facilities. Heavy coordination with agency standards and commercial requirements while maintaining strong client and contractor relationships."
+    "description": "This project involved replacing the central alarm monitoring system and upgrading fire protection systems across 20 MTA NYCT stations and facilities. Provided comprehensive change management support, preparing independent cost estimates and negotiating equitable settlements with the contractor while ensuring compliance with agency standards and commercial requirements."
   },
   {
     "id": "p4",
     "title": "Stony Brook Medical — Advanced Specialty Care",
-    "sub": "170k SF Adaptive Reuse",
+    "sub": "Procurement",
     "location": "Lake Grove, NY",
     "sector": "Medical",
     "role": "Procurement",
-    "value": "31-yr Lease",
-    "dates": "2020 — 2022",
+    "value": "$147M",
+    "dates": "2021 — 2022",
     "swatch": "#1f2f2a",
     "label": "STEEL EQ",
     "contributions": [
@@ -95,7 +95,7 @@
     "title": "311 W 42nd St — The Ellery",
     "sub": "Preconstruction Estimating",
     "location": "New York, NY",
-    "sector": "Mixed-Use",
+    "sector": "Residential",
     "role": "Estimator",
     "value": "$337M",
     "dates": "2019 — 2020",
@@ -111,27 +111,9 @@
   },
   {
     "id": "p7",
-    "title": "MTA Mentor Program — Constructability",
-    "sub": "Independent Cost & Constructability Reviews",
-    "location": "New York, NY",
-    "sector": "Transit",
-    "role": "Estimator",
-    "value": "Various",
-    "dates": "2018 — 2019",
-    "swatch": "#1f2a36",
-    "label": "SCA",
-    "contributions": [
-      "Prepared independent project cost, cost comparison, and change order estimates for the mentor program",
-      "Conducted constructability reviews of bid documents to assess risk and identify drawing conflicts",
-      "Evaluated whether projects' construction cost would exceed the cost limit for the mentor program"
-    ],
-    "description": "Owner's representative work for the LiRo Group on the MTA mentor program. Independent cost estimating and constructability assessment of bid documents to surface drawing conflicts, scope risk, and cost-limit exposure across a rolling portfolio of small-business participation projects."
-  },
-  {
-    "id": "p8",
     "title": "3333 New Hyde Park Rd (Various Tenants)",
-    "sub": "Medical Office, Warehouse & Film Studio Fit-Outs",
-    "location": "Bethpage, NY",
+    "sub": "Real Estate Development",
+    "location": "New Hyde Park, NY",
     "sector": "Corporate Interiors",
     "role": "Project Manager",
     "value": "$250K-$2.5M",
@@ -142,16 +124,16 @@
       "Prepared detailed pre-construction cost estimates and schedules to inform lease terms across the portfolio",
       "Procured materials for all trades across multiple concurrent projects",
       "Served as PM for multiple concurrent office fit-out projects from design through delivery as part of the landlord's construction team",
-      "Collaborated closely with tenants to deliver customized spaces alongside lease execution"
+      "Managed vendor relationships, negotiated pricing, and coordinated procurement logistics with on-site activities."
     ],
     "description": "Landlord-side estimator and project manager across a multi-asset Long Island portfolio — medical office, warehouse, and film studio fit-out projects. Owned both pre-lease cost intelligence (estimating, schedule) and post-lease execution (procurement, PM) so tenant fit-outs landed on the lease terms they were priced against."
   },
   {
-    "id": "p9",
+    "id": "p8",
     "title": "SUNY at Buffalo - Cooke and Hochstetter Halls",
     "sub": "Pre-Construction Estimating",
-    "location": "New York, NY",
-    "sector": "Corporate Interiors",
+    "location": "Buffalo, NY",
+    "sector": "Higher Ed",
     "role": "Estimator",
     "value": "$10M – $350M",
     "dates": "2019 — 2020",
@@ -162,16 +144,34 @@
       "Led page-turn and cost estimate reviews with contractors to level bid proposals and confirm full scope coverage",
       "Oversaw multidisciplinary estimating efforts and consolidated team contributions into high-quality final deliverables"
     ],
-    "description": "Cost-management consultancy work spanning a wide spectrum of capital projects. Led estimate consolidation across architectural, structural, and MEP disciplines and coordinated deliverable schedules to support owner-side procurement decisions."
+    "description": "Renovation of a 1971 space into a state-of-the-art research facility for graduate, postdoctoral, and faculty research in biology and geology. Provided cost consultancy to Ashley McGraw Architects during Schematic Design, Design Development, and Construction Document phases."
   },
-  {
+    {
+    "id": "p9",
+    "title": "School Construction Authority - Mentor Program",
+    "sub": "Change Management",
+    "location": "New York, NY",
+    "sector": "Transit",
+    "role": "Estimator",
+    "value": "< $750K",
+    "dates": "2018 — 2019",
+    "swatch": "#1f2a36",
+    "label": "SCA",
+    "contributions": [
+      "Prepared independent project cost, cost comparison, and change order estimates for the mentor program",
+      "Conducted constructability reviews of bid documents to assess risk and identify drawing conflicts",
+      "Evaluated whether projects' construction cost would exceed the cost limit for the mentor program"
+    ],
+    "description": "Owner's representative work for the LiRo Group on the MTA mentor program. Independent cost estimating and constructability assessment of bid documents to surface drawing conflicts, scope risk, and cost-limit exposure across a rolling portfolio of small-business participation projects."
+  },
+    {
     "id": "p10",
     "title": "SUNY at Buffalo - Jacobs School of Medicine",
     "sub": "Construction Management",
     "location": "Buffalo, NY",
     "sector": "Higher Ed",
     "role": "Project Controls",
-    "value": "Multi-Site",
+    "value": "$375M",
     "dates": "2016 — 2017",
     "swatch": "#2a2f1c",
     "label": "SUCF",
@@ -179,6 +179,6 @@
       "Developed and maintained manpower reports, two-week look-aheads, open item logs, meeting minutes, and change order logs",
       "Performed architectural, electrical, and life safety inspections of drywall, ceiling tie wire, spray fireproofing, putty packs, and firestopping"
     ],
-    "description": "Field engineering on the Gilbane / LiRo joint venture supporting K-12 and higher-ed capital work in the Buffalo region. Day-to-day project controls reporting and field-level life-safety inspection across active sites."
+    "description": "New academic and research facility on Buffalo’s Niagara Medical Campus / University at Buffalo’s downtown campus. The project consists of 628,000 square feet across two L-shaped, 10-story structures connected by a 7-story atrium. The facility houses administrative offices, academic departments, teaching labs, advanced general patient care simulation spaces, surgical simulation spaces, and a BSL-3 dedicated lab. The building envelope features a unitized curtainwall system, aluminum metal panels, and 2,800 rain screen terracotta panels. The project achieved LEED Gold certification."
   }
 ]
