@@ -1,30 +1,30 @@
 [
   {
     "id": "tech-1",
-    "title": "Schedule Health Dashboard",
-    "blurb": "Power BI cockpit pulling from P6 — float erosion, critical path drift, and milestone risk in one view.",
-    "tags": ["Power BI", "Primavera P6", "DAX"],
+    "title": "PowerBI - 58 Devices Labor Burn Dashboard",
+    "blurb": "End-to-end labor utilization dashboard built on a realistic A/E firm FP&A workflow — from Vantagepoint exports through Excel reconciliation to Power BI.",
+    "tags": ["Power BI", "Power Query", "Excel", "VBA", "DAX", "Python"],
     "swatch": "#1c2a3a",
     "label": "DASHBOARD",
-    "detail": "A live reporting layer that ingests weekly P6 XER exports, normalises activity codes across three contractor schedules, and exposes float consumption, predecessor slippage, and look-ahead risk to PMs without them ever opening Primavera. Reduced status-meeting prep from 4 hours to 20 minutes."
+    "detail": "A Power BI dashboard reconciling planned vs. actual labor hours across a 58-device MTA elevator and escalator replacement project. Integrates weekly labor projections, daily Vantagepoint timesheet exports, and subconsultant timesheets through an Excel + Power Query reconciliation layer, with DAX measures handling weekly-to-daily grain conversion and report supersession. Built with anonymized data; preserves real firm names and project context."
   },
   {
     "id": "tech-2",
-    "title": "Change Order Reconciliation Engine",
+    "title": "Prompt Engineering - Change Order Entitlement Analysis",
     "blurb": "SQL + Python pipeline reconciling PCO logs against Procore commitments across 14 active projects.",
-    "tags": ["SQL", "Python", "Procore"],
+    "tags": ["Claude"],
     "swatch": "#2d2218",
-    "label": "PIPELINE",
+    "label": "AI",
     "detail": "ETL pipeline that pulls daily snapshots from Procore, normalises change-order numbering across legacy and active projects, and flags PCOs missing back-up or stuck in approval >14 days. Surfaced $4.2M in unbilled approved changes in the first month."
   },
   {
     "id": "tech-3",
-    "title": "Quantity Takeoff Toolkit",
-    "blurb": "TypeScript utilities on top of On-Screen Takeoff exports — unit normalisation and crew-rate modelling.",
+    "title": "Primavera P6 - Sample Schedule Built from RFP Documents",
+    "blurb": "Preliminary schedule built to learn the mechanical skills of using Primavera P6.",
     "tags": ["TypeScript", "On-Screen Takeoff", "RSMeans"],
     "swatch": "#1f2a1a",
-    "label": "TOOLKIT",
-    "detail": "Set of typed utilities for converting OST exports into RSMeans-aligned line items, with crew composition, productivity rates, and regional cost factors baked in. Used to prep $230M+ of fit-out estimates with consistent assumptions across estimators."
+    "label": "Schedule",
+    "detail": "A Primavera P6 schedule built from the Project Requirements and Design Criteria for a design-build transit projects performing ADA upgrades at 2 stations."
   },
   {
     "id": "tech-4",
