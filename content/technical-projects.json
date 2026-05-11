@@ -32,7 +32,7 @@
     {
     "id": "tech-4",
     "title": "Full Stack Web Development - Weave",
-    "blurb": "A travel planning tool built to learn a full-stack application with google maps and nodemailer integration.",
+    "blurb": "A travel planning tool built to demonstrate the ability to deploy a full-stack application in a team setting. Additional features include the integration of google maps API and nodemailer.",
     "tags": ["Javascript", "React-Redux", "MongoDB", "Mongoose", "Express", "Render", "Google Maps", "Google Places / Autocomplete", "Google Geocoding API's", "Nodemailer Module"],
     "swatch": "#2a1f2c",
     "label": "WEB DEVELOPMENT",
