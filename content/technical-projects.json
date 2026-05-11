@@ -2,7 +2,7 @@
   {
     "id": "tech-1",
     "title": "PowerBI - 58 Devices Labor Burn Dashboard",
-    "blurb": "End-to-end labor utilization dashboard built on a realistic A/E firm FP&A workflow — from Vantagepoint exports through Excel reconciliation to Power BI.",
+    "blurb": "End-to-end labor utilization dashboard built on a realistic FP&A workflow at an  A/E firm — from Vantagepoint exports through Excel reconciliation to Power BI.",
     "tags": ["Power BI", "Power Query", "Excel", "VBA", "DAX", "Python"],
     "swatch": "#1c2a3a",
     "label": "DASHBOARD",
