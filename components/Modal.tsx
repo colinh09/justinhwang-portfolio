@@ -68,7 +68,11 @@ export default function Modal({ project, onClose }: Props) {
   if (!project) return null;
 
   const tech = isTechProject(project);
-  const images = tech ? project.images ?? [] : [];
+  const images = tech
+    ? project.images ?? []
+    : project.image
+    ? [project.image]
+    : [];
   const hasImages = images.length > 0;
   const prev = () =>
     setImgIdx((i) => (i - 1 + images.length) % images.length);
@@ -111,7 +115,7 @@ export default function Modal({ project, onClose }: Props) {
         </button>
 
         <div
-          className="jh-modal__hero"
+          className={`jh-modal__hero ${tech ? "jh-modal__hero--tech" : ""}`}
           style={{ background: hasImages ? "#0d0a07" : project.swatch }}
         >
           {hasImages ? (

@@ -449,7 +449,8 @@ button {
   border-color: var(--jh-faint);
 }
 
-.jh-card:hover .jh-thumb__grid {
+.jh-card:hover .jh-thumb__grid,
+.jh-card:hover .jh-thumb__img {
   transform: scale(1.04);
 }
 
@@ -472,6 +473,20 @@ button {
   transition: transform 0.7s cubic-bezier(.2, .7, .2, 1);
 }
 
+.jh-thumb__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.7s cubic-bezier(.2, .7, .2, 1);
+}
+
+/* Tech project screenshots show the whole composition; construction project
+   photos are scenic so cropping is fine. */
+.jh-card--tech .jh-thumb__img { object-fit: contain; }
+
 .jh-thumb__label {
   position: absolute;
   left: 18px;
@@ -479,8 +494,10 @@ button {
   font-family: var(--jh-display-font);
   font-style: italic;
   font-size: 13px;
-  color: rgba(255, 255, 255, 0.55);
+  color: rgba(255, 255, 255, 0.85);
   letter-spacing: 0.02em;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  z-index: 1;
 }
 
 .jh-thumb__sector {
@@ -490,7 +507,9 @@ button {
   font-size: 10px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.55);
+  color: rgba(255, 255, 255, 0.85);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  z-index: 1;
 }
 
 .jh-card__body {
@@ -1057,6 +1076,9 @@ button {
   transition: opacity 0.35s ease;
 }
 .jh-modal__hero-img.is-active { opacity: 1; }
+
+/* Tech screenshots need to be fully visible — don't crop. */
+.jh-modal__hero--tech .jh-modal__hero-img { object-fit: contain; }
 
 .jh-modal__hero-nav {
   position: absolute;

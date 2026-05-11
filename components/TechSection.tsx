@@ -28,7 +28,11 @@ export default function TechSection({ onOpen }: Props) {
             className="jh-card jh-card--tech"
             onClick={() => onOpen(p)}
           >
-            <ProjectThumb swatch={p.swatch} label={p.label} />
+            <ProjectThumb
+              swatch={p.swatch}
+              label={p.label}
+              image={p.images?.[0]}
+            />
             <div className="jh-card__body">
               <div className="jh-card__title">{p.title}</div>
               <div className="jh-card__blurb">{p.blurb}</div>

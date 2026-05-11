@@ -26,6 +26,7 @@ export interface ConstructionProject {
   dates: string;
   swatch: string;
   label: string;
+  image?: string;
   contributions: string[];
   description: string;
 }

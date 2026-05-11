@@ -96,6 +96,7 @@ export default function ConstructionSection({ onOpen }: Props) {
                 swatch={p.swatch}
                 label={p.label}
                 sector={p.sector}
+                image={p.image}
               />
               <div className="jh-card__body">
                 <div className="jh-card__title">{p.title}</div>

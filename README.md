@@ -127,10 +127,14 @@ You'll get back a valid JSON entry to paste into the file.
 
 ### Adding a project image (optional)
 
-Right now project thumbnails are solid color blocks. To use a real image instead:
+Project thumbnails default to a solid swatch color. To use a real image instead:
 
-1. Upload the image to `public/images/projects/` via GitHub web UI (in the file tree, click "Add file" → "Upload files")
-2. Reference it in the project entry by adding an `"image": "/images/projects/your-file.jpg"` field (note: image-rendering isn't wired up yet — ping the dev to enable; ~10 minutes)
+1. Upload the image to `public/images/projects/construction/` (for construction) or `public/images/projects/technical/` (for tech) via GitHub web UI
+2. For a **construction project**, add a single `"image": "/images/projects/construction/your-file.jpg"` field. The image replaces the swatch on the card and fills the hero of the modal.
+3. For a **technical project**, add an `"images": ["/images/projects/technical/a.jpg", "/images/projects/technical/b.jpg"]` array. The first image becomes the card thumbnail; the modal shows a carousel with prev/next arrows and dot indicators across all entries.
+4. Omit the field entirely to keep the colored swatch.
+
+Aspect ratios: cards crop to 4:3 (construction) or 16:10 (tech); the modal hero crops to 21:9. Make sure the focal point is centered so cropping looks intentional.
 
 ### Common mistakes to avoid
 
