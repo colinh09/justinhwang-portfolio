@@ -2,7 +2,7 @@
 
 A Next.js 15 portfolio for Justin Hwang, deployed to [jh-projectcontrols.com](https://jh-projectcontrols.com).
 
-Stack: Next.js (App Router) · React 19 · TypeScript · Resend (contact form) · Vercel (hosting). Content lives in JSON files under `content/` so it can be edited without touching code.
+Stack: Next.js (App Router) · React 19 · TypeScript · AWS SES (contact form) · Vercel (hosting). Content lives in JSON files under `content/` so it can be edited without touching code.
 
 ---
 
@@ -168,8 +168,11 @@ Site runs on [http://localhost:3000](http://localhost:3000).
 Copy `.env.example` to `.env.local` and fill in:
 
 - `NEXT_PUBLIC_SITE_URL` — the canonical URL (used for sitemap, OG image, JSON-LD)
-- `RESEND_API_KEY` — for the contact form. Sign up at [resend.com](https://resend.com); free tier covers 3000 emails/month.
-- `RESEND_FROM_EMAIL` — optional override for the contact-form sender address. Defaults to `onboarding@resend.dev`.
+- `AWS_REGION` — AWS region of your SES setup (e.g. `us-east-1`)
+- `AWS_ACCESS_KEY_ID` / `AWS_SECRET_ACCESS_KEY` — credentials for an IAM user with `ses:SendEmail` + `ses:SendRawEmail` permissions
+- `SES_FROM_EMAIL` — the verified SES sender address (e.g. `JKH.Build@gmail.com`)
+
+The contact form is happy to run in SES sandbox mode since every submission is delivered to the same verified inbox; there's no need to request production access. Pricing is $0.10 per 1,000 emails — covered by free AWS credits for any realistic portfolio volume.
 
 ### Project structure
 

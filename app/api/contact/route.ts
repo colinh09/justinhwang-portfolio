@@ -1,8 +1,7 @@
 import { NextResponse } from "next/server";
-import { Resend } from "resend";
+import { SESv2Client, SendEmailCommand } from "@aws-sdk/client-sesv2";
 
 const TO_EMAIL = "JKH.Build@gmail.com";
-const FROM_EMAIL = process.env.RESEND_FROM_EMAIL ?? "onboarding@resend.dev";
 
 interface Body {
   name?: string;
@@ -45,8 +44,12 @@ export async function POST(req: Request) {
     );
   }
 
-  const apiKey = process.env.RESEND_API_KEY;
-  if (!apiKey) {
+  const region = process.env.AWS_REGION;
+  const accessKeyId = process.env.AWS_ACCESS_KEY_ID;
+  const secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
+  const fromEmail = process.env.SES_FROM_EMAIL;
+
+  if (!region || !accessKeyId || !secretAccessKey || !fromEmail) {
     return NextResponse.json(
       {
         error:
@@ -57,18 +60,32 @@ export async function POST(req: Request) {
   }
 
   try {
-    const resend = new Resend(apiKey);
+    const ses = new SESv2Client({
+      region,
+      credentials: { accessKeyId, secretAccessKey },
+    });
     const finalSubject = subject
       ? `[Portfolio] ${subject}`
       : `[Portfolio] New message from ${name}`;
 
-    await resend.emails.send({
-      from: FROM_EMAIL,
-      to: TO_EMAIL,
-      replyTo: email,
-      subject: finalSubject,
-      text: `From: ${name} <${email}>\n\n${message}`,
-    });
+    await ses.send(
+      new SendEmailCommand({
+        FromEmailAddress: fromEmail,
+        Destination: { ToAddresses: [TO_EMAIL] },
+        ReplyToAddresses: [email],
+        Content: {
+          Simple: {
+            Subject: { Data: finalSubject, Charset: "UTF-8" },
+            Body: {
+              Text: {
+                Data: `From: ${name} <${email}>\n\n${message}`,
+                Charset: "UTF-8",
+              },
+            },
+          },
+        },
+      })
+    );
 
     return NextResponse.json({ ok: true });
   } catch (err) {
