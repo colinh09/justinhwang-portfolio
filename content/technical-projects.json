@@ -36,7 +36,7 @@
     "tags": ["Power BI"],
     "swatch": "#1f2a1a",
     "label": "DASHBOARD",
-    "detail": "Built a Power BI dashboard to consolidate and analyze corporate employee expense data, structured across two views: a summary aggregation page and an underlying transaction-level detail table. The summary view presents a matrix visual with employees as rows and expense categories as columns — Accommodation, Agency Fees, Air Transportation, Airline Other Charges, Ground Transportation, Meals, Representation Expense, and T&E Other — with row and column subtotals and a grand total. Two slicers (Department and Month) allow the user to filter the population dynamically without modifying the underlying data model.",
+    "detail": "Built a Power BI dashboard to consolidate and analyze corporate employee expense data, structured across two views: a summary aggregation page and an underlying transaction-level detail table. The summary view presents a matrix visual with employees as rows and expense categories as columns — Accommodation, Agency Fees, Air Transportation, Airline Other Charges, Ground Transportation, Meals, Representation Expense, and T&E Other — with row and column subtotals and a grand total. Four slicers (Department, Month, Expense Type, and Employee Name) allow the user to filter the population dynamically without modifying the underlying data model.",
     "images": ["/images/projects/technical/expense1.png"]
   },
     {
