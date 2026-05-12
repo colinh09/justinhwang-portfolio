@@ -32,7 +32,7 @@
     {
     "id": "tech-4",
     "title": "Power BI - Basic Expense Report",
-    "blurb": "Built an  Power BI dashboard aggregating employee expense totals by category with department, month, type, and employee name slicers as an introductory exercise using Power BI.",
+    "blurb": "Built a Power BI dashboard aggregating employee expense totals by category with department, month, type, and employee name slicers as an introductory exercise using Power BI.",
     "tags": ["Power BI"],
     "swatch": "#1f2a1a",
     "label": "DASHBOARD",
