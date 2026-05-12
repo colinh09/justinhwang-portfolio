@@ -57,6 +57,6 @@
     "swatch": "#2a1f2c",
     "label": "WEB DEVELOPMENT",
     "detail": "A data visualization tool built to help commercial building owners and prospective tenants forecast tenant fit-out costs at the concept stage, before design documents are available. Users input square footage and select a construction type to generate rough-order-of-magnitude (ROM) projections driven by $/SF benchmarks compiled from completed medical office fit-outs. Results render on an interactive D3.js bar chart that allows real-time scope adjustment, giving stakeholders immediate visibility into cost drivers and value engineering opportunities. The tool reflects core project controls principles — historical benchmarking, parametric estimating, and visual reporting — applied to early-stage feasibility decisions where cost certainty is lowest and the impact of scope choices is highest.",
-    "images": ["/images/projects/technical/projectify1.jpg"]
+    "images": ["/images/projects/technical/projectify1.png"]
   }
 ]
