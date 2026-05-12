@@ -1,7 +1,7 @@
 [
   {
     "id": "tech-1",
-    "title": "PowerBI - 58 Devices Labor Burn Dashboard",
+    "title": "Power BI - 58 Devices Labor Burn Dashboard",
     "blurb": "End-to-end labor utilization dashboard for 3 MTA contracts, built on a realistic FP&A workflow at an  A/E firm — from Vantagepoint exports through Excel reconciliation to Power BI.",
     "tags": ["Power BI", "Power Query", "Excel", "VBA", "DAX", "Python"],
     "swatch": "#1c2a3a",
@@ -11,7 +11,7 @@
   },
   {
     "id": "tech-2",
-    "title": "PowerBI - Project Schedule Earned Value Dashboard",
+    "title": "Power BI - Project Schedule Earned Value Dashboard",
     "blurb": "Construction schedule performance dashboard computing SV, SPI, and float erosion from weekly P6 exports and field progress data.",
     "tags": ["Power BI", "Power Query", "Excel", "DAX", "Python", "Primavera P6"],
     "swatch": "#2d2218",
@@ -31,6 +31,16 @@
   },
     {
     "id": "tech-4",
+    "title": "Power BI - Basic Expense Report With Filters",
+    "blurb": "Built a Power BI dashboard aggregating employee expense totals by category with department and month slicers, structured from a transaction-level source table.",
+    "tags": ["Power BI"],
+    "swatch": "#1f2a1a",
+    "label": "DASHBOARD",
+    "detail": "Built a Power BI dashboard to consolidate and analyze corporate employee expense data, structured across two views: a summary aggregation page and an underlying transaction-level detail table. The summary view presents a matrix visual with employees as rows and expense categories as columns — Accommodation, Agency Fees, Air Transportation, Airline Other Charges, Ground Transportation, Meals, Representation Expense, and T&E Other — with row and column subtotals and a grand total. Two slicers (Department and Month) allow the user to filter the population dynamically without modifying the underlying data model.",
+    "images": ["/expense1.svg", "/expense2.svg", "/expense3.svg"]
+  },
+    {
+    "id": "tech-5",
     "title": "Full Stack Web Development - Weave",
     "blurb": "A travel planning tool built to demonstrate the ability to deploy a full-stack application in a team setting. Additional features include the integration of google maps API and nodemailer.",
     "tags": ["Javascript", "React-Redux", "MongoDB", "Mongoose", "Express", "Render", "Google Maps", "Google Places / Autocomplete", "Google Geocoding API's", "Nodemailer Module"],
@@ -40,7 +50,7 @@
     "images": ["/images/projects/technical/weave1.jpg", "/images/projects/technical/weave2.jpg", "/images/projects/technical/weave3.jpg"]
   },
     {
-    "id": "tech-5",
+    "id": "tech-6",
     "title": "JavaScript Single Page Application - Projectify",
     "blurb": "Rough order of magnitude estimate single page web application for Medical Office Fit-outs",
     "tags": ["Javascript", "D3.js", "Git"],
