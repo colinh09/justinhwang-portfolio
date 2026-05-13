@@ -43,7 +43,7 @@
     "id": "tech-5",
     "title": "Full Stack Web Development - Weave",
     "blurb": "A travel planning tool built to demonstrate the ability to deploy a full-stack application in a team setting. Additional features include the integration of google maps API and nodemailer.",
-    "tags": ["Javascript", "React-Redux", "MongoDB", "Mongoose", "Express", "Render", "Google Maps", "Google Places / Autocomplete", "Google Geocoding API's", "Nodemailer Module"],
+    "tags": ["Javascript", "React-Redux", "MongoDB", "Mongoose", "Express", "Render", "Google APIs"],
     "swatch": "#2a1f2c",
     "label": "WEB DEVELOPMENT",
     "detail": "Weave is a MERN stack group trip planning app developed. The app was launched in 1 week of development and implemented a Node + Express backend with a MongoDB NoSQL database. Users can search businesses and POI's using google autocomplete from google places, and pin them onto an interactive map ",
