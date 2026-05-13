@@ -2,7 +2,7 @@
   {
     "id": "tech-1",
     "title": "Power BI - 58 Devices Labor Burn Dashboard (in progress)",
-    "blurb": "End-to-end labor utilization dashboard for 3 MTA contracts, built on a realistic FP&A workflow at an  A/E firm — from Vantagepoint exports through Excel reconciliation to Power BI.",
+    "blurb": "End-to-end labor utilization dashboard modeling an A/E firm's FP&A workflow across three MTA contracts. Built a Python script to generate synthetic labor projections and Deltek Vantagepoint exports, reconciled the datasets in Excel via Power Query, and surfaced the output in a Power BI dashboard.",
     "tags": ["Power BI", "Power Query", "Excel", "VBA", "DAX", "Python"],
     "swatch": "#1c2a3a",
     "label": "DASHBOARD",
