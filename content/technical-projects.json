@@ -33,10 +33,10 @@
     "id": "tech-4",
     "title": "Power BI - Basic Expense Report",
     "blurb": "Built a Power BI dashboard aggregating employee expense totals by category with department, month, type, and employee name slicers as an introductory exercise while learning to use Power BI.",
-    "tags": ["Power BI", "PowerQuery M"],
+    "tags": ["Power BI", "Power Query M"],
     "swatch": "#1c2a3a",
     "label": "DASHBOARD",
-    "detail": "Built a Power BI dashboard to consolidate and analyze corporate employee expense data, structured across two views: a summary aggregation page and an underlying transaction-level detail table. The summary view presents a matrix visual with employees as rows and expense categories as columns, with row and column subtotals and a grand total. The detailed view has four slicers (Department, Month, Expense Type, and Employee Name) that allow the user to filter the data dynamically.",
+    "detail": "Built a Power BI dashboard to consolidate and analyze corporate employee expense data, structured across two views: a summary aggregation page and an underlying transaction-level detail table. The summary view presents a matrix visual with employees as rows and expense categories as columns, with row and column subtotals and a grand total. The detailed view has four slicers (Department, Month, Expense Type, and Employee Name) that allow the user to filter the data dynamically. Used Microsoft's documentation for Power Query M to understand how to write custom column transformations beyond what the GUI displays",
     "images": ["/images/projects/technical/expense1.png","/images/projects/technical/expense2.png"]
   },
     {
