@@ -36,7 +36,7 @@
     "tags": ["Power BI"],
     "swatch": "#1f2a1a",
     "label": "DASHBOARD",
-    "detail": "Built a Power BI dashboard to consolidate and analyze corporate employee expense data, structured across two views: a summary aggregation page and an underlying transaction-level detail table. The summary view presents a matrix visual with employees as rows and expense categories as columns, with row and column subtotals and a grand total. The detailed view includes our slicers (Department, Month, Expense Type, and Employee Name) allow the user to filter the data dynamically.",
+    "detail": "Built a Power BI dashboard to consolidate and analyze corporate employee expense data, structured across two views: a summary aggregation page and an underlying transaction-level detail table. The summary view presents a matrix visual with employees as rows and expense categories as columns, with row and column subtotals and a grand total. The detailed view has four slicers (Department, Month, Expense Type, and Employee Name) that allow the user to filter the data dynamically.",
     "images": ["/images/projects/technical/expense1.png","/images/projects/technical/expense2.png"]
   },
     {
