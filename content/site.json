@@ -20,7 +20,7 @@
   "credentials": [
     { "name": "B.Eng Civil", "issuer": "SUNY at Buffalo" },
     { "name": "PMP", "issuer": "Project Management Institute" },
-    { "name": "Member (CCP in progress)", "issuer": "AACE" }
+    { "name": "Member (CEP in progress)", "issuer": "AACE" }
   ],
   "toolkit": [
     "Power BI",
