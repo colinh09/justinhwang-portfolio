@@ -27,7 +27,7 @@
     "swatch": "#1f2a1a",
     "label": "DASHBOARD",
     "detail": "A Power BI reporting tool for a contingent staffing program. It tracks candidates from application through placement and shows the hiring pipeline, interview scoring, and the margin on each placement. It runs on a four-table model of roles, candidates, interviews, and status history, with Excel kept as the data entry layer so all calculations stay in Power BI.\n\nSorting the pipeline by stage needed a numeric sort key. Building that key as a DAX calculated column caused a circular dependency, so I learned to build sort-order columns as Power Query conditional columns instead, which compute before the data model loads. The candidate table also fanned out and showed each candidate against every role. I traced it to role fields being pulled straight from the Roles table and to two competing relationship paths, then fixed it by looking up role fields through each candidate's own role ID and correcting the cross-filter direction on the Candidates to Interviews relationship.\n\nLate in the build I changed the main table from ranking candidates by interview score to ranking by gross margin per placement, which meant modeling the bill rate against the pay rate.",
-    "images": ["/images/projects/technical/scapbi1.png"]
+    "images": ["/images/projects/technical/scapbi1.png", "/images/projects/technical/scapbi2.png"]
   },
     {
     "id": "tech-4",
@@ -51,7 +51,7 @@
   },
     {
     "id": "tech-6",
-    "title": "JavaScript Single Page Application - Projectify",
+    "title": "JavaScript + D3.js Single Page Application - Projectify",
     "blurb": "Rough order of magnitude estimate single page web application for Medical Office Fit-outs",
     "tags": ["Javascript", "D3.js", "Git"],
     "swatch": "#1f2a1a",
