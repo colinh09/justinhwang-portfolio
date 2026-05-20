@@ -461,7 +461,7 @@ button {
   flex-shrink: 0;
 }
 
-.jh-card--tech .jh-thumb { aspect-ratio: 16 / 10; }
+.jh-card--tech .jh-thumb { aspect-ratio: 16 / 9; }
 
 .jh-thumb__grid {
   position: absolute;
@@ -486,31 +486,6 @@ button {
 /* Tech project screenshots show the whole composition; construction project
    photos are scenic so cropping is fine. */
 .jh-card--tech .jh-thumb__img { object-fit: contain; }
-
-.jh-thumb__label {
-  position: absolute;
-  left: 18px;
-  top: 16px;
-  font-family: var(--jh-display-font);
-  font-style: italic;
-  font-size: 13px;
-  color: rgba(255, 255, 255, 0.85);
-  letter-spacing: 0.02em;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
-  z-index: 1;
-}
-
-.jh-thumb__sector {
-  position: absolute;
-  right: 18px;
-  bottom: 16px;
-  font-size: 10px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.85);
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
-  z-index: 1;
-}
 
 .jh-card__body {
   padding: 22px 22px 24px;
@@ -1054,18 +1029,6 @@ button {
   overflow: hidden;
 }
 
-.jh-modal__hero-label {
-  position: absolute;
-  left: 32px;
-  bottom: 24px;
-  font-family: var(--jh-display-font);
-  font-style: italic;
-  font-size: 16px;
-  color: rgba(255, 255, 255, 0.6);
-  z-index: 2;
-  pointer-events: none;
-}
-
 .jh-modal__hero-img {
   position: absolute;
   inset: 0;
@@ -1077,7 +1040,10 @@ button {
 }
 .jh-modal__hero-img.is-active { opacity: 1; }
 
-/* Tech screenshots need to be fully visible — don't crop. */
+/* Tech screenshots need to be fully visible — don't crop. A 16:9 window
+   (vs. the 21:9 used for scenic construction photos) matches typical
+   app/dashboard screenshots, minimizing letterbox bands. */
+.jh-modal__hero--tech { aspect-ratio: 16 / 9; }
 .jh-modal__hero--tech .jh-modal__hero-img { object-fit: contain; }
 
 .jh-modal__hero-nav {

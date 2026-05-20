@@ -38,7 +38,7 @@ export interface TechProject {
   tags: string[];
   swatch: string;
   label: string;
-  detail: string;
+  detail: string[];
   images?: string[];
 }
 
