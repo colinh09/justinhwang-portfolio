@@ -11,13 +11,13 @@
   },
   {
     "id": "tech-2",
-    "title": "Power BI - Project Schedule Earned Value Dashboard",
-    "blurb": "Construction schedule performance dashboard computing SV, SPI, and float erosion from weekly P6 exports and field progress data.",
-    "tags": ["Power BI", "Power Query", "Excel", "DAX", "Python", "Primavera P6"],
+    "title": "Power BI - Risk Register Dashboard",
+    "blurb": "Construction risk register dashboard built to automatically update revisions to the register and refresh dashboards by running a python script.",
+    "tags": ["Power BI", "Power Query", "Excel", "DAX", "Python"],
     "swatch": "#2d2218",
-    "label": "DASHBOARD & SCHEDULE",
+    "label": "DASHBOARD",
     "detail": "Power BI dashboard tracking planned vs. actual schedule performance on a 58-device MTA elevator and escalator replacement project, modeled on standard construction project controls workflow. Ingests weekly Primavera P6 schedule exports (XER and Excel formats), field progress reports in as-submitted formats, and supersession-controlled revisions of the master schedule baseline. Power Query handles activity ID normalization, date parsing, progress calculation, and revision supersession; light VBA orchestrates refresh and validation. P6 exports are batch-processed weekly rather than consolidated, matching production cadence. Source data is accepted as-is and cleaned in the transformation layer. DAX measures compute Schedule Variance (SV), Schedule Performance Index (SPI), float erosion, and critical path activity status. Built with anonymized data: real firm names preserved, project structure preserved, individual activity descriptions and contractor names replaced via persistent mapping. Schedule data is AI-generated where production access isn't available, with documented assumptions; generation scripts are themselves deliverables.",
-    "images": ["/placeholder-1.svg", "/placeholder-2.svg", "/placeholder-3.svg"]
+    "images": ["/images/projects/technical/riskregister1.png", "/placeholder-2.svg", "/placeholder-3.svg"]
   },
 {
     "id": "tech-3",
