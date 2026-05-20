@@ -95,7 +95,6 @@ export default function ConstructionSection({ onOpen }: Props) {
               <ProjectThumb
                 swatch={p.swatch}
                 label={p.label}
-                sector={p.sector}
                 image={p.image}
               />
               <div className="jh-card__body">

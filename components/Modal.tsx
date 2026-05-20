@@ -165,7 +165,6 @@ export default function Modal({ project, onClose }: Props) {
           ) : (
             <div className="jh-thumb__grid" />
           )}
-          <div className="jh-modal__hero-label">{project.label}</div>
         </div>
 
         <div className="jh-modal__body">
@@ -221,9 +220,15 @@ export default function Modal({ project, onClose }: Props) {
 
           <div className="jh-modal__section">
             <div className="jh-modal__h">Project</div>
-            <p className="jh-prose">
-              {tech ? project.detail : project.description}
-            </p>
+            {tech ? (
+              project.detail.map((para, i) => (
+                <p key={i} className="jh-prose">
+                  {para}
+                </p>
+              ))
+            ) : (
+              <p className="jh-prose">{project.description}</p>
+            )}
           </div>
 
           {!tech && (
