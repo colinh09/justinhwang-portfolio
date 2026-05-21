@@ -68,6 +68,14 @@ export default function Modal({ project, onClose }: Props) {
   if (!project) return null;
 
   const tech = isTechProject(project);
+  const pdf = tech ? project.pdf : undefined;
+  // Keep the title's last word glued to the download arrow so the arrow
+  // never wraps onto a line by itself.
+  const titleSplitAt = pdf ? project.title.lastIndexOf(" ") : -1;
+  const titleHead =
+    titleSplitAt < 0 ? "" : project.title.slice(0, titleSplitAt + 1);
+  const titleTail =
+    titleSplitAt < 0 ? project.title : project.title.slice(titleSplitAt + 1);
   const images = tech
     ? project.images ?? []
     : project.image
@@ -169,13 +177,56 @@ export default function Modal({ project, onClose }: Props) {
 
         <div className="jh-modal__body">
           <div className="jh-modal__head">
-            <div>
+            <div className="jh-modal__head-main">
               <h2 id={titleId} className="jh-display">
-                {project.title}
+                {pdf ? (
+                  <>
+                    {titleHead}
+                    <span className="jh-modal__title-tail">
+                      {titleTail}
+                      <a
+                        className="jh-modal__download"
+                        href={pdf}
+                        download
+                        aria-label={`Download ${project.title} as PDF`}
+                        title="Download PDF"
+                      >
+                        <svg
+                          className="jh-modal__download-glyph"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          aria-hidden="true"
+                          focusable="false"
+                        >
+                          <circle
+                            cx="12"
+                            cy="12"
+                            r="11.2"
+                            stroke="currentColor"
+                            strokeWidth="1.5"
+                          />
+                          <path
+                            d="M12 7.2V15.1M8.4 11.5L12 15.5L15.6 11.5"
+                            stroke="currentColor"
+                            strokeWidth="1.8"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                      </a>
+                    </span>
+                  </>
+                ) : (
+                  project.title
+                )}
               </h2>
               {!tech && <div className="jh-modal__sub">{project.sub}</div>}
             </div>
-            <div className="jh-chips">
+            <div
+              className={`jh-chips${
+                tech && project.tags.length > 5 ? " jh-chips--grid5" : ""
+              }`}
+            >
               {tech ? (
                 project.tags.map((t) => (
                   <span key={t} className="jh-chip">
