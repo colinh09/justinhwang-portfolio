@@ -40,6 +40,9 @@ export interface TechProject {
   label: string;
   detail: string[];
   images?: string[];
+  /** Path under /public to a downloadable PDF. When set, a download link
+      appears inline beside the title in the project modal. */
+  pdf?: string;
 }
 
 export type AnyProject = ConstructionProject | TechProject;

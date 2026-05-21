@@ -1128,6 +1128,40 @@ button {
   flex-shrink: 0;
 }
 
+/* Let the title block claim the space freed by a narrower chip block. */
+.jh-modal__head-main {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Projects with more than 5 tags: wrap the chips into neat rows of 5
+   instead of one wide row that squeezes the title. */
+.jh-modal__head .jh-chips--grid5 {
+  display: grid;
+  grid-template-columns: repeat(5, max-content);
+  justify-items: start;
+}
+
+/* The title's last word stays glued to the download arrow on one line. */
+.jh-modal__title-tail { white-space: nowrap; }
+
+/* Inline circled download-arrow link beside the modal title. Blue, to read
+   as a download action; vertically centred on the title's cap height
+   (badge box 0.84em, title cap height ~0.71em -> offset -0.066em). */
+.jh-modal__download {
+  display: inline-block;
+  vertical-align: -0.066em;
+  margin-left: 0.3em;
+  color: #2563eb;
+  transition: color 0.15s ease;
+}
+.jh-modal__download:hover { color: #1d4ed8; }
+.jh-modal__download-glyph {
+  height: 0.84em;
+  width: 0.84em;
+  display: block;
+}
+
 .jh-modal__meta {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
