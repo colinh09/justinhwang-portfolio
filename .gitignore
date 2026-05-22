@@ -11,3 +11,6 @@ design-bundle.tar
 design-bundle.gz
 design-extract/
 .vercel
+
+# Claude Code (local tooling — skills, settings, etc.)
+.claude/
