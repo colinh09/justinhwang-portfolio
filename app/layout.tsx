@@ -59,10 +59,7 @@ const PERSON_JSONLD = {
   jobTitle: "Senior Project Controls Engineer",
   email: "JKH.Build@gmail.com",
   url: SITE_URL,
-  address: [
-    { "@type": "PostalAddress", addressLocality: "New York", addressRegion: "NY" },
-    { "@type": "PostalAddress", addressLocality: "Seattle", addressRegion: "WA" },
-  ],
+  address: { "@type": "PostalAddress", addressLocality: "New York", addressRegion: "NY" },
   alumniOf: {
     "@type": "CollegeOrUniversity",
     name: "SUNY at Buffalo",
