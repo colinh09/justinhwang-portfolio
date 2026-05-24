@@ -53,6 +53,10 @@ export interface TechProject {
   /** Public URL to the project's source repository (e.g. GitHub). When set,
       a Repo pill appears in the modal header. Added in Phase 2. */
   repo?: string;
+  /** Public URL to a deployed live version of the project (web app, etc.).
+      When set, a "View live" pill appears in the modal topbar. For embed
+      projects, embedUrl is used as the View-live target if liveUrl is unset. */
+  liveUrl?: string;
   /** Power BI "Publish to web" URL. When set, the modal renders a live
       iframe in place of the photo carousel. Added in Phase 2. */
   embedUrl?: string;

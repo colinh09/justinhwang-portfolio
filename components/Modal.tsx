@@ -73,6 +73,9 @@ export default function Modal({ project, onClose }: Props) {
   const pdf = tech ? project.pdf : undefined;
   const repo = tech ? project.repo : undefined;
   const embedUrl = tech ? project.embedUrl : undefined;
+  const liveHref = tech ? project.liveUrl ?? project.embedUrl : undefined;
+  const embedLabel = tech ? project.embedLabel : undefined;
+  const embedCaption = tech ? project.embedCaption : undefined;
   const images = tech
     ? project.images ?? []
     : project.image
@@ -121,10 +124,118 @@ export default function Modal({ project, onClose }: Props) {
           </button>
         )}
 
+        {tech && (
+          <div className="jh-modal__topbar">
+            <div className="jh-modal__topbar-left">
+              {embedUrl && (
+                <>
+                  {embedLabel && (
+                    <span className="jh-modal__topbar-label">{embedLabel}</span>
+                  )}
+                  {embedCaption && (
+                    <span className="jh-modal__topbar-sub">{embedCaption}</span>
+                  )}
+                  <span
+                    className="jh-embed__badge"
+                    aria-label="Interactive Power BI report"
+                  >
+                    <span className="jh-embed__badge-dot" aria-hidden="true" />
+                    INTERACTIVE · POWER BI
+                  </span>
+                </>
+              )}
+            </div>
+            <div className="jh-modal__topbar-right">
+              {pdf && (
+                <a
+                  className="jh-pill jh-pill--dark"
+                  href={pdf}
+                  download
+                  aria-label={`Download ${project.title} as PDF`}
+                >
+                  <svg
+                    className="jh-pill__icon"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    aria-hidden="true"
+                    focusable="false"
+                  >
+                    <circle
+                      cx="12"
+                      cy="12"
+                      r="10.5"
+                      stroke="currentColor"
+                      strokeWidth="1.4"
+                    />
+                    <path
+                      d="M12 7.2V15.1M8.4 11.5L12 15.5L15.6 11.5"
+                      stroke="currentColor"
+                      strokeWidth="1.6"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                  PDF
+                </a>
+              )}
+              {repo && (
+                <a
+                  className="jh-pill jh-pill--dark"
+                  href={repo}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={`Open ${project.title} repository in a new tab`}
+                >
+                  <svg
+                    className="jh-pill__icon"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    aria-hidden="true"
+                    focusable="false"
+                  >
+                    <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.55v-1.92c-3.2.7-3.87-1.54-3.87-1.54-.52-1.33-1.28-1.68-1.28-1.68-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.76 2.7 1.25 3.35.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.27-5.24-5.67 0-1.25.45-2.27 1.18-3.07-.12-.29-.51-1.46.11-3.04 0 0 .96-.31 3.15 1.17a10.9 10.9 0 015.74 0c2.19-1.48 3.15-1.17 3.15-1.17.62 1.58.23 2.75.11 3.04.74.8 1.18 1.82 1.18 3.07 0 4.41-2.7 5.37-5.27 5.66.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.55C20.21 21.39 23.5 17.08 23.5 12 23.5 5.65 18.35.5 12 .5z" />
+                  </svg>
+                  Repo
+                </a>
+              )}
+              {liveHref && (
+                <a
+                  className="jh-pill jh-pill--dark"
+                  href={liveHref}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={`View ${project.title} live in a new tab`}
+                >
+                  View live <span aria-hidden="true">↗</span>
+                </a>
+              )}
+              <button
+                type="button"
+                className="jh-pill jh-pill--dark jh-pill--close"
+                onClick={onClose}
+                aria-label="Close"
+              >
+                <svg
+                  className="jh-pill__icon"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  aria-hidden="true"
+                  focusable="false"
+                >
+                  <path
+                    d="M5 5 L15 15 M15 5 L5 15"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+        )}
+
         <div
-          className={`jh-modal__hero${tech ? " jh-modal__hero--tech" : ""}${
-            embedUrl ? " jh-modal__hero--embed" : ""
-          }`}
+          className={`jh-modal__hero${tech ? " jh-modal__hero--tech" : ""}`}
           style={{
             background: embedUrl || hasImages ? "#0d0a07" : project.swatch,
           }}
@@ -189,93 +300,16 @@ export default function Modal({ project, onClose }: Props) {
               {!tech && <div className="jh-modal__sub">{project.sub}</div>}
             </div>
             {tech ? (
-              <div className="jh-modal__head-right">
-                <div className="jh-modal__actions">
-                  {pdf && (
-                    <a
-                      className="jh-pill"
-                      href={pdf}
-                      download
-                      aria-label={`Download ${project.title} as PDF`}
-                    >
-                      <svg
-                        className="jh-pill__icon"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        aria-hidden="true"
-                        focusable="false"
-                      >
-                        <circle
-                          cx="12"
-                          cy="12"
-                          r="10.5"
-                          stroke="currentColor"
-                          strokeWidth="1.4"
-                        />
-                        <path
-                          d="M12 7.2V15.1M8.4 11.5L12 15.5L15.6 11.5"
-                          stroke="currentColor"
-                          strokeWidth="1.6"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-                      PDF
-                    </a>
-                  )}
-                  {repo && (
-                    <a
-                      className="jh-pill"
-                      href={repo}
-                      target="_blank"
-                      rel="noreferrer"
-                      aria-label={`Open ${project.title} repository in a new tab`}
-                    >
-                      <svg
-                        className="jh-pill__icon"
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                        aria-hidden="true"
-                        focusable="false"
-                      >
-                        <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.55v-1.92c-3.2.7-3.87-1.54-3.87-1.54-.52-1.33-1.28-1.68-1.28-1.68-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.76 2.7 1.25 3.35.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.27-5.24-5.67 0-1.25.45-2.27 1.18-3.07-.12-.29-.51-1.46.11-3.04 0 0 .96-.31 3.15 1.17a10.9 10.9 0 015.74 0c2.19-1.48 3.15-1.17 3.15-1.17.62 1.58.23 2.75.11 3.04.74.8 1.18 1.82 1.18 3.07 0 4.41-2.7 5.37-5.27 5.66.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.55C20.21 21.39 23.5 17.08 23.5 12 23.5 5.65 18.35.5 12 .5z" />
-                      </svg>
-                      Repo
-                    </a>
-                  )}
-                  <button
-                    type="button"
-                    className="jh-pill jh-pill--close"
-                    onClick={onClose}
-                    aria-label="Close"
-                  >
-                    <svg
-                      className="jh-pill__icon"
-                      viewBox="0 0 20 20"
-                      fill="none"
-                      aria-hidden="true"
-                      focusable="false"
-                    >
-                      <path
-                        d="M5 5 L15 15 M15 5 L5 15"
-                        stroke="currentColor"
-                        strokeWidth="1.5"
-                        strokeLinecap="round"
-                      />
-                    </svg>
-                  </button>
-                </div>
-                <div
-                  className={`jh-chips${
-                    project.tags.length > 5 ? " jh-chips--grid5" : ""
-                  }`}
-                >
-                  {project.tags.map((t) => (
-                    <span key={t} className="jh-chip">
-                      {t}
-                    </span>
-                  ))}
-                </div>
+              <div
+                className={`jh-chips${
+                  project.tags.length > 5 ? " jh-chips--grid5" : ""
+                }`}
+              >
+                {project.tags.map((t) => (
+                  <span key={t} className="jh-chip">
+                    {t}
+                  </span>
+                ))}
               </div>
             ) : (
               <div className="jh-chips">

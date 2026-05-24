@@ -622,6 +622,34 @@ Ran the `security-review` skill on the full Phase 5 diff. Findings: **none at HI
 7. Failure path: temporarily edit `content/technical-projects.json` to set `tech-2b.embedUrl` to an invalid Power BI URL (e.g. `https://app.powerbi.com/view?r=invalid`). Reload, open tech-2b modal. Expect the failure state within ~10s with the "Open dashboard in a new tab ↗" CTA. Revert the JSON change.
 8. Reduced motion: DevTools → Rendering → emulate `prefers-reduced-motion: reduce`. Open tech-2b. Expect no badge pulse, no spinner spin, no CTA hover lift.
 
+### Post-ship Phase 5 iteration — unified topbar + liveUrl (Phase 5b)
+
+User feedback on the initial Phase 5 ship:
+- The semi-translucent gradient strip overlaid on the Power BI iframe interfered with the report's own indigo header band and was unreadable over filters / text.
+- The × close button felt out of place stacked above the chip pills in the title row; it should sit on the dark band where the embed's Open link was.
+- Same dark-band treatment should apply to non-embed tech modals (PDF / Repo / × should sit on a band above the carousel, not in the title row).
+- Title row was being squeezed by the 5-column chip grid for projects with 6+ tags.
+- Need a way to surface a deployed-live-site link for tech projects (e.g. tech-5 Weave, tech-6 Projectify).
+
+Changes (uncommitted at time of writing, included in the Phase 5 commit):
+- **New `.jh-modal__topbar`** — full-width dark band (`#14110D`) at the very top of every tech modal. Left side: embed label + caption + INTERACTIVE badge (embed mode only). Right side: PDF, Repo, View live, × pills in that order. Construction modal untouched per Q3.
+- **New `liveUrl?: string`** field on `TechProject` ([lib/types.ts](lib/types.ts)). When set, the topbar shows a "View live ↗" pill linking to it. For embed projects, `liveUrl` defaults to `embedUrl` so the View live pill is present without extra config.
+- **Label decision**: "View live" (user pick from 4 options: Live site / View live / Live demo / context-aware).
+- **`.jh-pill--dark`** modifier — cream-on-dark default, filled cream on hover (mirror of the existing `.jh-pill` light-mode behavior).
+- **Removed**: the `.jh-embed__strip` overlay inside TechEmbed and its supporting CSS (open link, gradient, badge inside the strip). TechEmbed is now just the iframe + loading/failure overlays. `.jh-modal__hero--embed` override and `.jh-embed__stage` wrapper also removed; the iframe fills the existing 16:9 `.jh-modal__hero--tech` directly.
+- **Title row simplified for tech**: dropped the `.jh-modal__head-right` wrapper that stacked actions above chips. Chips now sit directly in the title row's right grid cell.
+- **Chip grid narrowed**: `.jh-chips--grid5` (the 6+ tags case) wraps in rows of 4 instead of 5, giving the title block ~80px more room.
+
+Trade-offs:
+- The topbar adds ~44px of vertical chrome to every tech modal, regardless of whether the project has any action pills. Acceptable — the lone × on the right side of an otherwise-empty band is still cleaner than the prior in-title-row layout.
+- For non-embed tech modals (e.g. tech-1, tech-3), the topbar's left side is empty. Visually it reads as a clean dark band with the close on the right.
+- The chip grid is now 4-col when triggered; tech-5 (7 tags) is the only project that goes to 3 rows of chips. Minor; the title row stays compact.
+
+Build: `npm run build` clean. Page bundle stayed at 16.6 kB (the new topbar JSX + dark-pill CSS netted against the removed embed-strip code).
+
+Outstanding from Phase 5b user feedback:
+- Power BI report should land on the Executive page by default. User opted to defer this; the fix is either Power BI Desktop reordering + republish, or appending `&pageName=ReportSection<id>` to the embedUrl in JSON.
+
 ### Notes for Phase 6
 
 - The iframe sandbox + `referrerPolicy` are spec-literal; Phase 6 a11y review should confirm the iframe `title` is announced by screen readers (it should — it's a standard accessibility name).

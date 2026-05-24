@@ -47,30 +47,6 @@ export default function TechEmbed({ project, embedUrl }: Props) {
 
   return (
     <div className="jh-embed">
-      <div className="jh-embed__strip">
-        <div className="jh-embed__strip-text">
-          <div className="jh-embed__strip-label">{title}</div>
-          {project.embedCaption && (
-            <div className="jh-embed__strip-sub">{project.embedCaption}</div>
-          )}
-        </div>
-        <div className="jh-embed__strip-actions">
-          <span className="jh-embed__badge" aria-label="Interactive Power BI report">
-            <span className="jh-embed__badge-dot" aria-hidden="true" />
-            INTERACTIVE · POWER BI
-          </span>
-          <a
-            className="jh-embed__open"
-            href={embedUrl}
-            target="_blank"
-            rel="noreferrer"
-            aria-label={`Open ${title} in a new tab`}
-          >
-            Open <span aria-hidden="true">↗</span>
-          </a>
-        </div>
-      </div>
-
       {state.status !== "failed" && (
         <iframe
           className="jh-embed__iframe"
