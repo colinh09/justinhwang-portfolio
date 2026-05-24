@@ -95,13 +95,13 @@ export default function Modal({ project, onClose }: Props) {
 
   return (
     <div
-      className="jh-modal"
+      className={`jh-modal${tech ? " jh-modal--tech" : ""}`}
       onClick={onClose}
       role="presentation"
     >
       <div
         ref={dialogRef}
-        className="jh-modal__inner"
+        className={`jh-modal__inner${tech ? " jh-modal__inner--tech" : ""}`}
         role="dialog"
         aria-modal="true"
         aria-labelledby={titleId}

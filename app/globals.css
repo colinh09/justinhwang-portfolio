@@ -1006,6 +1006,18 @@ button {
   to   { transform: translateY(0); opacity: 1; }
 }
 
+/* Tech modal — Phase 1 responsive sizing fix.
+   Construction modal keeps the shared .jh-modal / .jh-modal__inner sizing. */
+.jh-modal--tech {
+  padding: clamp(16px, 2.5vw, 40px);
+}
+.jh-modal__inner--tech {
+  max-width: clamp(920px, 70vw, 1240px);
+}
+.jh-modal__inner--tech .jh-modal__head .jh-display {
+  font-size: clamp(22px, 0.6vw + 18px, 32px);
+}
+
 .jh-modal__close {
   position: absolute;
   top: 18px;
