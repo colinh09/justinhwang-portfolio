@@ -13,8 +13,8 @@ The `side projects/` folder is local-only (see [side projects/.gitignore](side p
 | 0     | Reconnaissance                         | **DONE — awaiting Phase 1 go-ahead** |
 | 1     | Responsive sizing fix on existing modal | **DONE — visually signed off after one tuning iteration** |
 | 2     | Data schema + QA fixture                | **DONE — pending user-supplied content from parallel CC session for `challenges`, `pdf`, `repo`, `embedUrl`, `embedFallbackImage`, `images`** |
-| 3     | Header chrome (PDF / Repo / × pills)    | Not started           |
-| 4     | Body restructure + sidenav              | Not started           |
+| 3     | Header chrome (PDF / Repo / × pills)    | **DONE — pending visual sign-off** |
+| 4     | Body restructure + sidenav              | **DONE — pending visual sign-off** |
 | 5     | Embed mode (iframe + CSP + lifecycle)   | Not started           |
 | 6     | A11y, keyboard, cross-browser           | Not started           |
 
@@ -335,6 +335,176 @@ These are all optional in the schema, so the entry compiles and renders without 
 - ✓ QA project carries every new field that has user-ready content; remaining fields are documented above.
 - ⚠ "Homepage cards unchanged" test is satisfied in spirit but not literally — a NEW card now appears in the grid. You opted in to this via Q3 answer ("We need to add it manually to the json").
 - → If the new 7th card disrupts the grid layout (you mentioned possibly deleting `tech-4` "Basic Expense Report" for alignment), confirm and I'll remove it.
+
+---
+
+## Phase 3 — Changes shipped
+
+Tech-only header chrome. Construction modal untouched.
+
+**[components/Modal.tsx](components/Modal.tsx)**:
+- Dropped the title-splitting (`titleSplitAt` / `titleHead` / `titleTail`) and the inline `<a class="jh-modal__download">` arrow inside the `<h2>`. Title is now a plain `{project.title}` string.
+- Added `repo` extraction alongside the existing `pdf` extraction (both gated on `tech`).
+- For tech: head right column is a new `.jh-modal__head-right` wrapper containing `.jh-modal__actions` (PDF → Repo → close, in that DOM order) on top and the existing `.jh-chips` block below.
+- PDF and Repo render as `<a class="jh-pill" target="_blank" rel="noreferrer">`. Close renders as `<button class="jh-pill jh-pill--close">`. Each pill carries an `aria-label`; inner SVGs are `aria-hidden` + `focusable="false"`.
+- The absolute hero-corner `.jh-modal__close` is now wrapped in `{!tech && ...}` — only construction renders it. For tech, the close lives inside the title row's actions group instead.
+
+**[app/globals.css](app/globals.css)** — replaced the now-dead `.jh-modal__title-tail` / `.jh-modal__download` / `.jh-modal__download-glyph` rules with:
+- `.jh-modal__inner--tech .jh-modal__head` — switches the head from flex to `grid-template-columns: 1fr auto; gap: 28px; align-items: start`. Construction's head stays flex.
+- `.jh-modal__head-right` — column flex, `align-items: flex-end`, `gap: 14px`.
+- `.jh-modal__inner--tech .jh-modal__head .jh-chips { margin-top: 0; }` — neutralizes the existing `margin-top: 14px` since the gap is now owned by the wrapper.
+- `.jh-modal__actions` — flex row, `gap: 8px`, `align-items: center`.
+- `.jh-pill` — `7px 12px` padding, Inter 11.5px / 500, 999px radius, `var(--jh-line)` border, transparent bg, `var(--jh-ink)` color, 150ms color/bg/border transitions.
+- `.jh-pill:hover, .jh-pill:focus-visible` — bg `var(--jh-ink)`, color `var(--jh-bg)`, border `var(--jh-ink)`. Icon opacity goes 0.8 → 1.
+- `.jh-pill__icon` — 14×14, opacity 0.8 default.
+- `.jh-pill--close` — `28×28`, `padding: 0`, `justify-content: center` (icon-only circle, same hover spec).
+
+### Deviations from README spec, recorded
+
+| README literal | Substituted with | Reason |
+|----------------|------------------|--------|
+| Border `#c7bfb0` (spec's `--rule-strong`) | `var(--jh-line)` (`#e0d8c6`) | No `--rule-strong` token exists on the site; Q4 answer rules out new color tokens. Existing hairline color reads as a clean pill border on the cream bg. |
+| Hover bg `#1d2230` | `var(--jh-ink)` (`#111111`) | Site ink is closer to black than spec's navy-tinted ink. Phase 1 set the precedent for site-token substitution. |
+| Hover color `#f3eee5` | `var(--jh-bg)` (`#EFEAE0`) | Same precedent as Phase 1 (modal bg substitution). Visually identical at this size. |
+
+Visual treatment matches the spec's intent (dark ink on cream, hover inverts to cream on dark ink). If the literal hex values matter for any cross-site pixel comparison, swap in three local rules under `.jh-modal__inner--tech .jh-pill` and override.
+
+### Test status vs PHASED_PLAN Phase 3
+
+| # | Test                                                                       | Status                                                                          |
+|---|----------------------------------------------------------------------------|---------------------------------------------------------------------------------|
+| 1 | QA project shows both pills; no-`pdf` shows only Repo; neither shows only × | **Code-verified.** `tech-2b` currently has no `pdf` / `repo` → shows only × (until your parallel session fills them). `tech-2` "Risk Register Dashboard" has `pdf` only → shows PDF + ×. No project carries `repo` in source yet. Add `repo` to any tech project to see the Repo pill render. |
+| 2 | Pill hover state matches README hex                                         | **Visual sign-off pending.** See "Deviations" above — using site tokens, not literal hex. Confirm or request swap. |
+| 3 | Both pills open in a new tab (`target="_blank"`, `rel="noreferrer"`)        | **Repo: code-verified.** **PDF: user override — uses `download` attribute** so the file downloads instead of opening in a new tab, preserving the prior inline-arrow behavior. README spec test deferred for PDF. |
+| 4 | Esc still closes; tab order sensible                                        | **Esc**: unchanged, key handler still fires `onClose`. **Tab order**: pills DOM order is `PDF → Repo → close`. First focusable in the modal is now the first carousel arrow (if multi-image) or first pill (if not). Previously was the absolute close. |
+
+**Build**: `npm run build` clean. Page bundle 14.4 → 14.8 kB (extra ~400 B = GitHub SVG path).
+
+**Visual verification**: NOT performed by me — I can't observe a running browser from this environment. Manual check needed: open `tech-2` modal at any viewport, confirm the PDF pill sits to the right of the title with the × beside it, chips sit below the actions row, hover inverts cream/ink cleanly, and tab cycles through PDF → × in that order.
+
+### Notes for Phase 4
+
+- Currently `.jh-modal__head` for tech uses `align-items: start` so the title's top aligns with the actions row's top. If Phase 4 introduces a multi-row title-block (eyebrow + title + sub), revisit this alignment.
+- Construction modal's head still uses the original flex layout — when Phase 4 lifts the sidenav for tech, leave construction's head untouched.
+- The `.jh-modal__head-main`'s `flex: 1; min-width: 0` (from before) is unused for tech now that the head is `grid 1fr auto`. Harmless. Phase 4 can clean up if it touches that selector.
+
+---
+
+## Phase 4 — Changes shipped
+
+Tech-only body restructure + sidenav. Construction modal untouched per Q3. Skill stack invoked at session start: `next-best-practices`, `vercel-react-best-practices`, `typescript-advanced-types`, `frontend-design`.
+
+### New files
+
+**[lib/sections.ts](lib/sections.ts)** — section registry + types + `getActiveSections`.
+
+- `SECTION_DEFS` is declared `as const satisfies readonly {...}[]`. The `satisfies` clause forces every `key` to be a real `keyof TechProject` at compile time; `as const` preserves literal types so `(typeof SECTION_DEFS)[number]` is a usable discriminated union on `kind` (`"prose" | "list"`).
+- `ActiveSection` narrows by kind: prose → `value: readonly string[]`, list → `value: readonly ProjectItem[]`. The renderer switch on `section.kind` narrows `value` without casts.
+- `getActiveSections(project)`:
+  - **Prose** pulls from `description` first, falls back to legacy `detail: string[]` paragraphs filtered for non-empty content. This preserves rendering for tech-1, tech-3, tech-4, tech-5, tech-6 — they were never migrated to the new schema and would otherwise render zero body content. The fallback joins paragraphs into an array; the renderer maps each to a `<p class="jh-sec-desc">`.
+  - **List** sections render iff the array is present and non-empty.
+  - Empty fields collapse totally: no nav link, no header, no spacing.
+
+**[components/TechModalBody.tsx](components/TechModalBody.tsx)** — extracted from Modal.tsx per `rerender-no-inline-components`.
+
+- `sections = useMemo(() => getActiveSections(project), [project])` — stable identity within a project lifetime; regenerates on project switch.
+- `renderedActiveId` derived in render (not synced via effect) per `rerender-derived-state-no-effect`. If the previously-active id no longer exists, falls back to `sections[0]?.id`.
+- Scroll-spy effect attaches `scroll` listener with `{ passive: true }` per `client-passive-event-listeners`. Listener uses functional `setActiveId((prev) => prev === cur ? prev : cur)` to short-circuit re-renders when the active id hasn't changed (`rerender-functional-setstate`).
+- `sectionTopWithinScroller` uses `getBoundingClientRect()` delta math (not `offsetTop`) per spec and PHASED_PLAN line 109.
+- 6px tolerance on the active flip.
+- `jump(id)` runs `setActiveId(id)` synchronously, then `scrollTo({ top, behavior: prefersReducedMotion() ? "auto" : "smooth" })`. Instant feedback; spy reconfirms on settle.
+- Refs map via `useRef<Record<string, HTMLElement | null>>({})` for stable identity across section adds/removes (per `rerender-use-ref-transient-values`).
+- `SectionContent` is a sibling function at module scope (not nested inside `TechModalBody`).
+
+### [components/Modal.tsx](components/Modal.tsx)
+
+Single-statement swap: the tech "Project" block (old `<div class="jh-modal__section">` with `<div class="jh-modal__h">Project</div>` + `project.detail.map(...)`) replaced with `<TechModalBody project={project} />` when tech. Construction's "Project" + "My contributions" + "Related" sections untouched. One new import.
+
+### [app/globals.css](app/globals.css)
+
+Phase 4 block inserted after `.jh-pill--close`, before `.jh-modal__meta`. Every selector is gated under `.jh-modal__inner--tech` or a new tech-only class prefix (`jh-sn-*`, `jh-sec*`, `jh-ni*`).
+
+- `.jh-modal__inner--tech` — **re-added `max-height: calc(100vh - 32px)`** per spec, now that internal scrolling exists. Plus `display: flex; flex-direction: column;`.
+- `.jh-modal__inner--tech .jh-modal__hero, .jh-modal__inner--tech .jh-modal__head` — `flex-shrink: 0` (don't compress the carousel or title row).
+- `.jh-modal__inner--tech .jh-modal__body` — flex column, flex: 1, min-height: 0.
+- `.jh-sn-body` — grid `clamp(140px, 14%, 200px) 1fr`, gap `clamp(24px, 3vw, 48px)`. Flexes within body.
+- `.jh-sn-nav` — flex column, align-self: start.
+- `.jh-sn-link` / `.jh-sn-dot` — Inter 12.5px, color mute → ink-2 (hover) → ink + 500 weight (active). Dot 6px, --jh-line default → **--jh-accent (deep forest green per Q4)** + scale 1.2 active.
+- `.jh-sn-scroll` — `overflow-y: auto`, min-height: 0, flex column gap 28px (section ↔ section spacing per spec). Thin custom scrollbar via `scrollbar-width` + `::-webkit-scrollbar`.
+- `.jh-sec-label` — Inter 10.5px caps + letter-spacing 0.14em (no JetBrains Mono per Q5), trailing 1px hairline filler in `--jh-line`.
+- `.jh-sec-desc` — Newsreader serif 17px / line-height 1.55 / `text-wrap: pretty`. Adjacent `.jh-sec-desc + .jh-sec-desc` stack with 14px top margin (multi-paragraph fallback for legacy projects).
+- `.jh-ni-list` / `.jh-ni` / `.jh-ni-num` / `.jh-ni-text` / `.jh-ni-lead` — grid `22px 1fr`, gap 8px. Numbers in Inter 11px / `--jh-faint`. Body in Inter 14px / line-height 1.6 / `--jh-ink-2`. Lead bold + `--jh-ink`. 18px gap between items.
+- `@media (prefers-reduced-motion: reduce)` — kills sidenav `transition` + active-dot `transform: scale(1.2)`.
+- `@media (max-width: 700px)` — collapses sidenav to a horizontal wrapping pill row above the content, drops `max-height` and internal scroll so outer `.jh-modal` handles overflow as it did pre-Phase 4.
+
+### Deviations from README spec, recorded
+
+| README literal | Substituted with | Reason |
+|----------------|------------------|--------|
+| Section label / counter font: **JetBrains Mono** | Inter caps + letter-spacing 0.14em (labels); Inter 11px + letter-spacing 0.04em + `--jh-faint` (counters) | Q5 — no new font family. |
+| Sidenav active dot color: `#1d2536` (spec navy) | `var(--jh-accent)` (deep forest green) | Q4 — reuse site accent. |
+| `position: sticky` on `.jh-sn-nav` | Grid layout + right-column `overflow-y: auto` | Same visual effect (nav stays put because it's a non-scrolling grid cell). Adding sticky would require dropping `.jh-modal__inner`'s `overflow: hidden` (or switching to `overflow: clip`) to escape the sticky-containing-block trap — not worth the side effects for a no-op visual. |
+| Description: `description: string` only | Fallback to legacy `detail: string[]` if no description | Five existing tech projects (tech-1, tech-3, tech-4, tech-5, tech-6) only carry `detail` — without the fallback they'd lose all body content under Phase 4. Tech-2b uses `description` and is unaffected. |
+
+### Tests vs PHASED_PLAN Phase 4 test list
+
+| # | Test                                                                          | Status |
+|---|-------------------------------------------------------------------------------|--------|
+| 1 | tech-2b renders all four sections in order: Description, Objectives, Challenges, Future Features. | **Expected partial: 3 of 4.** tech-2b has no `challenges` yet (pending the parallel CC session). Per the hand-off note: "expect 3 of the 4 body sections to render (no challenges)." Render order will be Description → Objectives → Future Features. When `challenges` lands in the JSON, the fourth section renders automatically (no code change). |
+| 2 | description-only project: one section, single-link sidenav. | **Code-verified.** Single section → `sections.length === 1`. The sidenav renders one link; empty-collapse holds for the other three. |
+| 3 | A project with no body fields: no body wrapper. | **Code-verified.** `if (sections.length === 0) return null;` in TechModalBody. No project in the JSON currently hits this — every tech project carries `detail`. |
+| 4 | Scroll-spy flips active state within 6px tolerance. | **Visual sign-off pending.** Math mirrors the prototype's `getBoundingClientRect()` delta against the scroller. Listener attaches with `{ passive: true }`. Manual browser test needed. |
+| 5 | Sidenav click → smooth scroll + immediate active flip. | **Visual sign-off pending.** `setActiveId(id)` fires synchronously inside `jump()`; `scrollTo` runs after. Manual browser test needed. |
+| 6 | prefers-reduced-motion: smooth → auto. | **Code-verified.** `prefersReducedMotion()` is checked at click time and swaps the `behavior` argument. Sidenav transition + active-dot scale are also disabled via the matching media query in CSS. |
+| 7 | Sidenav column scales 140px ↔ 200px. | **Code-verified.** `grid-template-columns: clamp(140px, 14%, 200px) 1fr` — spec value, no deviation. |
+
+**Build**: `npm run build` clean. Page bundle 14.8 → 15.6 kB (~800 B from sections.ts + TechModalBody.tsx, mostly the JSON-constant registry).
+
+**Visual verification**: NOT performed by me — Windows CLI session with no Playwright/headless browser, and a curl of `/` can't drive the client-side modal-open click. Dev server SSR confirms HTTP 200, no compile errors, no runtime errors in the dev log. Dev server was running on port **3002** (port 3000 held by another process) at the end of this session. Manual verification recipe:
+
+1. Open tech-2b modal — confirm sidenav appears with three links (`Description`, `Learning Goals`, `What's Next?`).
+2. Click each link in turn — confirm right column smooth-scrolls to that section; active dot + label flip instantly on click.
+3. Scroll the right column manually — confirm active dot follows the section that's currently at the top, with the 6px tolerance.
+4. DevTools → Rendering → emulate `prefers-reduced-motion: reduce`. Click a sidenav link — scroll should be instant (no smooth animation). Active-dot scale should not animate.
+5. Confirm tech-1 / tech-3 etc. open with one Description section showing their existing `detail` paragraphs (the legacy-fallback path).
+6. Confirm a construction project modal is visually unchanged.
+
+### Notes for Phase 5
+
+- Internal scrolling now happens on `.jh-sn-scroll`. Phase 5's embed iframe lives inside `.jh-modal__hero--tech`, which is `flex-shrink: 0` — the iframe gets its natural 16:9 height regardless of body scroll state. No layout conflict.
+- The `embedUrl ? <iframe …/> : <carousel …/>` branch sits entirely inside the existing `.jh-modal__hero` block. Phase 4 didn't touch that block; Phase 5 owns it cleanly.
+- The Phase 1 user feedback against `max-height: 60vh` on the carousel still stands. If Phase 5 finds the iframe at full 16:9 is too tall on common 1080p displays (squeezing the body), revisit — but don't pre-emptively add the cap.
+- `.jh-modal__inner--tech`'s `max-height: calc(100vh - 32px)` is now in place. If a Phase 5 fallback state (revoked embed + image fallback) grows the hero, the body shrinks to absorb — no overflow into the page.
+
+### Post-ship fix — clicking the last sidenav link landed on the second-to-last section
+
+User reported: clicking "What's Next?" from Description left the active dot on "Learning Goals" — needed a second click to settle on "What's Next?". Two interacting bugs:
+
+1. **Last section can't physically reach the scroller's top.** `scrollTo({ top })` clamps at `scrollHeight - clientHeight`. For the final section, that clamp leaves its heading below the top edge — the spy's `section.top ≤ scrollTop` test never triggered for the last section. The same is true of any user-driven scroll to the very bottom — they'd never see "What's Next?" highlight either.
+2. **Smooth-scroll fires intermediate scroll events.** Even with #1 fixed, the spy would re-evaluate on every intermediate frame and flicker through the sections we're scrolling past, overriding the optimistic `setActiveId(id)` from `jump()`.
+
+Fix in [components/TechModalBody.tsx](components/TechModalBody.tsx):
+- Added a `programmaticScrollRef` flag set inside `jump()` and cleared 800 ms later (covers typical smooth-scroll duration; reduced-motion mode clears it harmlessly because the scroll completes instantly). The spy bails early while the flag is set, so the optimistic `setActiveId` from the click survives.
+- Added an `atBottom` check inside the spy (`scrollTop + clientHeight >= scrollHeight - 2`) that pins the last section as active whenever the scroller has nothing left to scroll. Works for both click-initiated and manual scrolling.
+- The settle timer is cleaned up in the effect's teardown (and re-cleared on the next click), so unmounting mid-scroll doesn't leak.
+
+### Post-ship fix — sidenav-click overshoot from `html { zoom: 1.1 }`
+
+User reported (with screenshot): clicking a sidenav link landed the section heading clipped ~10–12 px past the scroller's top edge. This is the `html { zoom: 1.1 }` gotcha flagged in [CLAUDE.md](CLAUDE.md) and Phase 0 inventory:
+
+- `Element.getBoundingClientRect()` returns **zoomed** viewport pixels (1.1× CSS pixels).
+- `Element.scrollTop` / `Element.scrollTo({ top })` use **unzoomed** CSS pixels.
+- The Phase 4 formula `el.BCR.top - scroller.BCR.top + scroller.scrollTop` mixed the two: target overshoot = `(zoom − 1) × delta` ≈ `0.1 × 120` = 12 px clipped.
+
+Fix in [components/TechModalBody.tsx](components/TechModalBody.tsx): added `getZoom()` (reads `getComputedStyle(documentElement).zoom`, falls back to 1) and divided the BCR delta by it inside `sectionTopWithinScroller`. Math is now consistent in unzoomed CSS pixels, so both `scrollTo` and the 6 px tolerance comparison hold whether zoom is 1.0 or 1.1.
+
+**Read this before writing more BCR-based scroll math in Phases 5/6.** Anywhere a measurement crosses the BCR / scrollTop boundary on this site, the zoom factor has to be applied. Use the same `getZoom()` helper or compute inline. Build clean after fix; page bundle 15.6 → 15.7 kB (zoom helper).
+
+### Cleanup left for Phase 6 / future passes
+
+- `.jh-modal__head-main { flex: 1; min-width: 0 }` is now unused for tech (`.jh-modal__inner--tech .jh-modal__head` is `display: grid`, not flex). Phase 3 already flagged this; still harmless dead-ish.
+- The legacy-fallback in `getActiveSections` could go away once tech-1/3/4/5/6 are migrated to `description`. Until then, deleting it would silently drop body content. Leave in place.
+- No font request changes. Newsreader + Inter only — same set as before Phase 4.
 
 ---
 

@@ -8,7 +8,7 @@ Personal portfolio site for Justin Hwang (project controls engineer), deployed t
 
 ## In-progress work
 
-The technical project modal is being redesigned in a multi-phase effort tracked in [PROJECT_STATE.md](PROJECT_STATE.md) at the repo root — read it first when picking work up. Spec, kickoff docs, prototype, and screenshots live locally under `side projects/powerbiembed/` (gitignored via `side projects/.gitignore`; not part of the repo). Reference both by path, do not paste their contents into context.
+The technical project modal is being redesigned in a multi-phase effort tracked in [PROJECT_STATE.md](PROJECT_STATE.md) at the repo root — read it first when picking work up. Spec, kickoff docs, phase prompts, prototype, and screenshots live locally under `side projects/powerbiembed/` (gitignored via `side projects/.gitignore`; not part of the repo). Per-phase paste-ready prompts live at `side projects/powerbiembed/PHASE_PROMPTS.md`. Reference all of these by path, do not paste their contents into context.
 
 ## Commands
 
@@ -23,6 +23,10 @@ npm run lint       # next lint
 No test suite is configured — there is no test runner and no test files.
 
 `@/*` is aliased to the repo root (`tsconfig.json`), so imports look like `@/lib/content`, `@/components/Modal`.
+
+## Claude Code skills
+
+Four project-scoped tech-stack skills are installed under `.agents/skills/` and symlinked into `.claude/skills/`: `next-best-practices`, `vercel-react-best-practices`, `typescript-advanced-types`, and `frontend-design`. They are not auto-invoked on every change — per-phase invocation is orchestrated by `side projects/powerbiembed/PHASE_PROMPTS.md`. For ad-hoc work outside the modal redesign, invoke them explicitly when relevant; do not lean on every rule for every diff.
 
 ## Architecture
 
