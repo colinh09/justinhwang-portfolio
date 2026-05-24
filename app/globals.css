@@ -1899,12 +1899,25 @@ button {
   .jh-thumb__grid,
   .jh-modal,
   .jh-modal__inner,
+  .jh-modal__hero-img,
+  .jh-modal__hero-nav,
+  .jh-modal__hero-dot,
   .jh-nav__label::after {
     transition: none !important;
     animation: none !important;
   }
   .jh-char { opacity: 1; transform: none; }
   .jh-fadeup { opacity: 1; transform: none; }
+}
+
+/* Focus-ring contrast: the global :focus-visible above uses
+   var(--jh-accent) (deep forest green). On the dark carousel bg
+   (#0d0a07) and dark topbar (#14110D), green-on-near-black is too
+   subtle. Use cream for those surfaces. */
+.jh-modal__hero-nav:focus-visible,
+.jh-modal__hero-dot:focus-visible,
+.jh-modal__topbar .jh-pill--dark:focus-visible {
+  outline-color: #f3ece0;
 }
 
 /* 404 page */

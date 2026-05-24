@@ -16,7 +16,7 @@ The `side projects/` folder is local-only (see [side projects/.gitignore](side p
 | 3     | Header chrome (PDF / Repo / × pills)    | **DONE — pending visual sign-off** |
 | 4     | Body restructure + sidenav              | **DONE — pending visual sign-off** |
 | 5     | Embed mode (iframe + CSP + lifecycle)   | **DONE — pending visual sign-off** |
-| 6     | A11y, keyboard, cross-browser           | Not started           |
+| 6     | A11y, keyboard, cross-browser           | **DONE (code) — pending user-driven Lighthouse + cross-browser smoke** |
 
 ---
 
@@ -661,6 +661,142 @@ Outstanding from Phase 5b user feedback:
   - **Firefox**: `referrerPolicy` on iframes is honored differently; confirm Power BI receives a referrer.
   - **Chrome**: confirm `loading="lazy"` doesn't defer the iframe past the modal opening (it shouldn't — `lazy` evaluates viewport position at mount, and the modal is in-viewport).
 - The `tech-2b` `embedFallbackImage` is still empty. If the user adds one later, the failure and loading overlays automatically pick it up (the CSS is already wired for `.jh-embed__fallback-img`).
+
+---
+
+## Phase 6 — Changes shipped (code) + user-verify checklist
+
+Skill stack invoked at session start: `vercel-react-best-practices`, `frontend-design`. `verify` skill not formally invoked — this session has no browser driver (Windows CLI), so verification gaps are handed off to the user below.
+
+### Code changes
+
+**[components/Modal.tsx](components/Modal.tsx)** — added a keyboard handler on `.jh-modal__hero` for the photo carousel:
+
+```tsx
+onKeyDown={
+  hasImages && images.length > 1
+    ? (e) => {
+        if (e.key === "ArrowLeft")  { e.preventDefault(); prev(); }
+        else if (e.key === "ArrowRight") { e.preventDefault(); next(); }
+      }
+    : undefined
+}
+```
+
+Rationale (per `vercel-react-best-practices` → `client-passive-event-listeners`): attach to the hero container, not the document. Events bubble from the carousel arrow / dot buttons (the only focusables inside the hero). `preventDefault()` is needed to suppress the document-level page scroll on arrow keys; that means it can't be `{ passive: true }`. React's synthetic-event system is fine here.
+
+The handler is `undefined` (no listener attached) when there's no carousel or only one image — zero overhead for embed projects and single-image projects.
+
+**[app/globals.css](app/globals.css)** — two additions to the existing `@media (prefers-reduced-motion: reduce)` block:
+- `.jh-modal__hero-img` — kills the 0.35s opacity fade between carousel slides; transition is instant.
+- `.jh-modal__hero-nav` + `.jh-modal__hero-dot` — kills their hover scale/transform.
+
+Plus a new focus-ring contrast override:
+```css
+.jh-modal__hero-nav:focus-visible,
+.jh-modal__hero-dot:focus-visible,
+.jh-modal__topbar .jh-pill--dark:focus-visible {
+  outline-color: #f3ece0;
+}
+```
+The global `:focus-visible` rule uses `var(--jh-accent)` (deep forest green `#1F4E3C`); on the near-black carousel bg (`#0d0a07`) and dark topbar (`#14110D`), green-on-dark is too subtle. The cream override (`#f3ece0`) hits ≥4.5:1 contrast on both surfaces.
+
+### Acceptance criteria — disposition
+
+Walking the README checklist line by line. Code-verified items reference the file/line. Anything that requires a running browser is flagged for user verification.
+
+| # | Acceptance criterion | Status |
+|---|----------------------|--------|
+| 1 | All four content fields render four sections in order. | **Code-verified.** [lib/sections.ts:46-67](lib/sections.ts#L46-L67). |
+| 2 | Missing body fields cleanly omit sections AND their side-nav entries. | **Code-verified.** Section registry filter in same function. |
+| 3 | Side-nav scroll spy updates active link as user scrolls. | **Code-verified** (Phase 4 implementation; zoom math at [components/TechModalBody.tsx:22-28](components/TechModalBody.tsx#L22-L28)). **User-verify:** browser test. |
+| 4 | Clicking a side-nav link smooth-scrolls to that section. | **Code-verified** (Phase 4). **User-verify:** browser test. |
+| 5 | Project cards always show the photo thumbnail (regardless of embedUrl). | **Code-verified.** [components/TechSection.tsx:34](components/TechSection.tsx#L34) reads only `images?.[0]`. |
+| 6 | Embed projects show ONLY the iframe (no carousel arrows, no dots, no photo flip). | **Code-verified.** Modal branches `tech && embedUrl ? <TechEmbed/>` ([components/Modal.tsx:140](components/Modal.tsx#L140)); TechEmbed renders no arrow/dot chrome. |
+| 7 | Non-embed projects show photo carousel with arrows + dots iff `images.length > 1`. | **Code-verified.** [components/Modal.tsx:155](components/Modal.tsx#L155). |
+| 8 | Power BI iframe mounted only while modal is open. | **Code-verified.** Modal returns `null` when no project; TechEmbed unmounts with it. `key={embedUrl}` on TechEmbed ([components/Modal.tsx:141](components/Modal.tsx#L141)) forces fresh mount on project switch. |
+| 9 | Iframe carries `sandbox`, `loading="lazy"`, meaningful `title`. | **Code-verified.** [components/TechEmbed.tsx:51-66](components/TechEmbed.tsx#L51-L66). |
+| 10 | Embed mode shows `● INTERACTIVE · POWER BI` badge. | **Code-verified** (moved to topbar in Phase 5b — [components/Modal.tsx:128](components/Modal.tsx#L128)). |
+| 11 | Loading state during iframe init; `embedFallbackImage` + "Open in new tab" CTA on failure or 10s timeout. | **Code-verified.** [components/TechEmbed.tsx:24-43, 67-110](components/TechEmbed.tsx#L24-L110). **User-verify:** browser test (10s timeout path requires deliberately broken URL). |
+| 12 | CSP includes `frame-src https://app.powerbi.com https://*.powerbi.com`. | **Code-verified + curl-verified** at end of Phase 5 (header present on `/`, `/robots.txt`, `/sitemap.xml`). |
+| 13 | Empty `description` / `objectives` / `challenges` / `futureFeatures` / `images` behave identically to absent. | **Code-verified.** Same registry filter. |
+| 14 | Modal scales fluidly mobile → 1240px ceiling. | **Code-verified** (Phase 1). **User-verify:** browser at 375, 768, 1280, 1920px. |
+| 15 | Carousel preserves aspect ratio at every viewport size. | **Code-verified.** `aspect-ratio: 16/9` on `.jh-modal__hero--tech`. |
+| 16 | Title size + sidenav column width scale per spec. | **Code-verified** (Phase 1, Phase 4). |
+
+### PHASED_PLAN Phase 6 deliverables — disposition
+
+| Deliverable | Status |
+|-------------|--------|
+| Tab order verified through the whole modal: title row, pills, close, sidenav links, body content, carousel arrows (photo mode only). | **Code-verified** (focus trap at [components/Modal.tsx:40-67](components/Modal.tsx#L40-L67); DOM order: topbar → hero buttons → title row → sidenav → body links → ...). **User-verify:** real Tab cycle. |
+| Esc closes from any focused element. | **Code-verified.** `document.addEventListener("keydown", ...)` catches Escape regardless of focused element. |
+| ←/→ navigate the photo carousel when focus is inside it. | **Code-shipped this phase.** Handler on `.jh-modal__hero`, events bubble from arrow/dot buttons. |
+| Carousel nav arrows have a visible focus ring. | **Code-verified.** Global `:focus-visible` rule applies; this phase added a cream-color override for the dark carousel surface. |
+| `prefers-reduced-motion: reduce` honored for sidenav smooth-scroll AND photo carousel transitions. | **Code-verified.** Sidenav: Phase 4. Carousel opacity fade + arrow/dot hover scale: this phase. |
+| Lighthouse run on a photo project modal page. Score in PROJECT_STATE.md. | **User-driven** — see below. |
+| Lighthouse run on an embed project modal page. Score in PROJECT_STATE.md. | **User-driven** — see below. |
+| Cross-browser smoke: Chrome, Safari, Firefox. Record any deltas. | **User-driven** — see below. |
+
+### Build
+
+`npm run build` clean. Page bundle 16.6 → 16.7 kB (~100 B from the inline carousel keyboard handler).
+
+### User-verify checklist (do these in a real browser)
+
+**1. Keyboard tab cycle through tech-2b modal (embed):**
+- Open tech-2b. Press Tab. Expect order: × close → focus loops back (tech-2b has no PDF, Repo, or Live-site pill, and the iframe captures focus but isn't part of the tab cycle from outside).
+- Open tech-2 (has PDF). Tab order: PDF → × → (sidenav links) → ...
+- Esc from anywhere inside any modal closes it.
+
+**2. Keyboard tab cycle through tech-3 modal (photo carousel, multiple images):**
+- Tab: × → prev arrow → next arrow → dot 1 → dot 2 (whichever apply) → sidenav links → body content.
+- With focus on a carousel arrow or dot, press ←/→. The image should change. Wrap at ends (last → first).
+
+**3. Focus rings:**
+- Tab through every modal. Every interactive element should show a visible outline.
+- On the dark topbar pills and carousel arrows, the outline should be **cream** (`#f3ece0`), not the default green — confirms the dark-surface override fired.
+- On cream-surface elements (sidenav links, body interactive bits), outline should be **green** (`var(--jh-accent)`).
+
+**4. Reduced motion:**
+- DevTools → Rendering → emulate `prefers-reduced-motion: reduce`.
+- Open tech-3 (multi-image carousel). Press ← or →. Image should swap instantly (no opacity fade).
+- Hover over carousel arrows. No scale animation.
+- Open tech-2b. INTERACTIVE badge dot should not pulse. Spinner shouldn't spin.
+- Sidenav: click a section link. Scroll should be instant, not smooth.
+
+**5. Lighthouse — photo project (tech-1, tech-3, etc.):**
+- DevTools → Lighthouse → Performance + Accessibility + Best Practices + SEO.
+- Run against the homepage (`/`) in mobile + desktop modes.
+- Paste the four scores back to me and I'll record them in this file.
+
+**6. Lighthouse — embed project (tech-2b modal open):**
+- Lighthouse cannot drive modal-open state easily. Either:
+  - (a) Run Lighthouse against `/`, then separately note that embed-mode performance depends on Power BI's runtime weight (not the site's First Load JS).
+  - (b) Use Lighthouse's interactive audit mode (if available in your Chrome version) and open the modal during the trace.
+- Either path is fine; document what you did.
+
+**7. Cross-browser smoke:**
+- Chrome (latest): full pass through 1, 2, 3, 4 above.
+- Firefox (latest): same.
+- Safari (latest, macOS or iOS Simulator): same. Particular things to watch:
+  - Power BI iframe sandbox behavior (Safari has historically been stricter).
+  - `aspect-ratio` CSS support (modern Safari supports it; older WebKit may not).
+  - `clamp()` font-size scaling.
+  - Carousel arrow key events (some browsers preventDefault behavior differs).
+- Record any deltas back to me (or just note "all three pass").
+
+### Outstanding (deferred per user)
+
+- Power BI report should land on Executive page by default. User to fix in Power BI Desktop by reordering tabs + republishing. No code change needed once Power BI's CDN serves the updated default.
+
+### Modal redesign — complete (pending user-driven verification)
+
+All six phases of the modal redesign are now landed. Outstanding work is verification-only:
+- Visual sign-off on Phases 3, 4, 5, 5b.
+- User-driven a11y / keyboard / Lighthouse / cross-browser verification (Phase 6 checklist above).
+- Power BI Executive-page fix in Power BI Desktop.
+
+If everything passes, the `In-progress work` section in [CLAUDE.md](CLAUDE.md) can be removed (or moved to a "Completed" history entry).
 
 ---
 

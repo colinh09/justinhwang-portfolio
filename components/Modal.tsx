@@ -239,6 +239,19 @@ export default function Modal({ project, onClose }: Props) {
           style={{
             background: embedUrl || hasImages ? "#0d0a07" : project.swatch,
           }}
+          onKeyDown={
+            hasImages && images.length > 1
+              ? (e) => {
+                  if (e.key === "ArrowLeft") {
+                    e.preventDefault();
+                    prev();
+                  } else if (e.key === "ArrowRight") {
+                    e.preventDefault();
+                    next();
+                  }
+                }
+              : undefined
+          }
         >
           {tech && embedUrl ? (
             <TechEmbed key={embedUrl} project={project} embedUrl={embedUrl} />
