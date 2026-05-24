@@ -483,9 +483,45 @@ button {
   transition: transform 0.7s cubic-bezier(.2, .7, .2, 1);
 }
 
-/* Tech project screenshots show the whole composition; construction project
-   photos are scenic so cropping is fine. */
-.jh-card--tech .jh-thumb__img { object-fit: contain; }
+/* Tech card thumbnails fill the 16:9 box edge-to-edge — cover, not
+   contain — so non-16:9 screenshots never letterbox against the
+   swatch. The full screenshot is preserved in the modal hero, which
+   does use contain (see .jh-modal__hero--tech .jh-modal__hero-img). */
+.jh-card--tech .jh-thumb__img { object-fit: cover; }
+
+/* Interactive chip on the card. Sits to the right of the title, top-
+   aligned with the title's first line. Solid forest-green on cream
+   with the same pulsing dot as the modal topbar badge.
+
+   The .jh-chip.jh-chip--interactive double-class selector beats the
+   bare .jh-chip rule (which loads later in this file and would
+   otherwise force display: inline-block, killing the flex layout the
+   dot needs to render at 6x6). */
+.jh-chip.jh-chip--interactive {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #c8e8d8;
+  background: var(--jh-accent);
+  border-color: var(--jh-accent);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  flex-shrink: 0;
+}
+
+/* Title row: title (left, may wrap) + optional interactive chip (right,
+   stays on line 1 even when the title wraps). */
+.jh-card__title-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+.jh-card__title-row .jh-card__title {
+  flex: 1;
+  min-width: 0;
+}
 
 .jh-card__body {
   padding: 22px 22px 24px;
@@ -1006,6 +1042,18 @@ button {
   to   { transform: translateY(0); opacity: 1; }
 }
 
+/* Tech modal — Phase 1 responsive sizing fix.
+   Construction modal keeps the shared .jh-modal / .jh-modal__inner sizing. */
+.jh-modal--tech {
+  padding: clamp(16px, 2.5vw, 40px);
+}
+.jh-modal__inner--tech {
+  max-width: clamp(920px, 70vw, 1240px);
+}
+.jh-modal__inner--tech .jh-modal__head .jh-display {
+  font-size: clamp(22px, 0.6vw + 18px, 32px);
+}
+
 .jh-modal__close {
   position: absolute;
   top: 18px;
@@ -1134,32 +1182,459 @@ button {
   min-width: 0;
 }
 
-/* Projects with more than 5 tags: wrap the chips into neat rows of 5
+/* Projects with more than 5 tags: wrap the chips into neat rows of 4
    instead of one wide row that squeezes the title. */
 .jh-modal__head .jh-chips--grid5 {
   display: grid;
-  grid-template-columns: repeat(5, max-content);
+  grid-template-columns: repeat(4, max-content);
   justify-items: start;
 }
 
-/* The title's last word stays glued to the download arrow on one line. */
-.jh-modal__title-tail { white-space: nowrap; }
+/* Tech modal — title row carries title (left) + tag chips (right).
+   Actions moved to .jh-modal__topbar in Phase 5b. */
+.jh-modal__inner--tech .jh-modal__head {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 28px;
+  align-items: start;
+}
+.jh-modal__inner--tech .jh-modal__head .jh-chips { margin-top: 0; }
 
-/* Inline circled download-arrow link beside the modal title. Blue, to read
-   as a download action; vertically centred on the title's cap height
-   (badge box 0.84em, title cap height ~0.71em -> offset -0.066em). */
-.jh-modal__download {
-  display: inline-block;
-  vertical-align: -0.066em;
-  margin-left: 0.3em;
-  color: #2563eb;
+/* Action pill — outlined cream by default, ink-on-cream-inverse on hover.
+   Site tokens map onto the README spec values: --jh-ink (#111) for spec
+   #1d2230, --jh-bg (#EFEAE0) for spec #f3eee5, --jh-line for the border. */
+.jh-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 12px;
+  font-family: var(--jh-sans);
+  font-size: 11.5px;
+  font-weight: 500;
+  line-height: 1;
+  color: var(--jh-ink);
+  background: transparent;
+  border: 1px solid var(--jh-line);
+  border-radius: 999px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.15s ease, color 0.15s ease,
+    border-color 0.15s ease;
+}
+.jh-pill:hover,
+.jh-pill:focus-visible {
+  background: var(--jh-ink);
+  color: var(--jh-bg);
+  border-color: var(--jh-ink);
+}
+.jh-pill__icon {
+  width: 14px;
+  height: 14px;
+  display: block;
+  opacity: 0.8;
+}
+.jh-pill:hover .jh-pill__icon,
+.jh-pill:focus-visible .jh-pill__icon { opacity: 1; }
+
+.jh-pill--close {
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  justify-content: center;
+}
+
+/* ──────────────────────────────────────────────────────────────────
+   Tech modal — Phase 4 body restructure + sidenav.
+   Construction modal untouched per Q3 — every selector here is gated
+   under .jh-modal__inner--tech or .jh-sn-* / .jh-sec* / .jh-ni*.
+   ─────────────────────────────────────────────────────────────── */
+
+/* Re-introduce the spec's max-height now that internal scrolling
+   exists (the right sidenav column is the new scroller). The inner
+   becomes a flex column so hero + body share the viewport budget. */
+.jh-modal__inner--tech {
+  max-height: calc(100vh - 32px);
+  display: flex;
+  flex-direction: column;
+}
+
+.jh-modal__inner--tech .jh-modal__topbar,
+.jh-modal__inner--tech .jh-modal__hero,
+.jh-modal__inner--tech .jh-modal__head {
+  flex-shrink: 0;
+}
+
+.jh-modal__inner--tech .jh-modal__body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+
+/* Two-column body: fixed-feel nav on the left, the actual scroll-spy
+   scroller on the right. The grid plus overflow-y on the right column
+   gives us the prototype's sticky-nav effect without needing
+   position: sticky (which would require dropping the inner's
+   overflow/contain). */
+.jh-sn-body {
+  display: grid;
+  grid-template-columns: clamp(140px, 14%, 200px) 1fr;
+  gap: clamp(24px, 3vw, 48px);
+  flex: 1;
+  min-height: 0;
+}
+
+.jh-sn-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-self: start;
+  padding-top: 4px;
+}
+
+.jh-sn-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 0;
+  background: transparent;
+  border: 0;
+  font-family: var(--jh-sans);
+  font-size: 12.5px;
+  line-height: 1.3;
+  color: var(--jh-mute);
+  text-align: left;
+  cursor: pointer;
   transition: color 0.15s ease;
 }
-.jh-modal__download:hover { color: #1d4ed8; }
-.jh-modal__download-glyph {
-  height: 0.84em;
-  width: 0.84em;
-  display: block;
+.jh-sn-link:hover { color: var(--jh-ink-2); }
+.jh-sn-link.is-active {
+  color: var(--jh-ink);
+  font-weight: 500;
+}
+
+.jh-sn-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--jh-line);
+  flex-shrink: 0;
+  transition: background-color 0.15s ease, transform 0.15s ease;
+}
+.jh-sn-link.is-active .jh-sn-dot {
+  background: var(--jh-accent);
+  transform: scale(1.2);
+}
+
+.jh-sn-scroll {
+  position: relative;
+  overflow-y: auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  padding-right: 6px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--jh-line) transparent;
+}
+.jh-sn-scroll::-webkit-scrollbar { width: 6px; }
+.jh-sn-scroll::-webkit-scrollbar-track { background: transparent; }
+.jh-sn-scroll::-webkit-scrollbar-thumb {
+  background: var(--jh-line);
+  border-radius: 999px;
+}
+
+/* Section label — Inter caps + letter-spacing with a hairline filler.
+   No JetBrains Mono per Q5. */
+.jh-sec-label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+  font-family: var(--jh-sans);
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--jh-mute);
+}
+.jh-sec-label__rule {
+  flex: 1;
+  height: 1px;
+  background: var(--jh-line);
+}
+
+/* Description prose — site display serif (Newsreader), 17px, longer
+   measure. Multiple <p>s (when a legacy project's `detail` array is
+   used as the fallback) stack with a small top margin. */
+.jh-sec-desc {
+  margin: 0;
+  font-family: var(--jh-display-font);
+  font-size: 17px;
+  line-height: 1.55;
+  color: var(--jh-ink);
+  text-wrap: pretty;
+}
+.jh-sec-desc + .jh-sec-desc { margin-top: 14px; }
+
+/* Numbered items — `1.` `2.` `3.` counters + Inter body. */
+.jh-ni-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.jh-ni {
+  display: grid;
+  grid-template-columns: 22px 1fr;
+  gap: 8px;
+  align-items: baseline;
+}
+.jh-ni-num {
+  font-family: var(--jh-sans);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--jh-faint);
+}
+.jh-ni-text {
+  font-family: var(--jh-sans);
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--jh-ink-2);
+}
+.jh-ni-lead {
+  font-weight: 600;
+  color: var(--jh-ink);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .jh-sn-link,
+  .jh-sn-dot { transition: none; }
+  .jh-sn-link.is-active .jh-sn-dot { transform: none; }
+}
+
+/* Mobile fallback: collapse the sidenav into a pill row above the
+   content, drop the inner's max-height + internal scroll, and let the
+   outer .jh-modal handle overflow as it did pre-Phase-4. */
+@media (max-width: 700px) {
+  .jh-modal__inner--tech {
+    max-height: none;
+    display: block;
+  }
+  .jh-modal__inner--tech .jh-modal__body { display: block; }
+  .jh-sn-body {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .jh-sn-nav {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 6px 14px;
+    padding-top: 0;
+  }
+  .jh-sn-scroll {
+    overflow: visible;
+    padding-right: 0;
+  }
+}
+
+/* Tech modal — Phase 5 embed (Power BI iframe).
+   Iframe fills the existing 16:9 hero. Topbar above the hero owns
+   the embed label/caption + INTERACTIVE badge (see .jh-modal__topbar
+   in the Phase 5b block below). */
+
+.jh-embed {
+  position: absolute;
+  inset: 0;
+}
+
+.jh-embed__iframe {
+  position: absolute;
+  inset: 0;
+}
+
+.jh-embed__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 9px;
+  font-family: var(--jh-sans);
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #c8e8d8;
+  background: rgba(31, 78, 60, 0.55);
+  border: 1px solid rgba(200, 232, 216, 0.32);
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.jh-embed__badge-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #6dd29a;
+  box-shadow: 0 0 0 0 rgba(109, 210, 154, 0.6);
+  animation: jh-embed-pulse 1.4s ease-in-out infinite;
+}
+
+@keyframes jh-embed-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(109, 210, 154, 0.55); }
+  60%      { box-shadow: 0 0 0 6px rgba(109, 210, 154, 0); }
+}
+
+.jh-embed__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0d0a07;
+  overflow: hidden;
+}
+
+.jh-embed__fallback-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.35;
+}
+
+.jh-embed__loading,
+.jh-embed__failure {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding: 20px 24px;
+  color: #f3ece0;
+  text-align: center;
+}
+
+.jh-embed__spinner {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid rgba(243, 236, 224, 0.18);
+  border-top-color: #6dd29a;
+  animation: jh-embed-spin 0.9s linear infinite;
+}
+
+@keyframes jh-embed-spin {
+  to { transform: rotate(360deg); }
+}
+
+.jh-embed__loading-text {
+  font-family: var(--jh-sans);
+  font-size: 12.5px;
+  letter-spacing: 0.02em;
+  color: #a59986;
+}
+
+.jh-embed__overlay--failed .jh-embed__fallback-img { opacity: 0.5; }
+
+.jh-embed__failure-msg {
+  margin: 0;
+  font-family: var(--jh-display-font);
+  font-size: 17px;
+  line-height: 1.4;
+  color: #f3ece0;
+  max-width: 32ch;
+}
+
+.jh-embed__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  font-family: var(--jh-sans);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: #0d0a07;
+  background: #c8e8d8;
+  border-radius: 999px;
+  text-decoration: none;
+  transition: background-color 0.15s ease, transform 0.15s ease;
+}
+.jh-embed__cta:hover,
+.jh-embed__cta:focus-visible {
+  background: #6dd29a;
+  transform: translateY(-1px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .jh-embed__badge-dot,
+  .jh-embed__spinner { animation: none; }
+  .jh-embed__cta:hover,
+  .jh-embed__cta:focus-visible { transform: none; }
+}
+
+/* ──────────────────────────────────────────────────────────────────
+   Tech modal — Phase 5b topbar.
+   Dark band at the very top of every tech modal. Owns ALL action
+   pills (PDF / Repo / View live / close). For embed projects, the
+   left side carries the embed label + caption + INTERACTIVE badge
+   that used to live inside the iframe overlay.
+   ─────────────────────────────────────────────────────────────── */
+
+.jh-modal__topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 10px 16px;
+  background: #14110D;
+  color: #f3ece0;
+  border-bottom: 1px solid rgba(243, 236, 224, 0.08);
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  flex-shrink: 0;
+}
+
+.jh-modal__topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+  flex: 1;
+}
+
+.jh-modal__topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+/* Dark-variant pill: outlined cream on dark band by default,
+   filled cream on hover (mirror of the light .jh-pill on cream). */
+.jh-pill--dark {
+  color: #f3ece0;
+  border-color: rgba(243, 236, 224, 0.32);
+  background: transparent;
+}
+.jh-pill--dark:hover,
+.jh-pill--dark:focus-visible {
+  background: #f3ece0;
+  color: #0d0a07;
+  border-color: #f3ece0;
+}
+
+/* Narrow viewports: tighten the topbar padding/gaps so badge + pills
+   don't crowd. */
+@media (max-width: 600px) {
+  .jh-modal__topbar { padding: 8px 12px; gap: 10px; }
+  .jh-modal__topbar-right { gap: 6px; }
 }
 
 .jh-modal__meta {
@@ -1439,12 +1914,25 @@ button {
   .jh-thumb__grid,
   .jh-modal,
   .jh-modal__inner,
+  .jh-modal__hero-img,
+  .jh-modal__hero-nav,
+  .jh-modal__hero-dot,
   .jh-nav__label::after {
     transition: none !important;
     animation: none !important;
   }
   .jh-char { opacity: 1; transform: none; }
   .jh-fadeup { opacity: 1; transform: none; }
+}
+
+/* Focus-ring contrast: the global :focus-visible above uses
+   var(--jh-accent) (deep forest green). On the dark carousel bg
+   (#0d0a07) and dark topbar (#14110D), green-on-near-black is too
+   subtle. Use cream for those surfaces. */
+.jh-modal__hero-nav:focus-visible,
+.jh-modal__hero-dot:focus-visible,
+.jh-modal__topbar .jh-pill--dark:focus-visible {
+  outline-color: #f3ece0;
 }
 
 /* 404 page */

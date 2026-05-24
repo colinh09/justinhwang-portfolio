@@ -3,6 +3,8 @@
 import { useEffect, useId, useRef, useState } from "react";
 import { CONSTRUCTION_PROJECTS } from "@/lib/content";
 import { isTechProject, type AnyProject } from "@/lib/types";
+import TechModalBody from "@/components/TechModalBody";
+import TechEmbed from "@/components/TechEmbed";
 
 interface Props {
   project: AnyProject | null;
@@ -69,13 +71,9 @@ export default function Modal({ project, onClose }: Props) {
 
   const tech = isTechProject(project);
   const pdf = tech ? project.pdf : undefined;
-  // Keep the title's last word glued to the download arrow so the arrow
-  // never wraps onto a line by itself.
-  const titleSplitAt = pdf ? project.title.lastIndexOf(" ") : -1;
-  const titleHead =
-    titleSplitAt < 0 ? "" : project.title.slice(0, titleSplitAt + 1);
-  const titleTail =
-    titleSplitAt < 0 ? project.title : project.title.slice(titleSplitAt + 1);
+  const repo = tech ? project.repo : undefined;
+  const embedUrl = tech ? project.embedUrl : undefined;
+  const liveHref = tech ? project.liveUrl ?? project.embedUrl : undefined;
   const images = tech
     ? project.images ?? []
     : project.image
@@ -95,38 +93,159 @@ export default function Modal({ project, onClose }: Props) {
 
   return (
     <div
-      className="jh-modal"
+      className={`jh-modal${tech ? " jh-modal--tech" : ""}`}
       onClick={onClose}
       role="presentation"
     >
       <div
         ref={dialogRef}
-        className="jh-modal__inner"
+        className={`jh-modal__inner${tech ? " jh-modal__inner--tech" : ""}`}
         role="dialog"
         aria-modal="true"
         aria-labelledby={titleId}
         onClick={(e) => e.stopPropagation()}
       >
-        <button
-          className="jh-modal__close"
-          onClick={onClose}
-          aria-label="Close"
-        >
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-            <path
-              d="M5 5 L15 15 M15 5 L5 15"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-            />
-          </svg>
-        </button>
+        {!tech && (
+          <button
+            className="jh-modal__close"
+            onClick={onClose}
+            aria-label="Close"
+          >
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path
+                d="M5 5 L15 15 M15 5 L5 15"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+              />
+            </svg>
+          </button>
+        )}
+
+        {tech && (
+          <div className="jh-modal__topbar">
+            <div className="jh-modal__topbar-left">
+              {embedUrl && (
+                <span
+                  className="jh-embed__badge"
+                  aria-label="Interactive Power BI report"
+                >
+                  <span className="jh-embed__badge-dot" aria-hidden="true" />
+                  INTERACTIVE · POWER BI
+                </span>
+              )}
+            </div>
+            <div className="jh-modal__topbar-right">
+              {pdf && (
+                <a
+                  className="jh-pill jh-pill--dark"
+                  href={pdf}
+                  download
+                  aria-label={`Download ${project.title} as PDF`}
+                >
+                  <svg
+                    className="jh-pill__icon"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    aria-hidden="true"
+                    focusable="false"
+                  >
+                    <circle
+                      cx="12"
+                      cy="12"
+                      r="10.5"
+                      stroke="currentColor"
+                      strokeWidth="1.4"
+                    />
+                    <path
+                      d="M12 7.2V15.1M8.4 11.5L12 15.5L15.6 11.5"
+                      stroke="currentColor"
+                      strokeWidth="1.6"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                  PDF
+                </a>
+              )}
+              {repo && (
+                <a
+                  className="jh-pill jh-pill--dark"
+                  href={repo}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={`Open ${project.title} repository in a new tab`}
+                >
+                  <svg
+                    className="jh-pill__icon"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    aria-hidden="true"
+                    focusable="false"
+                  >
+                    <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.55v-1.92c-3.2.7-3.87-1.54-3.87-1.54-.52-1.33-1.28-1.68-1.28-1.68-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.76 2.7 1.25 3.35.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.27-5.24-5.67 0-1.25.45-2.27 1.18-3.07-.12-.29-.51-1.46.11-3.04 0 0 .96-.31 3.15 1.17a10.9 10.9 0 015.74 0c2.19-1.48 3.15-1.17 3.15-1.17.62 1.58.23 2.75.11 3.04.74.8 1.18 1.82 1.18 3.07 0 4.41-2.7 5.37-5.27 5.66.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.55C20.21 21.39 23.5 17.08 23.5 12 23.5 5.65 18.35.5 12 .5z" />
+                  </svg>
+                  Repo
+                </a>
+              )}
+              {liveHref && (
+                <a
+                  className="jh-pill jh-pill--dark"
+                  href={liveHref}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={`View ${project.title} live in a new tab`}
+                >
+                  View live <span aria-hidden="true">↗</span>
+                </a>
+              )}
+              <button
+                type="button"
+                className="jh-pill jh-pill--dark jh-pill--close"
+                onClick={onClose}
+                aria-label="Close"
+              >
+                <svg
+                  className="jh-pill__icon"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  aria-hidden="true"
+                  focusable="false"
+                >
+                  <path
+                    d="M5 5 L15 15 M15 5 L5 15"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+        )}
 
         <div
-          className={`jh-modal__hero ${tech ? "jh-modal__hero--tech" : ""}`}
-          style={{ background: hasImages ? "#0d0a07" : project.swatch }}
+          className={`jh-modal__hero${tech ? " jh-modal__hero--tech" : ""}`}
+          style={{
+            background: embedUrl || hasImages ? "#0d0a07" : project.swatch,
+          }}
+          onKeyDown={
+            hasImages && images.length > 1
+              ? (e) => {
+                  if (e.key === "ArrowLeft") {
+                    e.preventDefault();
+                    prev();
+                  } else if (e.key === "ArrowRight") {
+                    e.preventDefault();
+                    next();
+                  }
+                }
+              : undefined
+          }
         >
-          {hasImages ? (
+          {tech && embedUrl ? (
+            <TechEmbed key={embedUrl} project={project} embedUrl={embedUrl} />
+          ) : hasImages ? (
             <>
               {images.map((src, i) => (
                 <img
@@ -179,71 +298,30 @@ export default function Modal({ project, onClose }: Props) {
           <div className="jh-modal__head">
             <div className="jh-modal__head-main">
               <h2 id={titleId} className="jh-display">
-                {pdf ? (
-                  <>
-                    {titleHead}
-                    <span className="jh-modal__title-tail">
-                      {titleTail}
-                      <a
-                        className="jh-modal__download"
-                        href={pdf}
-                        download
-                        aria-label={`Download ${project.title} as PDF`}
-                        title="Download PDF"
-                      >
-                        <svg
-                          className="jh-modal__download-glyph"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          aria-hidden="true"
-                          focusable="false"
-                        >
-                          <circle
-                            cx="12"
-                            cy="12"
-                            r="11.2"
-                            stroke="currentColor"
-                            strokeWidth="1.5"
-                          />
-                          <path
-                            d="M12 7.2V15.1M8.4 11.5L12 15.5L15.6 11.5"
-                            stroke="currentColor"
-                            strokeWidth="1.8"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                        </svg>
-                      </a>
-                    </span>
-                  </>
-                ) : (
-                  project.title
-                )}
+                {project.title}
               </h2>
               {!tech && <div className="jh-modal__sub">{project.sub}</div>}
             </div>
-            <div
-              className={`jh-chips${
-                tech && project.tags.length > 5 ? " jh-chips--grid5" : ""
-              }`}
-            >
-              {tech ? (
-                project.tags.map((t) => (
+            {tech ? (
+              <div
+                className={`jh-chips${
+                  project.tags.length > 5 ? " jh-chips--grid5" : ""
+                }`}
+              >
+                {project.tags.map((t) => (
                   <span key={t} className="jh-chip">
                     {t}
                   </span>
-                ))
-              ) : (
-                <>
-                  <span className="jh-chip jh-chip--sector">
-                    {project.sector}
-                  </span>
-                  <span className="jh-chip jh-chip--role">
-                    {project.role}
-                  </span>
-                </>
-              )}
-            </div>
+                ))}
+              </div>
+            ) : (
+              <div className="jh-chips">
+                <span className="jh-chip jh-chip--sector">
+                  {project.sector}
+                </span>
+                <span className="jh-chip jh-chip--role">{project.role}</span>
+              </div>
+            )}
           </div>
 
           {!tech && (
@@ -269,18 +347,14 @@ export default function Modal({ project, onClose }: Props) {
             </div>
           )}
 
-          <div className="jh-modal__section">
-            <div className="jh-modal__h">Project</div>
-            {tech ? (
-              project.detail.map((para, i) => (
-                <p key={i} className="jh-prose">
-                  {para}
-                </p>
-              ))
-            ) : (
+          {tech ? (
+            <TechModalBody project={project} />
+          ) : (
+            <div className="jh-modal__section">
+              <div className="jh-modal__h">Project</div>
               <p className="jh-prose">{project.description}</p>
-            )}
-          </div>
+            </div>
+          )}
 
           {!tech && (
             <div className="jh-modal__section">

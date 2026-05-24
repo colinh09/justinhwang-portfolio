@@ -12,6 +12,42 @@
     "images": ["/images/projects/technical/laborburn1.png", "/images/projects/technical/faker1.png", "/placeholder-2.svg", "/placeholder-3.svg"]
   },
   {
+    "id": "tech-2b",
+    "title": "AI-Assisted Development — Risk Register Revamp using Claude Code",
+    "blurb": "AI-assisted Power BI dashboard revamp built with Claude Code: phased planning, MCP integration, Test-Driven Development, and a markdown-tracked workflow that compresses token usage and locks decisions between sessions.",
+    "tags": ["Power BI", "Power Query", "Excel", "DAX", "Python", "Claude Code"],
+    "swatch": "#2d2218",
+    "label": "DASHBOARD",
+    "detail": [
+      "Revamp of a risk dashboard that was initially created by a project controls engineer learning the basic mechanical skills of Power BI. The revamped dashboard utilizes an AI-assisted workflow defined by the learning goals below."
+    ],
+    "description": "Revamp of a risk dashboard that was initially created by a project controls engineer learning the basic mechanical skills of Power BI. The revamped dashboard utilizes an AI-assisted workflow defined by the learning goals below.",
+    "objectives": [
+      { "lead": "AI-assisted workflow", "body": "Use an AI-assisted workflow to create high-quality dashboards following industry-recommended architecture and visual design." },
+      { "lead": "Token & context discipline", "body": "Follow an AI-assisted workflow that reduces token usage and context bloat through phased planning, explicit assignment of subagents to subtasks, and a project-level markdown file that updates and clears context at the end of every phase." },
+      { "lead": "MCP integration", "body": "Connect Claude Code to Power BI via MCP server." },
+      { "lead": "Self-verification & TDD", "body": "Provide Claude Code with the ability to view its own work. Employ Test-Driven Development with user-generated test requirements at the end of each phase of the project." },
+      { "lead": "Living documentation", "body": "Document each challenge and breakthrough in a concise summary, recorded on a markdown file for future project use." },
+      { "lead": "Synthetic-data pipeline", "body": "Python scripts emulate real-project risk-log updates, appending to Risk_Updates_Master.xlsx and replacing Risk_Register_Master.xlsx source data. appendupdates.py has guardrails that alert the user to edge cases where an update date exceeds 1½ months from the append date; current master copies are date-stamped on the last update and moved to the archive folder." },
+      { "lead": "Live embed on portfolio", "body": "Display an interactive version of the dashboard inside the modal view of this technical project on my portfolio website." }
+    ],
+    "challenges": [
+      { "lead": "Newtonsoft.Json downgrade", "body": "The current Power BI Desktop release errored when opening .PBIP files with Newtonsoft.Json 13.0.2 or higher installed. Reverting Newtonsoft.Json to 13.0.0 restored PBIP file opening through the desktop app." },
+      { "lead": "Conditional formatting via PBIR", "body": "Conditional formatting authored via the PBIR CLI did not apply to the visuals. A first attempt restructured the AI-assisted procedure around a helper DAX measure returning the hex code, but the helper measure greyed out as a field choice in the dialog. Final resolution had Claude Code reverse-engineer user-authored fx rules to identify the renderer-engaging shape. The method was applied to every new visual type, with per-visual dependencies (active slot index, selector presence, schema version) recorded in a markdown file to seed a Skill for future Power BI projects." },
+      { "lead": "Verification via Fabric CLI", "body": "Claude Code defaulted to user-side verification from the desktop app at every stage gate, which risked version overwrites (user saves after agent edits) and added user friction. The agent was instructed to publish and refresh through Microsoft Fabric CLI in the browser instead, reducing user effort, time per project, and the chance of version-control conflicts." },
+      { "lead": "Stale-context reconciliation", "body": "Turnover files from the original manually-built dashboard carried design intent that was deliberately changed or removed during the revamp's planning phase. A custom Skill was authored that prompts Claude Code to replace irrelevant context in the project's CLAUDE.md, keeping the agent aligned with the revamp's current design decisions." },
+      { "lead": "Mitigation-history measure", "body": "The drillthrough page's Mitigations visual showed a single concatenated string of updates and dates, reading as a sloppy block. A new measure pulls individual risk updates from Risk_Updates to replace the static-column lookup, sorted latest-first with line breaks between entries." }
+    ],
+    "futureFeatures": [
+      { "lead": "Multi-project rollups", "body": "Add seed data for multiple contracts and enable program-level rollups. Repurposing the existing dashboard requires a project dimension with multiple rows, project slicers on every page, and a careful review of which measures need re-aggregation across projects." },
+      { "lead": "Quantitative risk methods", "body": "Pair the qualitative P×I matrix with quantitative methods (expected value, Monte Carlo on contingency). The current build is qualitative screening only; the quantitative work will be a separate project." }
+    ],
+    "embedUrl": "https://app.powerbi.com/view?r=eyJrIjoiZjIyN2RiZmItMDc2Zi00YmQ3LThiMTQtMzk2ZmY5NWQ5YWQyIiwidCI6IjFiNDRmNDM5LWI1MDMtNDY1MS1hZWFiLTBjNTc3ZWIxMzM3MCJ9",
+    "embedLabel": "Tonnelle Avenue Bridge Relocation — Risk Dashboard",
+    "embedCaption": "Live Power BI report — click, filter, and drill down directly.",
+    "images": ["/images/projects/technical/riskregister-revamp1.png"]
+  },
+  {
     "id": "tech-2",
     "title": "Power BI - Risk Register Dashboard",
     "blurb": "Construction risk register dashboard built around a Python update pipeline: dated entries written into the source Excel register are parsed and appended to a separate update table that powers the dashboard's trend and history visuals.",
@@ -24,8 +60,8 @@
     ],
     "images": ["/images/projects/technical/riskregister1.png", "/placeholder-2.svg", "/placeholder-3.svg"],
     "pdf": "/downloads/riskregister1.pdf"
-},
-{
+  },
+  {
     "id": "tech-3",
     "title": "Power BI - Agency Contingent Employee Staffing Tracker",
     "blurb": "A reporting tool built to manage a contingent staffing program placing personnel into agency roles.",
@@ -39,19 +75,7 @@
     ],
     "images": ["/images/projects/technical/scapbi1.png", "/images/projects/technical/scapbi2.png"]
   },
-    {
-    "id": "tech-4",
-    "title": "Power BI - Basic Expense Report",
-    "blurb": "Built a Power BI dashboard aggregating employee expense totals by category with department, month, type, and employee name slicers as an introductory exercise while learning to use Power BI.",
-    "tags": ["Power BI", "Power Query M"],
-    "swatch": "#1c2a3a",
-    "label": "DASHBOARD",
-    "detail": [
-      "Built a Power BI dashboard to consolidate and analyze corporate employee expense data, structured across two views: a summary aggregation page and an underlying transaction-level detail table. The summary view presents a matrix visual with employees as rows and expense categories as columns, with row and column subtotals and a grand total. The detailed view has four slicers (Department, Month, Expense Type, and Employee Name) that allow the user to filter the data dynamically. Used Microsoft's documentation for Power Query M to understand how to write custom column transformations beyond what the GUI displays"
-    ],
-    "images": ["/images/projects/technical/expense1.png","/images/projects/technical/expense2.png"]
-  },
-    {
+  {
     "id": "tech-5",
     "title": "Full Stack Web Development - Weave",
     "blurb": "A travel planning tool built to demonstrate the ability to deploy a full-stack application. Additional features include the integration of google maps API and nodemailer.",
@@ -63,7 +87,7 @@
     ],
     "images": ["/images/projects/technical/weave1.png", "/images/projects/technical/weave2.jpg", "/images/projects/technical/weave3.jpg"]
   },
-    {
+  {
     "id": "tech-6",
     "title": "JavaScript + D3.js Single Page Application - Projectify",
     "blurb": "Rough order of magnitude estimate single page web application for Medical Office Fit-outs",
