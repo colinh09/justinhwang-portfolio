@@ -483,9 +483,45 @@ button {
   transition: transform 0.7s cubic-bezier(.2, .7, .2, 1);
 }
 
-/* Tech project screenshots show the whole composition; construction project
-   photos are scenic so cropping is fine. */
-.jh-card--tech .jh-thumb__img { object-fit: contain; }
+/* Tech card thumbnails fill the 16:9 box edge-to-edge — cover, not
+   contain — so non-16:9 screenshots never letterbox against the
+   swatch. The full screenshot is preserved in the modal hero, which
+   does use contain (see .jh-modal__hero--tech .jh-modal__hero-img). */
+.jh-card--tech .jh-thumb__img { object-fit: cover; }
+
+/* Interactive chip on the card. Sits to the right of the title, top-
+   aligned with the title's first line. Solid forest-green on cream
+   with the same pulsing dot as the modal topbar badge.
+
+   The .jh-chip.jh-chip--interactive double-class selector beats the
+   bare .jh-chip rule (which loads later in this file and would
+   otherwise force display: inline-block, killing the flex layout the
+   dot needs to render at 6x6). */
+.jh-chip.jh-chip--interactive {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #c8e8d8;
+  background: var(--jh-accent);
+  border-color: var(--jh-accent);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  flex-shrink: 0;
+}
+
+/* Title row: title (left, may wrap) + optional interactive chip (right,
+   stays on line 1 even when the title wraps). */
+.jh-card__title-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+.jh-card__title-row .jh-card__title {
+  flex: 1;
+  min-width: 0;
+}
 
 .jh-card__body {
   padding: 22px 22px 24px;
@@ -1573,26 +1609,6 @@ button {
   flex: 1;
 }
 
-.jh-modal__topbar-label {
-  font-family: var(--jh-display-font);
-  font-size: 14px;
-  font-weight: 500;
-  letter-spacing: -0.005em;
-  color: #f3ece0;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.jh-modal__topbar-sub {
-  font-family: var(--jh-sans);
-  font-size: 11.5px;
-  color: #a59986;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
 .jh-modal__topbar-right {
   display: flex;
   align-items: center;
@@ -1614,10 +1630,9 @@ button {
   border-color: #f3ece0;
 }
 
-/* Narrow viewports: drop the embed caption so the badge + pills
-   don't crowd the topbar. */
+/* Narrow viewports: tighten the topbar padding/gaps so badge + pills
+   don't crowd. */
 @media (max-width: 600px) {
-  .jh-modal__topbar-sub { display: none; }
   .jh-modal__topbar { padding: 8px 12px; gap: 10px; }
   .jh-modal__topbar-right { gap: 6px; }
 }

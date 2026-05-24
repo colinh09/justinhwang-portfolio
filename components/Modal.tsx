@@ -74,8 +74,6 @@ export default function Modal({ project, onClose }: Props) {
   const repo = tech ? project.repo : undefined;
   const embedUrl = tech ? project.embedUrl : undefined;
   const liveHref = tech ? project.liveUrl ?? project.embedUrl : undefined;
-  const embedLabel = tech ? project.embedLabel : undefined;
-  const embedCaption = tech ? project.embedCaption : undefined;
   const images = tech
     ? project.images ?? []
     : project.image
@@ -128,21 +126,13 @@ export default function Modal({ project, onClose }: Props) {
           <div className="jh-modal__topbar">
             <div className="jh-modal__topbar-left">
               {embedUrl && (
-                <>
-                  {embedLabel && (
-                    <span className="jh-modal__topbar-label">{embedLabel}</span>
-                  )}
-                  {embedCaption && (
-                    <span className="jh-modal__topbar-sub">{embedCaption}</span>
-                  )}
-                  <span
-                    className="jh-embed__badge"
-                    aria-label="Interactive Power BI report"
-                  >
-                    <span className="jh-embed__badge-dot" aria-hidden="true" />
-                    INTERACTIVE · POWER BI
-                  </span>
-                </>
+                <span
+                  className="jh-embed__badge"
+                  aria-label="Interactive Power BI report"
+                >
+                  <span className="jh-embed__badge-dot" aria-hidden="true" />
+                  INTERACTIVE · POWER BI
+                </span>
               )}
             </div>
             <div className="jh-modal__topbar-right">

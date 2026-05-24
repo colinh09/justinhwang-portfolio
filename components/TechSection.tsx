@@ -34,7 +34,21 @@ export default function TechSection({ onOpen }: Props) {
               image={p.images?.[0]}
             />
             <div className="jh-card__body">
-              <div className="jh-card__title">{p.title}</div>
+              <div className="jh-card__title-row">
+                <div className="jh-card__title">{p.title}</div>
+                {p.embedUrl && (
+                  <span
+                    className="jh-chip jh-chip--interactive"
+                    aria-label="Interactive Power BI report — opens in modal"
+                  >
+                    <span
+                      className="jh-embed__badge-dot"
+                      aria-hidden="true"
+                    />
+                    INTERACTIVE · POWER BI
+                  </span>
+                )}
+              </div>
               <div className="jh-card__blurb">{p.blurb}</div>
               <div className="jh-chips">
                 {p.tags.map((tag) => (
