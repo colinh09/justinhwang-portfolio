@@ -26,6 +26,32 @@
     "pdf": "/downloads/riskregister1.pdf"
 },
 {
+    "id": "tech-2b",
+    "title": "AI-Assisted Development — Risk Register Revamp using Claude Code",
+    "blurb": "AI-assisted Power BI dashboard revamp built with Claude Code: phased planning, MCP integration, Test-Driven Development, and a markdown-tracked workflow that compresses token usage and locks decisions between sessions.",
+    "tags": ["Power BI", "Power Query", "Excel", "DAX", "Python", "Claude Code"],
+    "swatch": "#2d2218",
+    "label": "DASHBOARD",
+    "detail": [
+      "Revamp of a risk dashboard initially built by a project controls engineer learning the basic mechanical skills of Power BI. The revamped dashboard is built through an AI-assisted workflow defined by the learning goals below."
+    ],
+    "description": "Revamp of a risk dashboard initially built by a project controls engineer learning the basic mechanical skills of Power BI. The revamped dashboard is built through an AI-assisted workflow defined by the learning goals below.",
+    "objectives": [
+      { "lead": "AI-assisted workflow", "body": "Use an AI-assisted workflow to create high quality dashboards following industry-recommended architecture and visual design." },
+      { "lead": "Token & context discipline", "body": "Employ an AI-assisted workflow that reduces token usage and context bloat through phased planning, explicit assignment of subagents to subtasks, and a project-level markdown file that updates and clears context at the end of every phase." },
+      { "lead": "MCP integration", "body": "Connect Claude Code to Power BI via MCP server." },
+      { "lead": "Self-verification & TDD", "body": "Provide Claude Code the ability to view its own work. Employ Test-Driven Development with user-generated test requirements at the end of each phase." },
+      { "lead": "Living documentation", "body": "Document each challenge and breakthrough in a concise summary, recorded on a markdown file for future project use." }
+    ],
+    "futureFeatures": [
+      { "lead": "Real-data integration", "body": "Swap the synthetic register for a live connection against the project's controlled risk register and refresh on a schedule." },
+      { "lead": "Theme abstraction", "body": "Extract color, typography, and conditional-formatting rules into a reusable PBIR theme that can be applied to future dashboards by name." },
+      { "lead": "Drill-through history view", "body": "Per-risk drill-through that surfaces the full mitigation log timeline alongside score-trend deltas." }
+    ],
+    "embedLabel": "Tonnelle Avenue Bridge Relocation — Risk Dashboard",
+    "embedCaption": "Live Power BI report — click, filter, and drill down directly."
+},
+{
     "id": "tech-3",
     "title": "Power BI - Agency Contingent Employee Staffing Tracker",
     "blurb": "A reporting tool built to manage a contingent staffing program placing personnel into agency roles.",

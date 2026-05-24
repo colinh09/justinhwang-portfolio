@@ -12,7 +12,7 @@ The `side projects/` folder is local-only (see [side projects/.gitignore](side p
 |-------|----------------------------------------|-----------------------|
 | 0     | Reconnaissance                         | **DONE — awaiting Phase 1 go-ahead** |
 | 1     | Responsive sizing fix on existing modal | **DONE — visually signed off after one tuning iteration** |
-| 2     | Data schema + QA fixture                | Not started           |
+| 2     | Data schema + QA fixture                | **DONE — pending user-supplied content from parallel CC session for `challenges`, `pdf`, `repo`, `embedUrl`, `embedFallbackImage`, `images`** |
 | 3     | Header chrome (PDF / Repo / × pills)    | Not started           |
 | 4     | Body restructure + sidenav              | Not started           |
 | 5     | Embed mode (iframe + CSP + lifecycle)   | Not started           |
@@ -272,6 +272,69 @@ Tech-only responsive sizing. Construction modal untouched per Q3.
 | 1920px   | 1240px wide ceiling, centered with ~340px gutters, title at 32px. **Regression fixed.** | Capped at 920px.         |
 
 Also confirm: card grid on homepage unchanged at every viewport; no new console warnings; on a short-wide viewport (e.g. 1920×600) the tech carousel caps at 60vh (~360px) instead of trying for 698px tall.
+
+---
+
+## Phase 2 — Changes shipped
+
+Data-layer only. No UI consumer reads the new fields yet, so every existing project renders the current modal unchanged. Phase 4 will wire up `description` / `objectives` / `challenges` / `futureFeatures` rendering; Phase 5 wires `embedUrl`. Phase 3 wires `repo`.
+
+**[lib/types.ts](lib/types.ts)** — added `ProjectItem` interface, extended `TechProject` with all spec fields as optional:
+
+```ts
+interface ProjectItem { lead: string; body: string; }
+
+interface TechProject {
+  // ...existing fields...
+  pdf?: string;                    // already existed
+  repo?: string;                   // new
+  embedUrl?: string;               // new
+  embedLabel?: string;             // new
+  embedCaption?: string;           // new
+  embedFallbackImage?: string;     // new
+  description?: string;            // new
+  objectives?: ProjectItem[];      // new
+  challenges?: ProjectItem[];      // new
+  futureFeatures?: ProjectItem[];  // new
+}
+```
+
+`images: string[]` left as-is per Q1 (defer migration). Existing `detail: string[]` kept alongside new `description` until Phase 4 swaps the modal body renderer — current modal still reads `detail`, so we can't drop it without breaking rendering.
+
+**[content/technical-projects.json](content/technical-projects.json)** — inserted new `tech-2b` entry between `tech-2` (Risk Register Dashboard) and `tech-3`. Content sourced from [side projects/powerbiembed/modal.reference.jsx](side projects/powerbiembed/modal.reference.jsx)'s `CONTENT` object:
+
+- `title`, `blurb`, `tags`, `swatch`, `label`: filled
+- `detail`: short single-paragraph copy of `description` so the current modal renders something until Phase 4 swaps to `description`-based rendering
+- `description`, `objectives` (5 items), `futureFeatures` (3 items): filled from CONTENT
+- `embedLabel`, `embedCaption`: filled from CONTENT's `MEDIA.embed`
+- `challenges`: **omitted** — the prototype's CONTENT.challenges contained literal `"XX"` / `"XXX"` placeholders the prototype author left for the user to fill in. Including them would render unfinished text on the site.
+- `pdf`, `repo`, `embedUrl`, `embedFallbackImage`, `images`: **omitted** — awaiting real URLs from your parallel Claude Code session.
+
+**Card fallback check** (per PHASED_PLAN Phase 2 downstream check): the new entry has no `images`, so [components/TechSection.tsx:34](components/TechSection.tsx#L34) passes `image={undefined}` to `ProjectThumb`, which falls back to the swatch + `"DASHBOARD"` label badge. Renders cleanly. Same path works if user later adds `embedUrl` without `images`.
+
+**Build**: `npm run build` clean. Page bundle 13.6 → 14.4 kB from the added JSON.
+
+### Open follow-ups for Phase 2
+
+When your parallel CC session delivers content, add to `tech-2b`:
+
+| Field                | Use                                                                                                              |
+|----------------------|------------------------------------------------------------------------------------------------------------------|
+| `challenges`         | Array of `{lead, body}` items — your actual challenges (not the prototype's XX placeholders).                    |
+| `pdf`                | Path under `/public` (e.g. `"/downloads/risk-register-revamp.pdf"`).                                              |
+| `repo`               | Full GitHub URL.                                                                                                 |
+| `embedUrl`           | Power BI "Publish to web" URL.                                                                                   |
+| `embedFallbackImage` | Path under `/public` to the image shown while the iframe loads / on embed failure.                                |
+| `images`             | Array of paths under `/public/images/projects/technical/`. Used for the card thumbnail and Phase-5 photo fallback. |
+
+These are all optional in the schema, so the entry compiles and renders without them. No further code changes needed when you add them — just edit the JSON.
+
+### Test deltas vs. PHASED_PLAN
+
+- ✓ Existing projects render unchanged (no consumer reads new fields).
+- ✓ QA project carries every new field that has user-ready content; remaining fields are documented above.
+- ⚠ "Homepage cards unchanged" test is satisfied in spirit but not literally — a NEW card now appears in the grid. You opted in to this via Q3 answer ("We need to add it manually to the json").
+- → If the new 7th card disrupts the grid layout (you mentioned possibly deleting `tech-4` "Basic Expense Report" for alignment), confirm and I'll remove it.
 
 ---
 

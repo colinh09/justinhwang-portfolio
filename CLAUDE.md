@@ -6,6 +6,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Personal portfolio site for Justin Hwang (project controls engineer), deployed to jh-projectcontrols.com. Next.js 15 (App Router), React 19, TypeScript (strict mode).
 
+## In-progress work
+
+The technical project modal is being redesigned in a multi-phase effort tracked in [PROJECT_STATE.md](PROJECT_STATE.md) at the repo root — read it first when picking work up. Spec, kickoff docs, prototype, and screenshots live locally under `side projects/powerbiembed/` (gitignored via `side projects/.gitignore`; not part of the repo). Reference both by path, do not paste their contents into context.
+
 ## Commands
 
 ```bash
