@@ -4,6 +4,7 @@ import { useEffect, useId, useRef, useState } from "react";
 import { CONSTRUCTION_PROJECTS } from "@/lib/content";
 import { isTechProject, type AnyProject } from "@/lib/types";
 import TechModalBody from "@/components/TechModalBody";
+import TechEmbed from "@/components/TechEmbed";
 
 interface Props {
   project: AnyProject | null;
@@ -71,6 +72,7 @@ export default function Modal({ project, onClose }: Props) {
   const tech = isTechProject(project);
   const pdf = tech ? project.pdf : undefined;
   const repo = tech ? project.repo : undefined;
+  const embedUrl = tech ? project.embedUrl : undefined;
   const images = tech
     ? project.images ?? []
     : project.image
@@ -120,10 +122,16 @@ export default function Modal({ project, onClose }: Props) {
         )}
 
         <div
-          className={`jh-modal__hero ${tech ? "jh-modal__hero--tech" : ""}`}
-          style={{ background: hasImages ? "#0d0a07" : project.swatch }}
+          className={`jh-modal__hero${tech ? " jh-modal__hero--tech" : ""}${
+            embedUrl ? " jh-modal__hero--embed" : ""
+          }`}
+          style={{
+            background: embedUrl || hasImages ? "#0d0a07" : project.swatch,
+          }}
         >
-          {hasImages ? (
+          {tech && embedUrl ? (
+            <TechEmbed key={embedUrl} project={project} embedUrl={embedUrl} />
+          ) : hasImages ? (
             <>
               {images.map((src, i) => (
                 <img

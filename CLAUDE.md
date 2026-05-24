@@ -26,7 +26,7 @@ No test suite is configured — there is no test runner and no test files.
 
 ## Claude Code skills
 
-Four project-scoped tech-stack skills are installed under `.agents/skills/` and symlinked into `.claude/skills/`: `next-best-practices`, `vercel-react-best-practices`, `typescript-advanced-types`, and `frontend-design`. They are not auto-invoked on every change — per-phase invocation is orchestrated by `side projects/powerbiembed/PHASE_PROMPTS.md`. For ad-hoc work outside the modal redesign, invoke them explicitly when relevant; do not lean on every rule for every diff.
+Tech-stack skills available from `.claude/skills/`: `next-best-practices`, `vercel-react-best-practices`, `typescript-advanced-types`, and `frontend-design`. The first three are project-scoped (real source under `.agents/skills/`, symlinked into `.claude/skills/`); `frontend-design` lives as a real directory in `.claude/skills/` only. They are not auto-invoked on every change — per-phase invocation is orchestrated by `side projects/powerbiembed/PHASE_PROMPTS.md`. For ad-hoc work outside the modal redesign, invoke them explicitly when relevant; do not lean on every rule for every diff.
 
 ## Architecture
 
@@ -52,7 +52,7 @@ There is no CMS, no data fetching, and no props-drilling of content — componen
 
 ### One modal for two project types
 
-`components/Modal.tsx` is the only modal. It renders both technical and construction projects, branching at runtime on the `isTechProject()` type guard from `lib/types.ts`. Project cards (`TechSection` / `ConstructionSection`) do not open their own modals — they call an `onOpen(project)` callback that sets `activeProject` on `Portfolio`, and the shared `Modal` renders it. The modal owns its image carousel, focus trap, body-scroll lock, and Escape / click-outside close behavior.
+`components/Modal.tsx` is the only modal. It renders both technical and construction projects, branching at runtime on the `isTechProject()` type guard from `lib/types.ts`. Project cards (`TechSection` / `ConstructionSection`) do not open their own modals — they call an `onOpen(project)` callback that sets `activeProject` on `Portfolio`, and the shared `Modal` renders it. The modal owns its image carousel, focus trap, body-scroll lock, and Escape / click-outside close behavior. For tech projects, the body is delegated to `components/TechModalBody.tsx`, driven by the section registry in `lib/sections.ts` (Description / Learning Goals / Challenges / What's Next?); construction projects keep the simpler inline body (Project / My contributions / Related) in `Modal.tsx`. When a tech project has `embedUrl`, the hero is replaced by `components/TechEmbed.tsx` (Power BI iframe with a load / timeout / error state machine); the `frame-src` CSP in `next.config.mjs` whitelists `app.powerbi.com` and `*.powerbi.com`.
 
 ### Contact form
 
@@ -62,7 +62,7 @@ There is no CMS, no data fetching, and no props-drilling of content — componen
 
 All styling is in one global stylesheet, `app/globals.css`. No CSS modules, no Tailwind, no CSS-in-JS. Class names follow a BEM-ish `jh-` prefix convention. Design tokens are CSS custom properties on `:root` (`--jh-bg`, `--jh-ink`, `--jh-mute`, `--jh-line`, `--jh-accent`, `--jh-display-font`, `--jh-sans`, `--jh-sidebar-w`, `--jh-pad`). Fonts — Newsreader (serif, display) and Inter (sans, body) — are loaded from Google Fonts in `app/layout.tsx`'s `<head>`.
 
-**Gotcha:** `globals.css` sets `html { zoom: 1.1; }` — the whole site is intentionally rendered at 110%. This skews pixel-precise work: `getBoundingClientRect()` returns zoomed pixels while `getComputedStyle()` returns unzoomed values. Prefer `em` / relative units, which are unaffected.
+**Gotcha:** `globals.css` sets `html { zoom: 1.1; }` — the whole site is intentionally rendered at 110%. This skews pixel-precise work: `getBoundingClientRect()` returns zoomed viewport pixels, `Element.scrollTop` / `scrollTo()` operate in unzoomed CSS pixels, and `getComputedStyle()` returns unzoomed values. Any scroll math that crosses these boundaries must divide the BCR delta by the live zoom factor (see `getZoom()` in `components/TechModalBody.tsx`). Prefer `em` / relative units, which are unaffected.
 
 ### Layout & SEO
 

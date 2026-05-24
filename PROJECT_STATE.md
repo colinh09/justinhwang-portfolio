@@ -15,7 +15,7 @@ The `side projects/` folder is local-only (see [side projects/.gitignore](side p
 | 2     | Data schema + QA fixture                | **DONE — pending user-supplied content from parallel CC session for `challenges`, `pdf`, `repo`, `embedUrl`, `embedFallbackImage`, `images`** |
 | 3     | Header chrome (PDF / Repo / × pills)    | **DONE — pending visual sign-off** |
 | 4     | Body restructure + sidenav              | **DONE — pending visual sign-off** |
-| 5     | Embed mode (iframe + CSP + lifecycle)   | Not started           |
+| 5     | Embed mode (iframe + CSP + lifecycle)   | **DONE — pending visual sign-off** |
 | 6     | A11y, keyboard, cross-browser           | Not started           |
 
 ---
@@ -505,6 +505,134 @@ Fix in [components/TechModalBody.tsx](components/TechModalBody.tsx): added `getZ
 - `.jh-modal__head-main { flex: 1; min-width: 0 }` is now unused for tech (`.jh-modal__inner--tech .jh-modal__head` is `display: grid`, not flex). Phase 3 already flagged this; still harmless dead-ish.
 - The legacy-fallback in `getActiveSections` could go away once tech-1/3/4/5/6 are migrated to `description`. Until then, deleting it would silently drop body content. Leave in place.
 - No font request changes. Newsreader + Inter only — same set as before Phase 4.
+
+---
+
+## Phase 5 — Changes shipped
+
+Tech-only embed mode. Construction modal untouched per Q3. Skill stack invoked at session start: `next-best-practices`, `vercel-react-best-practices`, `typescript-advanced-types`, `frontend-design`. `security-review` invoked after the diff was final.
+
+### Setup
+
+**[content/technical-projects.json](content/technical-projects.json)** — committed first as a separate setup commit (`a971b68`). Adds `embedUrl` to tech-2b, pointing at the live "Publish to web" URL for the Tonnelle Avenue Risk Dashboard. `embedFallbackImage` intentionally left empty to exercise the no-fallback failure path.
+
+### New file
+
+**[components/TechEmbed.tsx](components/TechEmbed.tsx)** — `'use client'`. Owns the Power BI iframe and its load/error/timeout state machine.
+
+- State modeled as a discriminated union per `typescript-advanced-types`:
+  ```ts
+  type EmbedState =
+    | { status: "loading" }
+    | { status: "loaded" }
+    | { status: "failed"; reason: "timeout" | "error" };
+  ```
+  Each branch narrows what's rendered. No three-booleans antipattern.
+- 10s timeout in a `useRef`-stored `setTimeout` per `rerender-use-ref-transient-values` (transient value, not state — never read in render, only set/cleared). Both `onLoad` and `onError` clear the timer; the effect's cleanup clears it on unmount.
+- `useEffect` keyed on `embedUrl`: resets to `{ status: "loading" }`, starts the timer, returns the cleanup. If the timer fires while still loading, transitions to `{ status: "failed", reason: "timeout" }` via a functional setState that short-circuits if the user navigated to a different state in the meantime (`rerender-functional-setstate`).
+- iframe rendered with the README's verbatim attributes: `sandbox="allow-scripts allow-same-origin allow-popups"`, `loading="lazy"`, `referrerPolicy="no-referrer-when-downgrade"`, `title={project.embedLabel || project.title}`, `frameBorder="0"`, `allowFullScreen`, `style={{ width: "100%", height: "100%", display: "block", border: 0 }}`. No `allow-top-navigation`.
+- Iframe is not rendered in the failed branch (so the failing iframe stops fetching). It IS rendered for both loading and loaded — the loading overlay sits on top until the `load` event fires, then the overlay disappears and the iframe is visible.
+- `key={embedUrl}` on the iframe so switching between embed projects forces a remount (avoids carrying load state between projects).
+- Strip overlays the top of the hero: label + optional caption on the left, `INTERACTIVE · POWER BI` badge + `Open ↗` link on the right.
+- Failure CTA: `<a target="_blank" rel="noreferrer">Open dashboard in a new tab ↗</a>` — always present in the failed branch, with or without `embedFallbackImage`.
+
+### [components/Modal.tsx](components/Modal.tsx)
+
+Three-line change at the tech-hero branch:
+- New `import TechEmbed from "@/components/TechEmbed";`
+- New `embedUrl = tech ? project.embedUrl : undefined` extraction (alongside the existing `pdf` / `repo`).
+- Hero children now go `tech && embedUrl ? <TechEmbed/> : hasImages ? <photo carousel/> : <thumb grid/>`. Hero container gets a `jh-modal__hero--embed` modifier class when in embed mode, and the bg falls back to `#0d0a07` (same as the photo carousel's dark bg) when `embedUrl` is set, so there's never a swatch flash before the iframe paints.
+
+**Lifecycle:** `<Modal>` is rendered at `components/Portfolio.tsx:83` and returns `null` when `project` is `null`. When the user closes the modal, `Portfolio` sets `activeProject` to `null`, `Modal` returns `null`, and React unmounts the entire subtree — `TechEmbed` is destroyed along with its iframe. When the user opens a different tech project that has an `embedUrl`, the iframe's `key={embedUrl}` forces a remount so the load state machine resets cleanly. **No hidden iframes in the DOM at any time** — verified by inspection of the render tree.
+
+### [next.config.mjs](next.config.mjs)
+
+Added an async `headers()` block returning `Content-Security-Policy: frame-src 'self' https://app.powerbi.com https://*.powerbi.com;` on `source: "/:path*"`. Per Phase 0 finding — no middleware, no `vercel.json`, single source of truth.
+
+`'self'` added defensively beyond the spec-literal directive so future intra-site iframes (e.g. an OG image preview) wouldn't break.
+
+Because the site had no prior CSP, adding only `frame-src` does NOT enforce `default-src` — every other directive (script-src, style-src, img-src, connect-src, …) remains unrestricted. So nothing else broke: contact form `POST /api/contact`, Google Fonts `<link>`, inline JSON-LD `<script>`, AWS SES on the server side, sitemap, robots — all continue to work.
+
+### [app/globals.css](app/globals.css)
+
+Phase 5 block inserted after the `@media (max-width: 700px)` sidenav-collapse rules, before `.jh-modal__meta`. Every selector under the `.jh-embed*` prefix; nothing leaks into other components.
+
+- `.jh-embed`, `.jh-embed__iframe`, `.jh-embed__frame` — absolute fill of the existing 16:9 `.jh-modal__hero--tech` container. The hero's `aspect-ratio: 16 / 9` stays in force; the iframe fills 100% per spec.
+- `.jh-embed__strip` — absolute overlay at the top of the hero, `pointer-events: none` on the strip itself and `pointer-events: auto` on its children, so the Power BI report below the strip remains fully clickable while the strip's badge and link stay interactive. Gradient mask fades dark-brown to transparent so the strip never feels like a solid bar slammed on top of the report.
+- `.jh-embed__badge` — soft-green (`#c8e8d8`) text on a translucent forest-green (`rgba(31, 78, 60, 0.55)`) pill, per Q4. Dot pulses on a 1.4s loop (`jh-embed-pulse` keyframes — under the 1.5s ceiling). Reduced-motion disables the pulse.
+- `.jh-embed__overlay` — covers the iframe during loading and failure. Loading: centered spinner + "Loading interactive report…" caption, with an optional fallback image at 0.35 opacity behind it for warmth. Failure: prominent fallback image at 0.5 opacity + serif failure message + cream CTA pill linking to `embedUrl` in a new tab.
+- `.jh-embed__spinner` — pure CSS borders + `@keyframes jh-embed-spin`. Reduced-motion stops the animation (still readable as a static circle).
+- `@media (max-width: 600px)` — hides the caption + "Open ↗" link in the strip so it doesn't crowd narrow viewports; the badge remains as the "this is live" indicator.
+
+### CSP verification
+
+Dev server up. `curl -D -` against `/`, `/robots.txt`, `/sitemap.xml` all returned `200` with the header:
+
+```
+Content-Security-Policy: frame-src 'self' https://app.powerbi.com https://*.powerbi.com;
+```
+
+No other directive set, so nothing else is restricted.
+
+### Security review
+
+Ran the `security-review` skill on the full Phase 5 diff. Findings: **none at HIGH or MEDIUM confidence.** Notes captured in the security review reply for the record:
+
+- Sandbox `allow-scripts allow-same-origin` is safe here because "same-origin" applies to the iframe's own (Power BI) origin, not the parent. The framed page can't escape into the parent.
+- Iframe `src` is author-controlled JSON, not user input — no injection vector.
+- Both `target="_blank"` links carry `rel="noreferrer"` (implies `noopener`).
+- The CSP addition is purely defensive — it closes a potential attack surface (unrestricted outbound framing) without opening any new one.
+
+### Deviations from README spec, recorded
+
+| README literal | Substituted with | Reason |
+|----------------|------------------|--------|
+| Dark strip background: `#1d2536` (navy) | Existing hero bg `#0d0a07` (deep brown), with a gradient mask | Q4 — keep modal coherent with the site's existing dark-bg treatment. |
+| Badge: soft-green on navy | Soft-green on deep-brown forest-green pill | Q4 — accent reuses `--jh-accent` family. |
+| CSP literal: `frame-src https://app.powerbi.com https://*.powerbi.com` | `frame-src 'self' https://app.powerbi.com https://*.powerbi.com;` | Defensive `'self'` so future intra-site iframes don't break. Power BI domains preserved verbatim. |
+| Strip placement: "above the embed" | Overlaid absolute at the top of the 16:9 hero | Spec also says "the iframe fills 100% width/height". Both can be true only if the strip is overlay. Chose the gradient-fade pattern so the report's chrome below is never obscured (visually, the strip dissolves into the report). |
+| Loading state: "centered shimmer or embedFallbackImage if provided" | Centered spinner + "Loading interactive report…" caption; fallback image (if set) at 0.35 opacity behind the spinner | Site has no existing shimmer component; a spinner is the simplest honest indicator. |
+| Failure CTA copy | "Open dashboard in a new tab ↗" per spec | Verbatim. |
+
+### Tests vs PHASED_PLAN Phase 5 test list
+
+| # | Test                                                                          | Status |
+|---|-------------------------------------------------------------------------------|--------|
+| 1 | QA project with valid embedUrl shows the Power BI iframe on modal open. | **Code-verified.** tech-2b's `embedUrl` is the live Tonnelle Avenue Risk Dashboard URL. Visual sign-off pending. |
+| 2 | Network panel: Power BI requests fire only on modal open; no requests on a second modal without embedUrl. | **Code-verified by lifecycle inspection.** `TechEmbed` only mounts when `tech && embedUrl` is truthy; React unmounts on close. Browser-verified observation deferred to the user (requires DevTools Network panel). |
+| 3 | Homepage Network panel: no Power BI requests fire; card shows static thumbnail. | **Code-verified.** `components/TechSection.tsx:34` only reads `images?.[0]` — never `embedUrl`. tech-2b has no `images`, so the card falls back to the swatch + `"DASHBOARD"` label badge (same as before). Browser-verified observation deferred. |
+| 4 | Project with no embedUrl + multi-image array → carousel with arrows + dots. | **Code-verified.** The branch order is `tech && embedUrl ? <TechEmbed/> : hasImages ? <carousel/> : <thumb/>`. Without embedUrl, the carousel renders unchanged. |
+| 5 | Project with no embedUrl + single image → carousel without arrows or dots. | **Code-verified.** `images.length > 1` already gates arrows + dots — unchanged from before. |
+| 6 | Iframe has a meaningful `title` attribute. | **Code-verified.** `title={project.embedLabel || project.title}` — tech-2b's `embedLabel` is "Tonnelle Avenue Bridge Relocation — Risk Dashboard". |
+| 7 | Revoked embedUrl → failure state within 10s, fallback image shows, button works. | **Code-verified for the timeout path.** Spec for "revoked" depends on whether Power BI returns an HTTP error to the iframe (which would fire `onError` immediately) or just serves a "report not available" page (which still fires `onLoad`). The 10s timeout covers the case where Power BI hangs without responding. Browser-verified observation deferred. tech-2b has no `embedFallbackImage`, so the button-only failure state will be exercised in any failure case. |
+| 8 | Slow 3G: loading persists past 10s, then failure takes over. | **Code-verified.** The timer fires regardless of network speed; the only race is if `onLoad` fires within the 800ms before the timer is cleared on unmount — handled by the cleanup. Browser-verified deferred. |
+| 9 | embedFallbackImage empty + failure → CTA still works. | **Code-verified.** The failure-state render conditions the fallback image on `fallback` truthiness and always renders the CTA. tech-2b has no `embedFallbackImage`, so this is the actual production path for tech-2b. |
+| 10 | No CSP console errors on any page. | **Code-verified for CSP.** Only `frame-src` is set, no `default-src` means every other directive remains unrestricted. Curl-verified that the header is set on `/`, `/robots.txt`, `/sitemap.xml` — all 200. Browser-verified console-clean deferred. |
+
+**Build**: `npm run build` clean. Page bundle 15.7 → 16.6 kB (~900 B from `TechEmbed.tsx` + the new Modal branch + the import). Total First Load JS 119 kB.
+
+**Visual verification**: NOT performed by me — same constraint as Phase 4. Dev server SSR confirms HTTP 200, no compile errors, no runtime errors in the dev log, CSP header confirmed on three routes via curl. Manual verification recipe for the user:
+
+1. Open tech-2b modal. Expect the dark strip with "Tonnelle Avenue Bridge Relocation — Risk Dashboard" label, "Live Power BI report — click, filter, and drill down directly." caption, green pulsing badge "● INTERACTIVE · POWER BI", and "Open ↗" link on the right.
+2. Loading state: spinner + "Loading interactive report…" should appear briefly before the report finishes loading.
+3. Once loaded: the Power BI report fills the 16:9 area. The strip's gradient fades from solid-ish brown at the very top to transparent ~30% down. The Power BI content below the gradient should be clickable.
+4. Close the modal, open a different tech project that has photos but no embedUrl (e.g. tech-1, tech-2, tech-3, tech-4, tech-5, tech-6) — confirm the existing photo carousel renders unchanged.
+5. DevTools → Network → reload homepage. Confirm zero requests to `app.powerbi.com` or `*.powerbi.com` from the homepage. Then open tech-2b modal and confirm Power BI requests fire. Close, open tech-2 (no embed) — confirm no more Power BI requests.
+6. DevTools → Console: zero CSP errors on any page.
+7. Failure path: temporarily edit `content/technical-projects.json` to set `tech-2b.embedUrl` to an invalid Power BI URL (e.g. `https://app.powerbi.com/view?r=invalid`). Reload, open tech-2b modal. Expect the failure state within ~10s with the "Open dashboard in a new tab ↗" CTA. Revert the JSON change.
+8. Reduced motion: DevTools → Rendering → emulate `prefers-reduced-motion: reduce`. Open tech-2b. Expect no badge pulse, no spinner spin, no CTA hover lift.
+
+### Notes for Phase 6
+
+- The iframe sandbox + `referrerPolicy` are spec-literal; Phase 6 a11y review should confirm the iframe `title` is announced by screen readers (it should — it's a standard accessibility name).
+- The failure-state CTA and the strip's "Open ↗" link both use `rel="noreferrer"`. Phase 6 may want to add `rel="noopener"` belt-and-suspenders even though `noreferrer` implies `noopener` — different older browsers handle this differently.
+- The badge pulse + spinner are CSS-only; reduced-motion already disables them. The CTA hover lift (`transform: translateY(-1px)`) is also disabled under reduced motion.
+- The strip's gradient is positioned via `pointer-events: none` on the gradient itself and `pointer-events: auto` on the children. If Phase 6 wants to test "can the user click on the report area immediately under the strip?", the answer is yes.
+- Browser-specific iframe quirks Phase 6 should re-verify:
+  - **Safari**: `sandbox` enforcement has historically lagged; check that Power BI's slicers work.
+  - **Firefox**: `referrerPolicy` on iframes is honored differently; confirm Power BI receives a referrer.
+  - **Chrome**: confirm `loading="lazy"` doesn't defer the iframe past the modal opening (it shouldn't — `lazy` evaluates viewport position at mount, and the modal is in-viewport).
+- The `tech-2b` `embedFallbackImage` is still empty. If the user adds one later, the failure and loading overlays automatically pick it up (the CSS is already wired for `.jh-embed__fallback-img`).
 
 ---
 

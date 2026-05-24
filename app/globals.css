@@ -1416,6 +1416,224 @@ button {
   }
 }
 
+/* Tech modal — Phase 5 embed (Power BI iframe).
+   Strip is overlaid absolute so the iframe can claim 100% of the
+   inherited 16:9 hero box per spec. */
+
+.jh-embed {
+  position: absolute;
+  inset: 0;
+  display: block;
+}
+
+.jh-embed__iframe {
+  position: absolute;
+  inset: 0;
+}
+
+.jh-embed__strip {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 10px 16px;
+  color: #f3ece0;
+  background: linear-gradient(
+    to bottom,
+    rgba(13, 10, 7, 0.85) 0%,
+    rgba(13, 10, 7, 0.55) 70%,
+    rgba(13, 10, 7, 0) 100%
+  );
+  pointer-events: none;
+}
+
+.jh-embed__strip > * { pointer-events: auto; }
+
+.jh-embed__strip-text {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.jh-embed__strip-label {
+  font-family: var(--jh-display-font);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  color: #f3ece0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.jh-embed__strip-sub {
+  font-family: var(--jh-sans);
+  font-size: 11.5px;
+  color: #a59986;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.jh-embed__strip-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.jh-embed__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 9px;
+  font-family: var(--jh-sans);
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #c8e8d8;
+  background: rgba(31, 78, 60, 0.55);
+  border: 1px solid rgba(200, 232, 216, 0.32);
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.jh-embed__badge-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #6dd29a;
+  box-shadow: 0 0 0 0 rgba(109, 210, 154, 0.6);
+  animation: jh-embed-pulse 1.4s ease-in-out infinite;
+}
+
+@keyframes jh-embed-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(109, 210, 154, 0.55); }
+  60%      { box-shadow: 0 0 0 6px rgba(109, 210, 154, 0); }
+}
+
+.jh-embed__open {
+  font-family: var(--jh-sans);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: #f3ece0;
+  text-decoration: none;
+  padding: 4px 8px;
+  border-radius: 999px;
+  transition: background-color 0.15s ease;
+}
+.jh-embed__open:hover,
+.jh-embed__open:focus-visible {
+  background: rgba(243, 236, 224, 0.12);
+}
+
+.jh-embed__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0d0a07;
+  overflow: hidden;
+}
+
+.jh-embed__fallback-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.35;
+}
+
+.jh-embed__loading,
+.jh-embed__failure {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding: 20px 24px;
+  color: #f3ece0;
+  text-align: center;
+}
+
+.jh-embed__spinner {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid rgba(243, 236, 224, 0.18);
+  border-top-color: #6dd29a;
+  animation: jh-embed-spin 0.9s linear infinite;
+}
+
+@keyframes jh-embed-spin {
+  to { transform: rotate(360deg); }
+}
+
+.jh-embed__loading-text {
+  font-family: var(--jh-sans);
+  font-size: 12.5px;
+  letter-spacing: 0.02em;
+  color: #a59986;
+}
+
+.jh-embed__overlay--failed .jh-embed__fallback-img { opacity: 0.5; }
+
+.jh-embed__failure-msg {
+  margin: 0;
+  font-family: var(--jh-display-font);
+  font-size: 17px;
+  line-height: 1.4;
+  color: #f3ece0;
+  max-width: 32ch;
+}
+
+.jh-embed__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  font-family: var(--jh-sans);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: #0d0a07;
+  background: #c8e8d8;
+  border-radius: 999px;
+  text-decoration: none;
+  transition: background-color 0.15s ease, transform 0.15s ease;
+}
+.jh-embed__cta:hover,
+.jh-embed__cta:focus-visible {
+  background: #6dd29a;
+  transform: translateY(-1px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .jh-embed__badge-dot,
+  .jh-embed__spinner { animation: none; }
+  .jh-embed__cta:hover,
+  .jh-embed__cta:focus-visible { transform: none; }
+}
+
+/* Narrow viewports: drop the caption + open-in-new-tab link so the
+   strip doesn't get crowded. The badge stays as the live indicator. */
+@media (max-width: 600px) {
+  .jh-embed__strip-sub,
+  .jh-embed__open { display: none; }
+}
+
 .jh-modal__meta {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
