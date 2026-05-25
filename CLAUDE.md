@@ -6,9 +6,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Personal portfolio site for Justin Hwang (project controls engineer), deployed to jh-projectcontrols.com. Next.js 15 (App Router), React 19, TypeScript (strict mode).
 
-## In-progress work
+## Recent work
 
-The technical project modal is being redesigned in a multi-phase effort tracked in [PROJECT_STATE.md](PROJECT_STATE.md) at the repo root — read it first when picking work up. Spec, kickoff docs, phase prompts, prototype, and screenshots live locally under `side projects/powerbiembed/` (gitignored via `side projects/.gitignore`; not part of the repo). Per-phase paste-ready prompts live at `side projects/powerbiembed/PHASE_PROMPTS.md`. Reference all of these by path, do not paste their contents into context.
+The technical project modal was redesigned and shipped via PR #6 (6 phases plus user polish iterations): responsive sizing, schema extension, header topbar with action pills, sidenav body with scroll-spy, Power BI live embed, a11y / keyboard polish. Durable phase-by-phase record in [PROJECT_STATE.md](PROJECT_STATE.md). Spec, kickoff, phase prompts, prototype, and screenshots live locally under `side projects/powerbiembed/` (gitignored; reference by path, do not paste into context).
 
 ## Commands
 
@@ -26,7 +26,13 @@ No test suite is configured — there is no test runner and no test files.
 
 ## Claude Code skills
 
-Tech-stack skills available from `.claude/skills/`: `next-best-practices`, `vercel-react-best-practices`, `typescript-advanced-types`, and `frontend-design`. The first three are project-scoped (real source under `.agents/skills/`, symlinked into `.claude/skills/`); `frontend-design` lives as a real directory in `.claude/skills/` only. They are not auto-invoked on every change — per-phase invocation is orchestrated by `side projects/powerbiembed/PHASE_PROMPTS.md`. For ad-hoc work outside the modal redesign, invoke them explicitly when relevant; do not lean on every rule for every diff.
+Skills available from `.claude/skills/`:
+
+- `portfolio-update` — project-specific quick-reference. Auto-triggers on any portfolio edit; covers architecture, gotchas, deploy flow, things-not-to-do. Start here for any work in this repo.
+- `next-best-practices`, `vercel-react-best-practices`, `typescript-advanced-types` — project-scoped (real source under `.agents/skills/`, symlinked into `.claude/skills/`).
+- `frontend-design` — real directory in `.claude/skills/`. Visual-quality guardrail against AI-generic styling.
+
+These are not auto-invoked on every change. For ad-hoc work, invoke explicitly when relevant; do not lean on every rule for every diff.
 
 ## Architecture
 
@@ -52,7 +58,7 @@ There is no CMS, no data fetching, and no props-drilling of content — componen
 
 ### One modal for two project types
 
-`components/Modal.tsx` is the only modal. It renders both technical and construction projects, branching at runtime on the `isTechProject()` type guard from `lib/types.ts`. Project cards (`TechSection` / `ConstructionSection`) do not open their own modals — they call an `onOpen(project)` callback that sets `activeProject` on `Portfolio`, and the shared `Modal` renders it. The modal owns its image carousel, focus trap, body-scroll lock, and Escape / click-outside close behavior. For tech projects, the body is delegated to `components/TechModalBody.tsx`, driven by the section registry in `lib/sections.ts` (Description / Learning Goals / Challenges / What's Next?); construction projects keep the simpler inline body (Project / My contributions / Related) in `Modal.tsx`. All tech modals carry a dark `.jh-modal__topbar` band at the very top with the action pills (PDF, Repo, View live, ×); for embed projects the band's left side also carries the embed label/caption + INTERACTIVE badge. When a tech project has `embedUrl`, the hero is replaced by `components/TechEmbed.tsx` (Power BI iframe with a load / timeout / error state machine); the `frame-src` CSP in `next.config.mjs` whitelists `app.powerbi.com` and `*.powerbi.com`.
+`components/Modal.tsx` is the only modal. It renders both technical and construction projects, branching at runtime on the `isTechProject()` type guard from `lib/types.ts`. Project cards (`TechSection` / `ConstructionSection`) do not open their own modals — they call an `onOpen(project)` callback that sets `activeProject` on `Portfolio`, and the shared `Modal` renders it. The modal owns its image carousel, focus trap, body-scroll lock, and Escape / click-outside close behavior. For tech projects, the body is delegated to `components/TechModalBody.tsx`, driven by the section registry in `lib/sections.ts` (Description / Learning Goals / Challenges / What's Next?); construction projects keep the simpler inline body (Project / My contributions / Related) in `Modal.tsx`. All tech modals carry a dark `.jh-modal__topbar` band at the very top with the action pills (PDF, Repo, View live, ×); for embed projects the band's left side carries the INTERACTIVE badge. When a tech project has `embedUrl`, the hero is replaced by `components/TechEmbed.tsx` (Power BI iframe with a load / timeout / error state machine); the `frame-src` CSP in `next.config.mjs` whitelists `app.powerbi.com` and `*.powerbi.com`.
 
 ### Contact form
 

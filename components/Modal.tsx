@@ -131,7 +131,12 @@ export default function Modal({ project, onClose }: Props) {
                   aria-label="Interactive Power BI report"
                 >
                   <span className="jh-embed__badge-dot" aria-hidden="true" />
-                  INTERACTIVE · POWER BI
+                  <span>
+                    INTERACTIVE
+                    <span className="jh-embed__badge-suffix">
+                      {" · POWER BI"}
+                    </span>
+                  </span>
                 </span>
               )}
             </div>

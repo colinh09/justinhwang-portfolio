@@ -437,6 +437,7 @@ button {
   border: 1px solid var(--jh-line);
   border-radius: 8px;
   overflow: hidden;
+  container-type: inline-size;
   transition: transform 0.4s cubic-bezier(.2, .7, .2, 1),
               box-shadow 0.4s ease,
               border-color 0.3s ease;
@@ -1631,10 +1632,20 @@ button {
 }
 
 /* Narrow viewports: tighten the topbar padding/gaps so badge + pills
-   don't crowd. */
+   don't crowd. Below ~600px we also drop the badge's " · POWER BI"
+   suffix; full label stays available via aria-label. */
 @media (max-width: 600px) {
   .jh-modal__topbar { padding: 8px 12px; gap: 10px; }
   .jh-modal__topbar-right { gap: 6px; }
+  .jh-modal__topbar .jh-embed__badge-suffix { display: none; }
+}
+
+/* Card chip: hide the " · POWER BI" suffix when the card itself is
+   narrow (e.g. 2-col grid on a mid-width viewport). Container query
+   on .jh-card means the chip responds to card width, not viewport,
+   so it works regardless of grid column count. */
+@container (max-width: 360px) {
+  .jh-chip--interactive .jh-embed__badge-suffix { display: none; }
 }
 
 .jh-modal__meta {
