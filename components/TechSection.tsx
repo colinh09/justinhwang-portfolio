@@ -45,7 +45,12 @@ export default function TechSection({ onOpen }: Props) {
                       className="jh-embed__badge-dot"
                       aria-hidden="true"
                     />
-                    INTERACTIVE · POWER BI
+                    <span>
+                      INTERACTIVE
+                      <span className="jh-embed__badge-suffix">
+                        {" · POWER BI"}
+                      </span>
+                    </span>
                   </span>
                 )}
               </div>
