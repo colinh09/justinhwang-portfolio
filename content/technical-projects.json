@@ -62,7 +62,7 @@
     "embedUrl": "https://app.powerbi.com/view?r=eyJrIjoiZjIyN2RiZmItMDc2Zi00YmQ3LThiMTQtMzk2ZmY5NWQ5YWQyIiwidCI6IjFiNDRmNDM5LWI1MDMtNDY1MS1hZWFiLTBjNTc3ZWIxMzM3MCJ9",
     "embedLabel": "Tonnelle Avenue Bridge Relocation — Risk Dashboard",
     "embedCaption": "Live Power BI report — click, filter, and drill down directly.",
-    "pdf": "/downloads/riskregister-revamp.pdf"
+    "images": ["/images/projects/technical/riskregister-revamp1.png"]
   },
   {
     "id": "tech-2",
