@@ -243,6 +243,7 @@
       { "lead": "External integration plugins", "body": "Add a webhook endpoint for third-party data sources: PMIS direct APIs (Procore, Kahua, Unifier), email-parsing services for PMIS notification capture, OCR pipelines for scanned PDF schedules. Each plugin shares the same canonical ingestion layer; no per-source code branches in the dashboards." },
       { "lead": "Quantitative risk methods", "body": "Pair the qualitative P×I risk matrix with quantitative methods (expected value, Monte Carlo on contingency reserves). The current build is qualitative screening only; the quantitative work would be a separate project." },
       { "lead": "Mobile authoring", "body": "v1 is desktop-first with mobile read-only dashboards. v2+ adds mobile data entry for field reports, RFI submission from the jobsite, and photo-attached daily logs." }
-    ]
+    ],
+    "images": ["/images/projects/technical/capstone1.png"]
   }
 ]
