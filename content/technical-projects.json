@@ -203,7 +203,9 @@
     "futureFeatures": [
       { "lead": "Operational rollout", "body": "The code pipeline is green through Phase 14 and the VPS is provisioned, but the four DEPLOY_* GitHub secrets and the DOMAIN repo variable aren't populated yet, so deploy.yml's deploy job is expected-red on every push to main. Closing this gap turns red into a real regression signal and removes the manual SSH step from the deploy loop." },
       { "lead": "Quantitative workload analytics", "body": "The current board is a qualitative tool where dragging a card claims it and dragging it back surfaces a blocker. A future pass would mine the AuditLog (already accumulating per-mutation history) for cycle-time per assignee, blocker dwell time, and contract-level throughput, so the commercial manager can spot where work is stuck without reading every card." }
-    ]
+    ],
+    "liveUrl": "https://conbon.app",
+    "images": ["/images/projects/technical/conbon1.png"]
   },
   {
     "id": "tech-8",
