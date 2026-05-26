@@ -209,7 +209,8 @@
       { "lead": "Production migration to enterprise M365", "body": "Move from personal Outlook.com + OneDrive personal to a company M365 tenant + SharePoint team site. Designed as a config-only swap; same MailSource and OutputSink interfaces, different MSAL authority and workbook handle." },
       { "lead": "RFI and change-order parsing", "body": "Add RFINotification and ChangeOrderNotification schemas alongside the existing SubmittalNotification; route each entity type to its own sheet within the per-project workbook. v1's schema versioning and entity-typed writer routing accept this without breaking existing data." },
       { "lead": "SharePoint folder walk + PDF submittal enrichment", "body": "Beyond the email body, traverse the project's Submittals/ folder tree to locate the actual submittal PDF; use Claude's native PDF support to extract description, comments, and contractor notes the email summary omits — producing a single richer log row per submittal instead of relying on whatever the notification template happened to include." }
-    ]
+    ],
+    "images": ["/images/projects/technical/parser1.png"]
   },
   {
     "id": "tech-7",
