@@ -10,6 +10,8 @@ Personal portfolio site for Justin Hwang (project controls engineer), deployed t
 
 The technical project modal was redesigned and shipped via PR #6 (6 phases plus user polish iterations): responsive sizing, schema extension, header topbar with action pills, sidenav body with scroll-spy, Power BI live embed, a11y / keyboard polish. Durable phase-by-phase record in [PROJECT_STATE.md](PROJECT_STATE.md). Spec, kickoff, phase prompts, prototype, and screenshots live locally under `side projects/powerbiembed/` (gitignored; reference by path, do not paste into context).
 
+Post-PR-6 follow-ups on `website-edits` (awaiting merge): all remaining tech projects migrated to the 4-section body (tech-4 "Basic Expense Report" deleted; tech-1, tech-2, tech-3, tech-5, tech-6 now carry `description` + `objectives` + `challenges` + `futureFeatures`), so the `detail[]` legacy-fallback in `getActiveSections` no longer fires for any shipped project. `tech-2b` card thumbnail swapped to a 2x rasterization of the archive PDF (no separate PDF pill on this project — the embed is the canonical view). SCA Mentor Program role corrected from Estimator to Project Controls. `scripts/build-tech-content-doc.py` (untracked) was a one-off helper that exported the five tech-project records as an editable Word doc during content authoring.
+
 ## Commands
 
 ```bash
