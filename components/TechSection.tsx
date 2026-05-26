@@ -22,7 +22,9 @@ export default function TechSection({ onOpen }: Props) {
         project controls.
       </p>
       <div className="jh-grid jh-grid--tech">
-        {TECH_PROJECTS.map((p) => (
+        {/* JSON is stored oldest-first so new entries just get appended;
+            reverse here so newest renders at the top. */}
+        {[...TECH_PROJECTS].reverse().map((p) => (
           <button
             key={p.id}
             className="jh-card jh-card--tech"

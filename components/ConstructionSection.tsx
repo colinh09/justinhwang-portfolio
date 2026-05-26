@@ -51,12 +51,16 @@ export default function ConstructionSection({ onOpen }: Props) {
   const [sector, setSector] = useState<Sector | null>(null);
   const [role, setRole] = useState<Role | null>(null);
 
+  // JSON is stored oldest-first so new entries just get appended;
+  // reverse here so newest renders at the top (filter preserves order).
   const filtered = useMemo(
     () =>
-      CONSTRUCTION_PROJECTS.filter(
-        (p) =>
-          (!sector || p.sector === sector) && (!role || p.role === role)
-      ),
+      [...CONSTRUCTION_PROJECTS]
+        .reverse()
+        .filter(
+          (p) =>
+            (!sector || p.sector === sector) && (!role || p.role === role)
+        ),
     [sector, role]
   );
 
