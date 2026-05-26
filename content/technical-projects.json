@@ -1,32 +1,111 @@
 [
   {
-    "id": "tech-1",
-    "title": "Power BI - 58 Devices Labor Burn Dashboard (in progress)",
-    "blurb": "End-to-end labor utilization dashboard modeling an A/E firm's FP&A workflow across three MTA contracts. Built a Python script to generate synthetic labor projections and Deltek Vantagepoint exports, reconciled the datasets in Excel via Power Query, and surfaced the output in a Power BI dashboard.",
-    "tags": ["Power BI", "Power Query", "Excel", "VBA", "DAX", "Python"],
-    "swatch": "#1c2a3a",
-    "label": "DASHBOARD",
+    "id": "tech-6",
+    "title": "JavaScript + D3.js Single Page Application - Projectify",
+    "blurb": "Rough order of magnitude estimate single page web application for Medical Office Fit-outs",
+    "tags": ["Javascript", "D3.js", "Git"],
+    "swatch": "#1f2a1a",
+    "label": "WEB DEVELOPMENT",
     "detail": [
-      "End-to-end labor utilization dashboard modeling an A/E firm's FP&A workflow across three MTA contracts replacing 58 elevators and escalators. Ingests weekly Vantagepoint Project Labor Exports (real Deltek schema), sub timesheets in intentionally varied formats, and supersession-controlled revisions of the labor projection. Power Query handles date parsing, employee normalization, functional group derivation, and report supersession; light VBA orchestrates refresh and validation. Built with anonymized data — employee names randomized via Python + Faker, Vantagepoint actuals synthesized by a companion script — with real firm names preserved. The generation scripts are themselves deliverables that demonstrate the data structures a production pipeline would consume."
+      "A data visualization tool that helps commercial building owners and prospective tenants forecast tenant fit-out costs at the concept stage, before design documents are available. Users input square footage and select a construction type to generate rough-order-of-magnitude (ROM) projections driven by $/SF benchmarks compiled from completed medical office fit-outs. Results render on an interactive D3.js bar chart that supports real-time scope adjustment, giving stakeholders immediate visibility into cost drivers and value-engineering opportunities. The tool applies core project controls principles — historical benchmarking, parametric estimating, and visual reporting — to early-stage feasibility decisions where cost certainty is lowest and the impact of scope choices is highest."
     ],
-    "description": "End-to-end labor utilization dashboard modeling an A/E firm's FP&A workflow across three MTA contracts replacing 58 elevators and escalators. Ingests weekly Vantagepoint Project Labor Exports (real Deltek schema), sub timesheets in intentionally varied formats, and supersession-controlled revisions of the labor projection. Power Query handles date parsing, employee normalization, functional group derivation, and report supersession; light VBA orchestrates refresh and validation. Built with anonymized data — employee names randomized via Python + Faker, Vantagepoint actuals synthesized by a companion script — with real firm names preserved. The generation scripts are themselves deliverables that demonstrate the data structures a production pipeline would consume.",
+    "description": "A data visualization tool that helps commercial building owners and prospective tenants forecast tenant fit-out costs at the concept stage, before design documents are available. Users input square footage and select a construction type to generate rough-order-of-magnitude (ROM) projections driven by $/SF benchmarks compiled from completed medical office fit-outs. Results render on an interactive D3.js bar chart that supports real-time scope adjustment, giving stakeholders immediate visibility into cost drivers and value-engineering opportunities. The tool applies core project controls principles — historical benchmarking, parametric estimating, and visual reporting — to early-stage feasibility decisions where cost certainty is lowest and the impact of scope choices is highest.",
     "objectives": [
-      { "lead": "Realistic FP&A workflow modeling", "body": "Mirror the planned-vs-actual labor reconciliation that an A/E firm performs weekly across multi-contract engagements, including batched Vantagepoint exports and supersession of labor projection revisions." },
-      { "lead": "Synthetic-data pipeline", "body": "Use Python with the Faker library to generate anonymized employee rosters and synthesize Vantagepoint actuals so the dashboard exercises the real Deltek schema without exposing client data." },
-      { "lead": "Power Query reconciliation layer", "body": "Treat source data as messy by default; centralize cleaning (date parsing, employee normalization, functional grouping, supersession resolution) in Power Query rather than upstream of the load." },
-      { "lead": "Light VBA orchestration", "body": "Wrap refresh, validation, and reporting handoffs in VBA macros to demonstrate the button-driven workflow an analyst would use day-to-day." }
+      { "lead": "Parametric estimating in the browser", "body": "Compile $/SF benchmarks from completed medical-office fit-outs and expose them as live inputs so feasibility-stage estimates respond to scope changes in real time." },
+      { "lead": "D3.js for interactive cost visualization", "body": "Render the ROM as an interactive bar chart where scope dials drive the chart directly, surfacing the dominant cost drivers without requiring spreadsheet literacy." },
+      { "lead": "Single-page application without a framework", "body": "Build the app as a vanilla SPA (JavaScript + D3) rather than React, to learn the underlying state and rendering primitives that frameworks abstract away." },
+      { "lead": "Project controls principles for early-stage estimating", "body": "Apply historical benchmarking, parametric estimating, and visual reporting at the feasibility stage where cost certainty is lowest and scope decisions have the highest leverage." }
     ],
     "challenges": [
-      { "lead": "Multi-format sub timesheet ingestion", "body": "Subcontractors deliver timesheets in varying layouts; reconciling them against a single canonical employee/project key required normalization rules baked into Power Query rather than upstream cleaning." },
-      { "lead": "Supersession control on labor projections", "body": "Revisions of the projection arrive as full new copies, not deltas, so Power Query needs to detect the latest revision and exclude superseded ones from the model — handled with a version-stamped folder layer." },
-      { "lead": "Synthesized actuals that exercise real failure modes", "body": "The Python actuals generator needs to produce data that occasionally violates expected joins (missing employees, off-cycle entries) so the reconciliation layer's edge cases are actually visible in QA." }
+      { "lead": "Detailed write-up pending", "body": "Detailed notes on D3.js scale handling, benchmark normalization across mixed-source fit-outs, and SPA state management without a framework are not yet documented here." }
     ],
     "futureFeatures": [
-      { "lead": "Complete the dashboard build", "body": "Finish the visual layer (planned-vs-actual variance, burndown by contract, functional-group heat) and validation page; project is currently mid-Power-Query reconciliation." },
-      { "lead": "Per-employee utilization view", "body": "Add a drillthrough page that surfaces individual utilization, billable mix, and projection drift to support FP&A's monthly review cadence." },
-      { "lead": "Variance alerting", "body": "Wire VBA to flag contracts where actuals diverge from projection beyond a configurable threshold, surfacing in the validation step rather than waiting for visual inspection." }
+      { "lead": "Roadmap not scoped", "body": "Projectify was built as a learning exercise rather than a maintained product; no formal roadmap exists. Likely directions if revisited: expanded fit-out type library (lab, classroom, retail), confidence-interval bands on the ROM, and exportable estimate summaries." }
     ],
-    "images": ["/images/projects/technical/laborburn1.png", "/images/projects/technical/faker1.png", "/placeholder-2.svg", "/placeholder-3.svg"]
+    "images": ["/images/projects/technical/projectify1.png"]
+  },
+  {
+    "id": "tech-5",
+    "title": "Full Stack Web Development - Weave",
+    "blurb": "A travel planning tool built to demonstrate the ability to deploy a full-stack application. Additional features include the integration of google maps API and nodemailer.",
+    "tags": ["Javascript", "React-Redux", "MongoDB", "Mongoose", "Express", "Render", "Google APIs"],
+    "swatch": "#2d2218",
+    "label": "WEB DEVELOPMENT",
+    "detail": [
+      "Weave is a MERN-stack group trip planning app developed and launched in one week. It pairs a Node + Express backend with a MongoDB NoSQL database. Users search businesses and points of interest via Google Places autocomplete and pin them onto an interactive map, building a shared itinerary across the group."
+    ],
+    "description": "Weave is a MERN-stack group trip planning app developed and launched in one week. It pairs a Node + Express backend with a MongoDB NoSQL database. Users search businesses and points of interest via Google Places autocomplete and pin them onto an interactive map, building a shared itinerary across the group.",
+    "objectives": [
+      { "lead": "Full-stack deployment in one week", "body": "Ship a working MERN app — frontend, API, database, and hosting — end-to-end in a single sprint, prioritizing deploy-readiness over feature breadth." },
+      { "lead": "Third-party API integration", "body": "Wire Google Places (autocomplete + map rendering) and Nodemailer into a single coherent UX where search, pin, and notify all feed the same itinerary state." },
+      { "lead": "Redux state across collaborative views", "body": "Use React-Redux to keep the shared itinerary in sync across multiple users' views without round-tripping through the backend on every interaction." },
+      { "lead": "NoSQL document modeling for trip data", "body": "Model trips, members, and pinned POIs as nested documents in MongoDB rather than relational tables, leaning on the document model for the natural shape of itinerary data." }
+    ],
+    "challenges": [
+      { "lead": "Detailed write-up pending", "body": "Sprint-specific challenges (deployment quirks, API quota handling, real-time itinerary sync edge cases) are not yet documented here. The project was built in a one-week sprint and challenges were resolved on the fly without a retrospective." }
+    ],
+    "futureFeatures": [
+      { "lead": "Roadmap not scoped", "body": "Weave was built as a learning sprint rather than an ongoing product; no feature roadmap has been defined. Likely directions if revisited: persistent user accounts, mobile-responsive itinerary view, and an export-to-calendar flow." }
+    ],
+    "images": ["/images/projects/technical/weave1.png", "/images/projects/technical/weave2.jpg", "/images/projects/technical/weave3.jpg"]
+  },
+  {
+    "id": "tech-3",
+    "title": "Power BI - Agency Contingent Employee Staffing Tracker",
+    "blurb": "A reporting tool built to manage a contingent staffing program placing personnel into agency roles.",
+    "tags": ["Power BI", "Power Query", "Excel", "DAX"],
+    "swatch": "#1f2a1a",
+    "label": "DASHBOARD",
+    "detail": [
+      "A Power BI reporting tool for a contingent staffing program. It tracks candidates from application through placement and surfaces hiring pipeline, interview scoring, and margin on each placement. The model is four tables — roles, candidates, interviews, and status history — with Excel kept as the data entry layer so all calculations stay in Power BI. The headline ranking metric was reworked late in the build from interview score to gross margin per placement, which forced modeling of bill rate against pay rate."
+    ],
+    "description": "A Power BI reporting tool for a contingent staffing program. It tracks candidates from application through placement and surfaces hiring pipeline, interview scoring, and margin on each placement. The model is four tables — roles, candidates, interviews, and status history — with Excel kept as the data entry layer so all calculations stay in Power BI. The headline ranking metric was reworked late in the build from interview score to gross margin per placement, which forced modeling of bill rate against pay rate.",
+    "objectives": [
+      { "lead": "Four-table relational model in Power BI", "body": "Keep roles, candidates, interviews, and status history as separate fact/dim tables joined on stable keys, with Excel as the edit layer and DAX as the calculation layer." },
+      { "lead": "Sort-order columns in Power Query, not DAX", "body": "Build numeric sort keys for pipeline stage as Power Query conditional columns so they're computed before the data model loads, sidestepping DAX calculated-column circular dependencies." },
+      { "lead": "Cross-filter direction discipline", "body": "Pull role fields through each candidate's own role ID (not directly from the Roles table) and lock the Candidates→Interviews relationship to a single direction to prevent fan-out." },
+      { "lead": "Margin-based ranking", "body": "Model bill rate against pay rate so the placement ranking reflects gross margin rather than interview score — a more decision-useful metric for the program owner." }
+    ],
+    "challenges": [
+      { "lead": "Circular dependency on DAX sort key", "body": "Building the pipeline sort key as a DAX calculated column triggered a circular dependency. Resolved by moving the sort key into Power Query as a conditional column, which evaluates before the data model loads." },
+      { "lead": "Candidate fan-out across roles", "body": "The candidate table showed each candidate against every role because role fields were being pulled straight from the Roles table and two competing relationship paths existed. Resolved by looking up role fields via each candidate's own role ID and correcting cross-filter direction on Candidates→Interviews." },
+      { "lead": "Late metric pivot from interview score to gross margin", "body": "Switching the ranking metric mid-build meant adding bill rate and pay rate to the model and reworking the headline table — a deliberate exercise in the cost of late metric changes versus locking metrics up front." }
+    ],
+    "futureFeatures": [
+      { "lead": "Status-history-driven cycle-time metrics", "body": "The status history table is in the model but not yet visualized; add average cycle time per stage and bottleneck detection to the program-owner view." },
+      { "lead": "Margin-by-recruiter rollup", "body": "Now that gross margin is modeled at the placement level, roll it up by recruiter to support compensation and coaching conversations." }
+    ],
+    "images": ["/images/projects/technical/scapbi1.png", "/images/projects/technical/scapbi2.png"]
+  },
+  {
+    "id": "tech-2",
+    "title": "Power BI - Risk Register Dashboard",
+    "blurb": "Construction risk register dashboard built around a Python update pipeline: dated entries written into the source Excel register are parsed and appended to a separate update table that powers the dashboard's trend and history visuals.",
+    "tags": ["Power BI", "Power Query", "Excel", "DAX", "Python"],
+    "swatch": "#2d2218",
+    "label": "DASHBOARD",
+    "detail": [
+      "Power BI risk register dashboard for a single-contract bridge and utility relocation project, built on PMBOK qualitative risk screening — a 5×5 probability-impact matrix using P × MAX(C,S) scoring with Low / Medium / High banding. The data architecture separates the register (the human-edit surface) from a Risk_Updates flat table (the time-series source), joined many-to-one on a stable risk_id key. A companion Python script handles append-only propagation — parsing new dated entries from the register's mitigation_log column and appending them as rows to Risk_Updates with year inference via a documented month rule. Power BI refreshes off both files via direct file connections; script appends flow through without manual remodeling. Built with synthetic data designed to exercise every visual, not represent real project record."
+    ],
+    "description": "Power BI risk register dashboard for a single-contract bridge and utility relocation project, built on PMBOK qualitative risk screening — a 5×5 probability-impact matrix using P × MAX(C,S) scoring with Low / Medium / High banding. The data architecture separates the register (the human-edit surface) from a Risk_Updates flat table (the time-series source), joined many-to-one on a stable risk_id key. A companion Python script handles append-only propagation — parsing new dated entries from the register's mitigation_log column and appending them as rows to Risk_Updates with year inference via a documented month rule. Power BI refreshes off both files via direct file connections; script appends flow through without manual remodeling. Built with synthetic data designed to exercise every visual, not represent real project record.",
+    "objectives": [
+      { "lead": "Separation of edit surface and time-series source", "body": "Keep the register as the human-friendly edit layer and route history into a separate Risk_Updates flat table joined on a stable risk_id, avoiding the trap of growing a single sheet into both roles." },
+      { "lead": "Append-only Python propagation", "body": "Parse mitigation_log entries with year inference and append to Risk_Updates without rewriting history; month-rule edge cases are documented in the script." },
+      { "lead": "PMBOK qualitative screening at fluency", "body": "Implement the 5×5 P × I matrix with P × MAX(C,S) scoring and Low/Medium/High banding such that the matrix renders all 25 cells including empties — which requires a disconnected axis table, not just the data." },
+      { "lead": "New DAX patterns for trend & heat", "body": "Author AVERAGEX with RELATED for the average-score trend across a to-one relationship without invoking bidirectional cross-filter, plus a single P × I cell-score measure shared across cost-impact, schedule-impact, and max-impact matrix variants." }
+    ],
+    "challenges": [
+      { "lead": "Forcing matrix cells to render including empties", "body": "Default Power BI suppresses zero-count cells, breaking the 5×5 layout. Resolved with a disconnected axis table and a SELECTEDVALUE-driven count measure so every cell paints whether or not risks fall in it." },
+      { "lead": "Avoiding the bidirectional cross-filter trap on trend", "body": "The average-score trend across the to-one Risk_Updates relationship initially called for bidirectional filtering, which would have corrupted unrelated measures. Resolved with AVERAGEX + RELATED to compute through the existing single-direction relationship." },
+      { "lead": "Page-level filter vs. resolved-count override", "body": "Page 1 visuals all scope to mitigation_status = active, but the resolved-count tile on the same page needed to ignore that filter. Resolved with a CALCULATE override on the count measure rather than splitting the page." },
+      { "lead": "Year inference on parsed mitigation_log entries", "body": "Free-text dated entries in the register lack explicit years; the Python parser uses a documented month rule with edge-case warnings rather than guessing silently." }
+    ],
+    "futureFeatures": [
+      { "lead": "AI-assisted revamp", "body": "A revamp of this dashboard using Claude Code and an MCP-driven workflow is a separate project on this site (Risk Register Revamp); it carries forward the data architecture decisions and re-authors the visuals through the PBIR CLI." },
+      { "lead": "Quantitative risk methods", "body": "Pair the qualitative P × I matrix with quantitative methods (expected value, Monte Carlo on contingency). The current build is qualitative screening only." }
+    ],
+    "images": ["/images/projects/technical/riskregister1.png", "/placeholder-2.svg", "/placeholder-3.svg"],
+    "pdf": "/downloads/riskregister1.pdf"
   },
   {
     "id": "tech-2b",
@@ -65,111 +144,133 @@
     "images": ["/images/projects/technical/riskregister-revamp1.png"]
   },
   {
-    "id": "tech-2",
-    "title": "Power BI - Risk Register Dashboard",
-    "blurb": "Construction risk register dashboard built around a Python update pipeline: dated entries written into the source Excel register are parsed and appended to a separate update table that powers the dashboard's trend and history visuals.",
-    "tags": ["Power BI", "Power Query", "Excel", "DAX", "Python"],
-    "swatch": "#2d2218",
+    "id": "tech-1",
+    "title": "Power BI - 58 Devices Labor Burn Dashboard (in progress)",
+    "blurb": "End-to-end labor utilization dashboard modeling an A/E firm's FP&A workflow across three MTA contracts. Built a Python script to generate synthetic labor projections and Deltek Vantagepoint exports, reconciled the datasets in Excel via Power Query, and surfaced the output in a Power BI dashboard.",
+    "tags": ["Power BI", "Power Query", "Excel", "VBA", "DAX", "Python"],
+    "swatch": "#1c2a3a",
     "label": "DASHBOARD",
     "detail": [
-      "Power BI risk register dashboard for a single-contract bridge and utility relocation project, built on PMBOK qualitative risk screening — a 5×5 probability-impact matrix using P × MAX(C,S) scoring with Low / Medium / High banding. The data architecture separates the register (the human-edit surface) from a Risk_Updates flat table (the time-series source), joined many-to-one on a stable risk_id key. A companion Python script handles append-only propagation — parsing new dated entries from the register's mitigation_log column and appending them as rows to Risk_Updates with year inference via a documented month rule. Power BI refreshes off both files via direct file connections; script appends flow through without manual remodeling. Built with synthetic data designed to exercise every visual, not represent real project record."
+      "End-to-end labor utilization dashboard modeling an A/E firm's FP&A workflow across three MTA contracts replacing 58 elevators and escalators. Ingests weekly Vantagepoint Project Labor Exports (real Deltek schema), sub timesheets in intentionally varied formats, and supersession-controlled revisions of the labor projection. Power Query handles date parsing, employee normalization, functional group derivation, and report supersession; light VBA orchestrates refresh and validation. Built with anonymized data — employee names randomized via Python + Faker, Vantagepoint actuals synthesized by a companion script — with real firm names preserved. The generation scripts are themselves deliverables that demonstrate the data structures a production pipeline would consume."
     ],
-    "description": "Power BI risk register dashboard for a single-contract bridge and utility relocation project, built on PMBOK qualitative risk screening — a 5×5 probability-impact matrix using P × MAX(C,S) scoring with Low / Medium / High banding. The data architecture separates the register (the human-edit surface) from a Risk_Updates flat table (the time-series source), joined many-to-one on a stable risk_id key. A companion Python script handles append-only propagation — parsing new dated entries from the register's mitigation_log column and appending them as rows to Risk_Updates with year inference via a documented month rule. Power BI refreshes off both files via direct file connections; script appends flow through without manual remodeling. Built with synthetic data designed to exercise every visual, not represent real project record.",
+    "description": "End-to-end labor utilization dashboard modeling an A/E firm's FP&A workflow across three MTA contracts replacing 58 elevators and escalators. Ingests weekly Vantagepoint Project Labor Exports (real Deltek schema), sub timesheets in intentionally varied formats, and supersession-controlled revisions of the labor projection. Power Query handles date parsing, employee normalization, functional group derivation, and report supersession; light VBA orchestrates refresh and validation. Built with anonymized data — employee names randomized via Python + Faker, Vantagepoint actuals synthesized by a companion script — with real firm names preserved. The generation scripts are themselves deliverables that demonstrate the data structures a production pipeline would consume.",
     "objectives": [
-      { "lead": "Separation of edit surface and time-series source", "body": "Keep the register as the human-friendly edit layer and route history into a separate Risk_Updates flat table joined on a stable risk_id, avoiding the trap of growing a single sheet into both roles." },
-      { "lead": "Append-only Python propagation", "body": "Parse mitigation_log entries with year inference and append to Risk_Updates without rewriting history; month-rule edge cases are documented in the script." },
-      { "lead": "PMBOK qualitative screening at fluency", "body": "Implement the 5×5 P × I matrix with P × MAX(C,S) scoring and Low/Medium/High banding such that the matrix renders all 25 cells including empties — which requires a disconnected axis table, not just the data." },
-      { "lead": "New DAX patterns for trend & heat", "body": "Author AVERAGEX with RELATED for the average-score trend across a to-one relationship without invoking bidirectional cross-filter, plus a single P × I cell-score measure shared across cost-impact, schedule-impact, and max-impact matrix variants." }
+      { "lead": "Realistic FP&A workflow modeling", "body": "Mirror the planned-vs-actual labor reconciliation that an A/E firm performs weekly across multi-contract engagements, including batched Vantagepoint exports and supersession of labor projection revisions." },
+      { "lead": "Synthetic-data pipeline", "body": "Use Python with the Faker library to generate anonymized employee rosters and synthesize Vantagepoint actuals so the dashboard exercises the real Deltek schema without exposing client data." },
+      { "lead": "Power Query reconciliation layer", "body": "Treat source data as messy by default; centralize cleaning (date parsing, employee normalization, functional grouping, supersession resolution) in Power Query rather than upstream of the load." },
+      { "lead": "Light VBA orchestration", "body": "Wrap refresh, validation, and reporting handoffs in VBA macros to demonstrate the button-driven workflow an analyst would use day-to-day." }
     ],
     "challenges": [
-      { "lead": "Forcing matrix cells to render including empties", "body": "Default Power BI suppresses zero-count cells, breaking the 5×5 layout. Resolved with a disconnected axis table and a SELECTEDVALUE-driven count measure so every cell paints whether or not risks fall in it." },
-      { "lead": "Avoiding the bidirectional cross-filter trap on trend", "body": "The average-score trend across the to-one Risk_Updates relationship initially called for bidirectional filtering, which would have corrupted unrelated measures. Resolved with AVERAGEX + RELATED to compute through the existing single-direction relationship." },
-      { "lead": "Page-level filter vs. resolved-count override", "body": "Page 1 visuals all scope to mitigation_status = active, but the resolved-count tile on the same page needed to ignore that filter. Resolved with a CALCULATE override on the count measure rather than splitting the page." },
-      { "lead": "Year inference on parsed mitigation_log entries", "body": "Free-text dated entries in the register lack explicit years; the Python parser uses a documented month rule with edge-case warnings rather than guessing silently." }
+      { "lead": "Multi-format sub timesheet ingestion", "body": "Subcontractors deliver timesheets in varying layouts; reconciling them against a single canonical employee/project key required normalization rules baked into Power Query rather than upstream cleaning." },
+      { "lead": "Supersession control on labor projections", "body": "Revisions of the projection arrive as full new copies, not deltas, so Power Query needs to detect the latest revision and exclude superseded ones from the model — handled with a version-stamped folder layer." },
+      { "lead": "Synthesized actuals that exercise real failure modes", "body": "The Python actuals generator needs to produce data that occasionally violates expected joins (missing employees, off-cycle entries) so the reconciliation layer's edge cases are actually visible in QA." }
     ],
     "futureFeatures": [
-      { "lead": "AI-assisted revamp", "body": "A revamp of this dashboard using Claude Code and an MCP-driven workflow is a separate project on this site (Risk Register Revamp); it carries forward the data architecture decisions and re-authors the visuals through the PBIR CLI." },
-      { "lead": "Quantitative risk methods", "body": "Pair the qualitative P × I matrix with quantitative methods (expected value, Monte Carlo on contingency). The current build is qualitative screening only." }
+      { "lead": "Complete the dashboard build", "body": "Finish the visual layer (planned-vs-actual variance, burndown by contract, functional-group heat) and validation page; project is currently mid-Power-Query reconciliation." },
+      { "lead": "Per-employee utilization view", "body": "Add a drillthrough page that surfaces individual utilization, billable mix, and projection drift to support FP&A's monthly review cadence." },
+      { "lead": "Variance alerting", "body": "Wire VBA to flag contracts where actuals diverge from projection beyond a configurable threshold, surfacing in the validation step rather than waiting for visual inspection." }
     ],
-    "images": ["/images/projects/technical/riskregister1.png", "/placeholder-2.svg", "/placeholder-3.svg"],
-    "pdf": "/downloads/riskregister1.pdf"
+    "images": ["/images/projects/technical/laborburn1.png", "/images/projects/technical/faker1.png", "/placeholder-2.svg", "/placeholder-3.svg"]
   },
   {
-    "id": "tech-3",
-    "title": "Power BI - Agency Contingent Employee Staffing Tracker",
-    "blurb": "A reporting tool built to manage a contingent staffing program placing personnel into agency roles.",
-    "tags": ["Power BI", "Power Query", "Excel", "DAX"],
-    "swatch": "#1f2a1a",
-    "label": "DASHBOARD",
-    "detail": [
-      "A Power BI reporting tool for a contingent staffing program. It tracks candidates from application through placement and surfaces hiring pipeline, interview scoring, and margin on each placement. The model is four tables — roles, candidates, interviews, and status history — with Excel kept as the data entry layer so all calculations stay in Power BI. The headline ranking metric was reworked late in the build from interview score to gross margin per placement, which forced modeling of bill rate against pay rate."
-    ],
-    "description": "A Power BI reporting tool for a contingent staffing program. It tracks candidates from application through placement and surfaces hiring pipeline, interview scoring, and margin on each placement. The model is four tables — roles, candidates, interviews, and status history — with Excel kept as the data entry layer so all calculations stay in Power BI. The headline ranking metric was reworked late in the build from interview score to gross margin per placement, which forced modeling of bill rate against pay rate.",
-    "objectives": [
-      { "lead": "Four-table relational model in Power BI", "body": "Keep roles, candidates, interviews, and status history as separate fact/dim tables joined on stable keys, with Excel as the edit layer and DAX as the calculation layer." },
-      { "lead": "Sort-order columns in Power Query, not DAX", "body": "Build numeric sort keys for pipeline stage as Power Query conditional columns so they're computed before the data model loads, sidestepping DAX calculated-column circular dependencies." },
-      { "lead": "Cross-filter direction discipline", "body": "Pull role fields through each candidate's own role ID (not directly from the Roles table) and lock the Candidates→Interviews relationship to a single direction to prevent fan-out." },
-      { "lead": "Margin-based ranking", "body": "Model bill rate against pay rate so the placement ranking reflects gross margin rather than interview score — a more decision-useful metric for the program owner." }
-    ],
-    "challenges": [
-      { "lead": "Circular dependency on DAX sort key", "body": "Building the pipeline sort key as a DAX calculated column triggered a circular dependency. Resolved by moving the sort key into Power Query as a conditional column, which evaluates before the data model loads." },
-      { "lead": "Candidate fan-out across roles", "body": "The candidate table showed each candidate against every role because role fields were being pulled straight from the Roles table and two competing relationship paths existed. Resolved by looking up role fields via each candidate's own role ID and correcting cross-filter direction on Candidates→Interviews." },
-      { "lead": "Late metric pivot from interview score to gross margin", "body": "Switching the ranking metric mid-build meant adding bill rate and pay rate to the model and reworking the headline table — a deliberate exercise in the cost of late metric changes versus locking metrics up front." }
-    ],
-    "futureFeatures": [
-      { "lead": "Status-history-driven cycle-time metrics", "body": "The status history table is in the model but not yet visualized; add average cycle time per stage and bottleneck detection to the program-owner view." },
-      { "lead": "Margin-by-recruiter rollup", "body": "Now that gross margin is modeled at the placement level, roll it up by recruiter to support compensation and coaching conversations." }
-    ],
-    "images": ["/images/projects/technical/scapbi1.png", "/images/projects/technical/scapbi2.png"]
-  },
-  {
-    "id": "tech-5",
-    "title": "Full Stack Web Development - Weave",
-    "blurb": "A travel planning tool built to demonstrate the ability to deploy a full-stack application. Additional features include the integration of google maps API and nodemailer.",
-    "tags": ["Javascript", "React-Redux", "MongoDB", "Mongoose", "Express", "Render", "Google APIs"],
-    "swatch": "#2d2218",
+    "id": "tech-9",
+    "title": "ConBon — Internal Kanban for a Commercial Construction Team",
+    "blurb": "Internal kanban tool for a 4 to 8 person commercial construction team — estimators, schedulers, analysts, and a commercial manager — that surfaces work assignments, priorities, and blockers across active contracts. Built end-to-end through an AI-assisted, phased workflow on a compressed timeline as a venue to practice phased delivery, token discipline, and TDD at the phase-gate level on a real shipping product, not a prototype.",
+    "tags": ["Next.js", "React", "tRPC", "Prisma", "Postgres", "TypeScript", "Docker", "Claude Code"],
+    "swatch": "#1f2a2a",
     "label": "WEB DEVELOPMENT",
     "detail": [
-      "Weave is a MERN-stack group trip planning app developed and launched in one week. It pairs a Node + Express backend with a MongoDB NoSQL database. Users search businesses and points of interest via Google Places autocomplete and pin them onto an interactive map, building a shared itinerary across the group."
+      "ConBon (controls + kanban) is an internal kanban tool for a 4 to 8 person commercial construction team of estimators, schedulers, analysts, and a commercial manager. The board lets them assign work, set priorities, surface blockers, and balance workloads across active contracts. The whole project was built through an AI-assisted workflow on a compressed timeline as a venue to practice phased delivery, token discipline, and TDD at the phase-gate level on a real shipping product rather than a prototype."
     ],
-    "description": "Weave is a MERN-stack group trip planning app developed and launched in one week. It pairs a Node + Express backend with a MongoDB NoSQL database. Users search businesses and points of interest via Google Places autocomplete and pin them onto an interactive map, building a shared itinerary across the group.",
+    "description": "ConBon (controls + kanban) is an internal kanban tool for a 4 to 8 person commercial construction team of estimators, schedulers, analysts, and a commercial manager. The board lets them assign work, set priorities, surface blockers, and balance workloads across active contracts. The whole project was built through an AI-assisted workflow on a compressed timeline as a venue to practice phased delivery, token discipline, and TDD at the phase-gate level on a real shipping product rather than a prototype.",
     "objectives": [
-      { "lead": "Full-stack deployment in one week", "body": "Ship a working MERN app — frontend, API, database, and hosting — end-to-end in a single sprint, prioritizing deploy-readiness over feature breadth." },
-      { "lead": "Third-party API integration", "body": "Wire Google Places (autocomplete + map rendering) and Nodemailer into a single coherent UX where search, pin, and notify all feed the same itinerary state." },
-      { "lead": "Redux state across collaborative views", "body": "Use React-Redux to keep the shared itinerary in sync across multiple users' views without round-tripping through the backend on every interaction." },
-      { "lead": "NoSQL document modeling for trip data", "body": "Model trips, members, and pinned POIs as nested documents in MongoDB rather than relational tables, leaning on the document model for the natural shape of itinerary data." }
+      { "lead": "AI-assisted delivery on a shipping timeline", "body": "Use Claude Code to ship a fully-deployed multi-user web app, not a prototype, in a short calendar window without compromising engineering quality." },
+      { "lead": "Phased planning", "body": "Break the build into 14 numbered phases (data model, tRPC, design system, board, mutations, auth, real-time, admin, audit, preferences, Docker, CI/CD, tests) with explicit 'Done when' criteria and one PR per phase." },
+      { "lead": "Token & context discipline", "body": "Maintain a project-level CLAUDE.md as the single source of truth for stack decisions, locked architectural choices, and current status. Refresh it at every phase boundary so future sessions skip rediscovery and stay aligned with current design rather than history." },
+      { "lead": "TDD at the phase gate", "body": "Each phase merges only after the agent demonstrates the feature against real seed data. Phase 14 formalizes this with a Playwright suite (Chromium, storage-state cookie reuse) and axe-core a11y enforcement that fails CI on any serious or critical WCAG 2.1 AA violation, which is strictly stronger than a Lighthouse score threshold." },
+      { "lead": "New-stack expansion", "body": "Pair familiar React 19 and Next 16 with first-time uses of @dnd-kit for keyboard-accessible drag, tRPC v11 with SuperJSON for end-to-end typing without a manual API layer, Prisma 7's driver-adapter that removes the alpine/musl binary engine dance, Auth.js v5 with JWT sessions, Radix primitives (Dialog, ContextMenu, DropdownMenu, Toast), and Postgres LISTEN/NOTIFY into SSE for real-time sync without a separate broker." },
+      { "lead": "Living documentation", "body": "Every phase appends a per-phase section to docs/gotchas.md so surprises that took an hour to debug are recovered in 30 seconds next time. The catalogue covers Prisma 7, Next 16, @dnd-kit, React 19, Radix, tRPC v11, Auth.js v5, and the LISTEN/NOTIFY into SSE pipe." },
+      { "lead": "Real-world deployment", "body": "Ship to a registered domain (conbon.app) on a real DigitalOcean VPS with Docker multi-stage, Caddy with Let's Encrypt, nightly pg_dump, and GitHub Actions into GHCR with SSH deploys via appleboy/ssh-action. The operational story is part of the build, not bolted on at the end." }
     ],
     "challenges": [
-      { "lead": "Detailed write-up pending", "body": "Sprint-specific challenges (deployment quirks, API quota handling, real-time itinerary sync edge cases) are not yet documented here. The project was built in a one-week sprint and challenges were resolved on the fly without a retrospective." }
+      { "lead": "React 19 effect-ordering trap in the preferences provider", "body": "The first design split persistence between a root-level ThemeProvider and an (app)-scoped reconciler that wrote DB values upward on mount. The write-back effect fired with stale render-1 closure state and queued a default-value POST that overwrote the actual DB row. Resolution unified ownership into a single PreferencesProvider at root, with the state initializer seeded directly from server-fetched prefs and lastSyncedRef initialized to the same value so the first render is automatically a no-op even under StrictMode." },
+      { "lead": "Prisma 7 plus Docker build sequencing", "body": "Prisma 7's CLI eagerly resolves env('DATABASE_URL') in prisma.config.ts on every invocation, breaking a second prisma generate step in the builder stage. Resolution moved generation entirely into the deps stage, before prisma.config.ts is copied into the image, and trusted the carried-forward .prisma/client through subsequent stages. A dummy build-time DATABASE_URL satisfies lib/db.ts's eager validation." },
+      { "lead": "Caddy SSE carve-out", "body": "A site-level encode zstd gzip was compressing Server-Sent Event chunks, buffering them inside the encoder until flush and silently defeating real-time delivery in production. Resolution scoped encode to a catch-all handle block and let a separate @sse path /api/events matcher run reverse_proxy with flush_interval -1 and no encoder wrapping the response." },
+      { "lead": "UTC round-trip on @db.Date columns", "body": "The CardEditModal's date input read with local-timezone accessors and wrote with a local-timezone constructor, so saving a card near midnight UTC produced phantom 'May 21 to May 20' audit diffs on every save. Resolution anchored both directions to UTC (getUTC* on read, Date.UTC(...) on write). The proper schema-level fix of storing dates as string was scoped to a later migration." },
+      { "lead": "Real-time without a separate broker", "body": "The Prisma pool rotates connections and silently drops a registered LISTEN, so naively reusing it for real-time fanout would lose subscriptions on the next pool rotation. Resolution opened a dedicated pg.Client pinned on globalThis so Next dev hot reload doesn't multiply the connection, held the subscription there, and kept the NOTIFY payload tiny at {type, op, id} to stay well under Postgres's 8000-byte atomic limit. Clients pick an invalidation target from the payload and refetch the authoritative list via existing tRPC queries." },
+      { "lead": "Stale-context drift across sessions", "body": "CLAUDE.md grew faster than it was curated, and prior-phase decisions sometimes conflicted with the current implementation by the time a later phase opened. Resolution wired a /refresh-claude-md skill that consolidates project memory at phase boundaries, locking in new decisions and pruning superseded ones so the next session opens against current state rather than rediscovering it." }
     ],
     "futureFeatures": [
-      { "lead": "Roadmap not scoped", "body": "Weave was built as a learning sprint rather than an ongoing product; no feature roadmap has been defined. Likely directions if revisited: persistent user accounts, mobile-responsive itinerary view, and an export-to-calendar flow." }
-    ],
-    "images": ["/images/projects/technical/weave1.png", "/images/projects/technical/weave2.jpg", "/images/projects/technical/weave3.jpg"]
+      { "lead": "Operational rollout", "body": "The code pipeline is green through Phase 14 and the VPS is provisioned, but the four DEPLOY_* GitHub secrets and the DOMAIN repo variable aren't populated yet, so deploy.yml's deploy job is expected-red on every push to main. Closing this gap turns red into a real regression signal and removes the manual SSH step from the deploy loop." },
+      { "lead": "Quantitative workload analytics", "body": "The current board is a qualitative tool where dragging a card claims it and dragging it back surfaces a blocker. A future pass would mine the AuditLog (already accumulating per-mutation history) for cycle-time per assignee, blocker dwell time, and contract-level throughput, so the commercial manager can spot where work is stuck without reading every card." }
+    ]
   },
   {
-    "id": "tech-6",
-    "title": "JavaScript + D3.js Single Page Application - Projectify",
-    "blurb": "Rough order of magnitude estimate single page web application for Medical Office Fit-outs",
-    "tags": ["Javascript", "D3.js", "Git"],
-    "swatch": "#1f2a1a",
-    "label": "WEB DEVELOPMENT",
+    "id": "tech-8",
+    "title": "PMIS Parser — Procore Email → Excel Automation",
+    "blurb": "Python service that watches an Outlook inbox for Procore submittal notifications, extracts structured data with Claude + Pydantic, and appends each event to a per-project Excel workbook on OneDrive — replacing manual log entry. Microsoft Graph on both ends; ships personal-tenant today, swaps to enterprise M365/SharePoint via config tomorrow.",
+    "tags": ["Python", "Claude API", "Microsoft Graph", "Pydantic", "MSAL", "Excel", "OneDrive"],
+    "swatch": "#1f1f2a",
+    "label": "AUTOMATION",
     "detail": [
-      "A data visualization tool that helps commercial building owners and prospective tenants forecast tenant fit-out costs at the concept stage, before design documents are available. Users input square footage and select a construction type to generate rough-order-of-magnitude (ROM) projections driven by $/SF benchmarks compiled from completed medical office fit-outs. Results render on an interactive D3.js bar chart that supports real-time scope adjustment, giving stakeholders immediate visibility into cost drivers and value-engineering opportunities. The tool applies core project controls principles — historical benchmarking, parametric estimating, and visual reporting — to early-stage feasibility decisions where cost certainty is lowest and the impact of scope choices is highest."
+      "An AI-assisted automation that eliminates manual data entry from construction PMIS notification emails. The first vendor target is Procore; the architecture is vendor-agnostic for v2 expansion to Kahua and Unifier. Office engineers currently spend a meaningful share of every workday transcribing submittal notifications, status changes, and review actions from Procore into an Excel log. This tool reads the email directly from Outlook via Microsoft Graph, extracts the structured update with Claude under a strict JSON schema, and appends the row to the existing project log — all within the 5-minute polling interval. Business impact: redirects roughly one office engineer's worth of mindless transcription per project onto field inspection work, cutting the employer's separate-inspector hiring need while giving the engineer actual construction-site knowledge that automation cannot replace."
     ],
-    "description": "A data visualization tool that helps commercial building owners and prospective tenants forecast tenant fit-out costs at the concept stage, before design documents are available. Users input square footage and select a construction type to generate rough-order-of-magnitude (ROM) projections driven by $/SF benchmarks compiled from completed medical office fit-outs. Results render on an interactive D3.js bar chart that supports real-time scope adjustment, giving stakeholders immediate visibility into cost drivers and value-engineering opportunities. The tool applies core project controls principles — historical benchmarking, parametric estimating, and visual reporting — to early-stage feasibility decisions where cost certainty is lowest and the impact of scope choices is highest.",
+    "description": "An AI-assisted automation that eliminates manual data entry from construction PMIS notification emails. The first vendor target is Procore; the architecture is vendor-agnostic for v2 expansion to Kahua and Unifier. Office engineers currently spend a meaningful share of every workday transcribing submittal notifications, status changes, and review actions from Procore into an Excel log. This tool reads the email directly from Outlook via Microsoft Graph, extracts the structured update with Claude under a strict JSON schema, and appends the row to the existing project log — all within the 5-minute polling interval. Business impact: redirects roughly one office engineer's worth of mindless transcription per project onto field inspection work, cutting the employer's separate-inspector hiring need while giving the engineer actual construction-site knowledge that automation cannot replace.",
     "objectives": [
-      { "lead": "Parametric estimating in the browser", "body": "Compile $/SF benchmarks from completed medical-office fit-outs and expose them as live inputs so feasibility-stage estimates respond to scope changes in real time." },
-      { "lead": "D3.js for interactive cost visualization", "body": "Render the ROM as an interactive bar chart where scope dials drive the chart directly, surfacing the dominant cost drivers without requiring spreadsheet literacy." },
-      { "lead": "Single-page application without a framework", "body": "Build the app as a vanilla SPA (JavaScript + D3) rather than React, to learn the underlying state and rendering primitives that frameworks abstract away." },
-      { "lead": "Project controls principles for early-stage estimating", "body": "Apply historical benchmarking, parametric estimating, and visual reporting at the feasibility stage where cost certainty is lowest and scope decisions have the highest leverage." }
+      { "lead": "AI-assisted workflow", "body": "Use a phased Plan → Question → Execute → Reflect loop with Q&A interrogation against the original scope doc, ADR-style decision logging, and per-phase handoff documents." },
+      { "lead": "Token & context discipline", "body": "Push depth into per-phase and per-decision markdown files; keep CLAUDE.md a thin index. Each phase's skill list is explicit, and only those skills load at phase start." },
+      { "lead": "Microsoft Graph integration", "body": "Single integration surface for both Outlook mail read and Excel workbook write, replacing the original scope doc's third-party inbound-email vendor and removing the need for per-user forwarding addresses." },
+      { "lead": "Schema-driven LLM extraction", "body": "Claude with a strict Pydantic-derived JSON schema; prompt caching for the schema/instructions block; confidence scoring with a 'Needs review' flag on low-confidence outputs so the office engineer reviews exceptions, not every row." },
+      { "lead": "Portable v1 architecture", "body": "v1 ships against personal Outlook.com + OneDrive personal; v2 swaps to enterprise Microsoft 365 + SharePoint with a config-only change, no business-logic rewrite. The same code proves itself in personal demo and production tenant." },
+      { "lead": "Self-verification & TDD", "body": "Per-phase fixture tests against real captured Procore notification emails; integration tests against live Graph; end-to-end verification with the verify skill before each phase closes." },
+      { "lead": "Living documentation & live portfolio embed", "body": "ADRs in docs/decisions/ for every non-trivial choice, with supersedes/superseded-by links that keep the decision log internally consistent across pivots. A short screen-capture demo of an email landing in the inbox → row appearing in the Excel log is embedded in the portfolio modal." }
     ],
     "challenges": [
-      { "lead": "Detailed write-up pending", "body": "Detailed notes on D3.js scale handling, benchmark normalization across mixed-source fit-outs, and SPA state management without a framework are not yet documented here." }
+      { "lead": "Scope-doc reframe", "body": "The handed-off scoping document was written when the parser was a webhook receiver for a separate dashboard product (Resend Inbound Parse → HMAC-signed IngestionEvent POST to a 'main app'). The Outlook-mailbox reality and the standalone-portfolio framing invalidated about a third of the document. Q&A interrogated each assumption and locked a different stack — Microsoft Graph for both ends, no HMAC, no per-user forwarding addresses — while preserving an OutputSink interface so a downstream consumer can plug in later without refactoring the pipeline." },
+      { "lead": ".onmicrosoft.com tenant mailbox blocked by license", "body": "Power BI Pro alone does not include Exchange Online or SharePoint Online, so the user's own M365 tenant did not expose a usable mailbox. Fix: build v1 against an Outlook.com personal mailbox and OneDrive personal, using Graph endpoint paths identical to enterprise M365 except for the MSAL authority string. The v2 swap to a real tenant is approximately ten lines of config." },
+      { "lead": "Work-network Claude API reachability", "body": "Outbound calls to api.anthropic.com from the corporate network would require IT approval — a process outside the user's control and outside the build timeline. Fix: v1 runs on the user's personal workstation; portability across tenants and networks means production adoption inside the company can happen later without a rewrite." },
+      { "lead": "Regex-per-vendor cost calculus inverted at personal scale", "body": "The scope doc front-loaded per-vendor regex parsers with LLM as a fallback — a model that makes sense at high volume but inverts at single-mailbox scale, where engineering cost dominates API spend. Fix: LLM-first with strict Pydantic validation; regex shortcuts deferred to v2 as a cost optimization, not a v1 architectural commitment." },
+      { "lead": "Multi-party submittal workflow vs. single-status column", "body": "Construction submittal workflows pass between designer, CM, GC, and DOR with distinct dates per handoff. A naive 'current status + status date' schema would lose the timeline that document-controls practice requires. Fix: per-event date columns updated in place on a Submittals sheet (designer-assigned, designer-reviewed, CM-assigned, GC-review, DOR-review), plus a separate History sheet capturing every notification ever processed as an append-only audit trail." },
+      { "lead": "Portfolio-grade commit history", "body": "The initial commit defaulted to the Co-Authored-By: Claude Opus 4.7 trailer, which GitHub renders as a multi-author commit visible on every repo view — a presentation choice the user wanted reversed for a portfolio piece. Fix: amend the root commit, force-push with --force-with-lease to overwrite the just-pushed history, and save a per-project memory so future commits in this repo skip the trailer automatically." }
     ],
     "futureFeatures": [
-      { "lead": "Roadmap not scoped", "body": "Projectify was built as a learning exercise rather than a maintained product; no formal roadmap exists. Likely directions if revisited: expanded fit-out type library (lab, classroom, retail), confidence-interval bands on the ROM, and exportable estimate summaries." }
+      { "lead": "Production migration to enterprise M365", "body": "Move from personal Outlook.com + OneDrive personal to a company M365 tenant + SharePoint team site. Designed as a config-only swap; same MailSource and OutputSink interfaces, different MSAL authority and workbook handle." },
+      { "lead": "RFI and change-order parsing", "body": "Add RFINotification and ChangeOrderNotification schemas alongside the existing SubmittalNotification; route each entity type to its own sheet within the per-project workbook. v1's schema versioning and entity-typed writer routing accept this without breaking existing data." },
+      { "lead": "SharePoint folder walk + PDF submittal enrichment", "body": "Beyond the email body, traverse the project's Submittals/ folder tree to locate the actual submittal PDF; use Claude's native PDF support to extract description, comments, and contractor notes the email summary omits — producing a single richer log row per submittal instead of relying on whatever the notification template happened to include." }
+    ]
+  },
+  {
+    "id": "tech-7",
+    "title": "d3bi — Construction PM Dashboards Capstone (in progress)",
+    "blurb": "Personal capstone closing out a Power BI and reporting learning track for a construction project controls engineer, built on the thesis that manual data entry is the tax most PM software still charges its users. Two deliverables: a Power BI report of a vehicular concrete bridge project with a CSI MasterFormat- and PMIS-anchored schema, and a full-stack web app (Next.js, Supabase, D3.js) that generates the same dashboards directly from a team's existing SharePoint logs — no upload step.",
+    "tags": ["Power BI", "Next.js", "Supabase", "D3.js", "Microsoft Graph", "Drizzle", "Claude Code"],
+    "swatch": "#1a2540",
+    "label": "CAPSTONE",
+    "detail": [
+      "Personal capstone closing out a Power BI and reporting learning track for a project controls engineer in commercial construction, built around the thesis that manual data entry is the tax most PM software still charges its users. Two deliverables: D1, a Power BI report of a vehicular concrete bridge project with a schema anchored to CSI MasterFormat and PMIS standards so the same model serves any project type; D2, a full-stack web app (Next.js, Supabase, D3.js) that generates the same dashboards directly from a team's existing SharePoint logs (no upload step), with PMIS-shaped Excel templates as the fallback for users without SharePoint."
     ],
-    "images": ["/images/projects/technical/projectify1.png"]
+    "description": "Personal capstone closing out a Power BI and reporting learning track for a project controls engineer in commercial construction, built around the thesis that manual data entry is the tax most PM software still charges its users. Two deliverables: D1, a Power BI report of a vehicular concrete bridge project with a schema anchored to CSI MasterFormat and PMIS standards so the same model serves any project type; D2, a full-stack web app (Next.js, Supabase, D3.js) that generates the same dashboards directly from a team's existing SharePoint logs (no upload step), with PMIS-shaped Excel templates as the fallback for users without SharePoint.",
+    "objectives": [
+      { "lead": "Automation-first ingestion", "body": "Build the product so the headline UX is 'your files appear, dashboards update, no upload step.' Primary path: SharePoint folder watch via Microsoft Graph API on the free tier. Fallback: PMIS-shaped Excel templates for users without SharePoint. Manual import is fallback, not feature. External integrations (PMIS direct APIs, email parsers, PDF/OCR) are out of scope for v1 but plug into the same canonical ingestion layer in v2+." },
+      { "lead": "AI-assisted full-stack workflow", "body": "Extend the prior AI-assisted Power BI workflow across an entire full-stack web app (Next.js, Supabase, Drizzle, D3.js, Inngest, Resend, Vercel). Schema design, modeling, ingestion pipeline, dashboards, auth, exports, sharing, and notifications all run on free-tier services with a documented paid upgrade path." },
+      { "lead": "Standards-based schema", "body": "Anchor every entity (Risk, RFI, Submittal, ChangeOrder, CostLine, CommissioningItem, Schedule) to industry standards: CSI MasterFormat 2020 cost coding, CSI 01 33 00 submittal types, PMIS-standard workflow statuses, configurable per-project disciplines. The same schema supports a bridge project, an elevator/escalator replacement project, or any other construction type without code changes; data drives the differences, not the model." },
+      { "lead": "Token and context discipline", "body": "18 sequential phases under a phased-workflow skill, with plan-lock gates, ADRs per locked decision, and a turnover doc at every phase boundary that clears stale context for the next session. Defer reading large source files (real-data Excels, prior project artifacts) until the phase that actually needs them." },
+      { "lead": "MCP integration", "body": "Connect Claude Code to Power BI via the powerbi-modeling-mcp server for model and DAX work. Use anthropic-skills:xlsx for source-data reconnaissance and seed-data preparation. Use Chrome MCP for visual verification of the published Service report." },
+      { "lead": "Self-verification and TDD", "body": "Give Claude Code the ability to verify its own work: PBI Best Practice Analyzer plus Chrome MCP visual verification of the published Service report (D1); Playwright plus axe-core in CI for the web app (D2). User-generated test requirements gate each phase boundary." },
+      { "lead": "Living documentation", "body": "Maintain per-phase plan docs (docs/0N_*.md), ADRs per locked decision (docs/decisions/), turnover docs at every phase boundary (docs/artifacts/handoffs/), and tech-skill files (powerbi-lessons plus a new phased-workflow skill) that capture generalizable findings for future projects." },
+      { "lead": "Live embed on portfolio", "body": "Deploy D2 to a public d3bi.app URL and embed the live web app inside the technical project modal on the portfolio site. The D1 Power BI report is published to Power BI Service with a share link, also embedded." }
+    ],
+    "challenges": [
+      { "lead": "Manual-import-as-thesis pivot", "body": "Initial Phase 13 plan defaulted to manual upload as the primary data-entry path. Recognized mid-planning that automation IS the product, not a nice-to-have. Reframed Phase 13 around SharePoint sync as primary (Microsoft Graph API, free tier) and PMIS-shaped Excel templates as fallback. External integrations (PMIS direct APIs, email parsing, PDF/OCR) explicitly out of scope for v1, with a webhook plug-in pattern documented for v2+." },
+      { "lead": "Standards-based schema discipline", "body": "Source data is elevator/escalator replacement contracts; dashboards target a bridge project. Resisted writing a bridge-specific schema and anchored every entity to industry standards (CSI MasterFormat 2020, CSI 01 33 00, PMIS workflow statuses) so the same model serves both project types; only the data changes. The bridge synthetic risk register becomes the canonical design reference, with verticaltranspo PMIS-export data as comparison and contrast." },
+      { "lead": "No-inference-amendments rule", "body": "Claude Code defaulted to inferring schema details from indirect evidence (a sibling project's wireframe mock data, a tangentially-related README) and retroactively editing locked ADRs. Codified the explicit rule: schema decisions require (a) actual source data samples AND (b) the relevant wireframe BEFORE iteration. Speculative ADRs archived to a sibling folder; locked decisions flagged 'preliminary, pending Phase N validation' rather than superseded by speculation. Saved as a reusable lesson in agent memory." },
+      { "lead": "Plan-lock timing", "body": "Claude Code inferred 'ready to lock the plan' from a few accepted multiple-choice questions and started writing framework files prematurely. Made plan-lock an explicit gate: present a recap summary covering everything that would lock (phase list, stack, cross-cutting, DoD, OOS, ADR titles), prompt 'ready to lock?', wait for explicit go before any CLAUDE.md, 00_plan.md, or ADR writes. Saved as a reusable lesson for the phased-workflow skill." },
+      { "lead": "Two data cultures inside one firm", "body": "Source data inspection across realdata/ revealed two distinct logging styles within the same firm: bridge logs are CM-curated, sparse, free-text-heavy (4-row RFI log); verticaltranspo logs are ASite-style PMIS exports (around 353 rows, dense, formal). The schema has to ingest both into the same canonical shape. Resolved by targeting the bridge synthetic shape as the canonical schema design reference and treating the verticaltranspo shape as comparison data only. Both serialize into the same canonical schema by data, not by code." }
+    ],
+    "futureFeatures": [
+      { "lead": "External integration plugins", "body": "Add a webhook endpoint for third-party data sources: PMIS direct APIs (Procore, Kahua, Unifier), email-parsing services for PMIS notification capture, OCR pipelines for scanned PDF schedules. Each plugin shares the same canonical ingestion layer; no per-source code branches in the dashboards." },
+      { "lead": "Quantitative risk methods", "body": "Pair the qualitative P×I risk matrix with quantitative methods (expected value, Monte Carlo on contingency reserves). The current build is qualitative screening only; the quantitative work would be a separate project." },
+      { "lead": "Mobile authoring", "body": "v1 is desktop-first with mobile read-only dashboards. v2+ adds mobile data entry for field reports, RFI submission from the jobsite, and photo-attached daily logs." }
+    ]
   }
 ]
