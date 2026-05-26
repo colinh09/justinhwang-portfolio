@@ -38,23 +38,21 @@ export default function TechSection({ onOpen }: Props) {
             <div className="jh-card__body">
               <div className="jh-card__title-row">
                 <div className="jh-card__title">{p.title}</div>
-                {p.embedUrl && (
+                {p.embedUrl ? (
                   <span
                     className="jh-chip jh-chip--interactive"
                     aria-label="Interactive Power BI report — opens in modal"
                   >
-                    <span
-                      className="jh-embed__badge-dot"
-                      aria-hidden="true"
-                    />
-                    <span>
-                      INTERACTIVE
-                      <span className="jh-embed__badge-suffix">
-                        {" · POWER BI"}
-                      </span>
-                    </span>
+                    INTERACTIVE
                   </span>
-                )}
+                ) : p.liveUrl ? (
+                  <span
+                    className="jh-chip jh-chip--interactive"
+                    aria-label="Live deployed app — opens in new tab"
+                  >
+                    LIVE LINK
+                  </span>
+                ) : null}
               </div>
               <div className="jh-card__blurb">{p.blurb}</div>
               <div className="jh-chips">
