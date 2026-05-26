@@ -43,6 +43,10 @@ export default function TechSection({ onOpen }: Props) {
                     className="jh-chip jh-chip--interactive"
                     aria-label="Interactive Power BI report — opens in modal"
                   >
+                    <span
+                      className="jh-embed__badge-dot"
+                      aria-hidden="true"
+                    />
                     INTERACTIVE
                   </span>
                 ) : p.liveUrl ? (
@@ -50,6 +54,10 @@ export default function TechSection({ onOpen }: Props) {
                     className="jh-chip jh-chip--interactive"
                     aria-label="Live deployed app — opens in new tab"
                   >
+                    <span
+                      className="jh-embed__badge-dot"
+                      aria-hidden="true"
+                    />
                     LIVE LINK
                   </span>
                 ) : null}
