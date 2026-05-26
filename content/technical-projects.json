@@ -144,35 +144,6 @@
     "images": ["/images/projects/technical/riskregister-revamp1.png"]
   },
   {
-    "id": "tech-1",
-    "title": "Power BI - 58 Devices Labor Burn Dashboard (in progress)",
-    "blurb": "End-to-end labor utilization dashboard modeling an A/E firm's FP&A workflow across three MTA contracts. Built a Python script to generate synthetic labor projections and Deltek Vantagepoint exports, reconciled the datasets in Excel via Power Query, and surfaced the output in a Power BI dashboard.",
-    "tags": ["Power BI", "Power Query", "Excel", "VBA", "DAX", "Python"],
-    "swatch": "#1c2a3a",
-    "label": "DASHBOARD",
-    "detail": [
-      "End-to-end labor utilization dashboard modeling an A/E firm's FP&A workflow across three MTA contracts replacing 58 elevators and escalators. Ingests weekly Vantagepoint Project Labor Exports (real Deltek schema), sub timesheets in intentionally varied formats, and supersession-controlled revisions of the labor projection. Power Query handles date parsing, employee normalization, functional group derivation, and report supersession; light VBA orchestrates refresh and validation. Built with anonymized data — employee names randomized via Python + Faker, Vantagepoint actuals synthesized by a companion script — with real firm names preserved. The generation scripts are themselves deliverables that demonstrate the data structures a production pipeline would consume."
-    ],
-    "description": "End-to-end labor utilization dashboard modeling an A/E firm's FP&A workflow across three MTA contracts replacing 58 elevators and escalators. Ingests weekly Vantagepoint Project Labor Exports (real Deltek schema), sub timesheets in intentionally varied formats, and supersession-controlled revisions of the labor projection. Power Query handles date parsing, employee normalization, functional group derivation, and report supersession; light VBA orchestrates refresh and validation. Built with anonymized data — employee names randomized via Python + Faker, Vantagepoint actuals synthesized by a companion script — with real firm names preserved. The generation scripts are themselves deliverables that demonstrate the data structures a production pipeline would consume.",
-    "objectives": [
-      { "lead": "Realistic FP&A workflow modeling", "body": "Mirror the planned-vs-actual labor reconciliation that an A/E firm performs weekly across multi-contract engagements, including batched Vantagepoint exports and supersession of labor projection revisions." },
-      { "lead": "Synthetic-data pipeline", "body": "Use Python with the Faker library to generate anonymized employee rosters and synthesize Vantagepoint actuals so the dashboard exercises the real Deltek schema without exposing client data." },
-      { "lead": "Power Query reconciliation layer", "body": "Treat source data as messy by default; centralize cleaning (date parsing, employee normalization, functional grouping, supersession resolution) in Power Query rather than upstream of the load." },
-      { "lead": "Light VBA orchestration", "body": "Wrap refresh, validation, and reporting handoffs in VBA macros to demonstrate the button-driven workflow an analyst would use day-to-day." }
-    ],
-    "challenges": [
-      { "lead": "Multi-format sub timesheet ingestion", "body": "Subcontractors deliver timesheets in varying layouts; reconciling them against a single canonical employee/project key required normalization rules baked into Power Query rather than upstream cleaning." },
-      { "lead": "Supersession control on labor projections", "body": "Revisions of the projection arrive as full new copies, not deltas, so Power Query needs to detect the latest revision and exclude superseded ones from the model — handled with a version-stamped folder layer." },
-      { "lead": "Synthesized actuals that exercise real failure modes", "body": "The Python actuals generator needs to produce data that occasionally violates expected joins (missing employees, off-cycle entries) so the reconciliation layer's edge cases are actually visible in QA." }
-    ],
-    "futureFeatures": [
-      { "lead": "Complete the dashboard build", "body": "Finish the visual layer (planned-vs-actual variance, burndown by contract, functional-group heat) and validation page; project is currently mid-Power-Query reconciliation." },
-      { "lead": "Per-employee utilization view", "body": "Add a drillthrough page that surfaces individual utilization, billable mix, and projection drift to support FP&A's monthly review cadence." },
-      { "lead": "Variance alerting", "body": "Wire VBA to flag contracts where actuals diverge from projection beyond a configurable threshold, surfacing in the validation step rather than waiting for visual inspection." }
-    ],
-    "images": ["/images/projects/technical/laborburn1.png", "/images/projects/technical/faker1.png", "/placeholder-2.svg", "/placeholder-3.svg"]
-  },
-  {
     "id": "tech-9",
     "title": "ConBon - Project Controls Team Kanban Board",
     "blurb": "Internal kanban tool for a 4 to 8 person commercial construction team — estimators, schedulers, analysts, and a commercial manager — that surfaces work assignments, priorities, and blockers across active contracts. Built end-to-end through an AI-assisted, phased workflow on a compressed timeline as a venue to practice phased delivery, token discipline, and TDD at the phase-gate level on a real shipping product, not a prototype.",
