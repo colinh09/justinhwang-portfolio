@@ -511,6 +511,13 @@ button {
   flex-shrink: 0;
 }
 
+/* "Live Link" variant — keeps the green pill + pulsing dot of
+   .jh-chip--interactive but reads in title case rather than all-caps. */
+.jh-chip.jh-chip--interactive.jh-chip--live {
+  letter-spacing: 0.02em;
+  text-transform: none;
+}
+
 /* Title row: title (left, may wrap) + optional interactive chip (right,
    stays on line 1 even when the title wraps). */
 .jh-card__title-row {
@@ -566,6 +573,11 @@ button {
   border: 1px solid var(--jh-line);
   border-radius: 999px;
   font-size: 11px;
+  /* Explicit line-height — without this, chips inherit the body's 1.55, which
+     adds ~3px of invisible line-box buffer above and below the glyph and makes
+     the row-to-row vertical breathing room feel cramped relative to the wider
+     horizontal padding. 1.2 keeps the glyph centered without the extra slack. */
+  line-height: 1.2;
   color: var(--jh-mute);
   letter-spacing: 0.005em;
   white-space: nowrap;

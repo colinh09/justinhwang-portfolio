@@ -51,14 +51,14 @@ export default function TechSection({ onOpen }: Props) {
                   </span>
                 ) : p.liveUrl ? (
                   <span
-                    className="jh-chip jh-chip--interactive"
+                    className="jh-chip jh-chip--interactive jh-chip--live"
                     aria-label="Live deployed app — opens in new tab"
                   >
                     <span
                       className="jh-embed__badge-dot"
                       aria-hidden="true"
                     />
-                    LIVE LINK
+                    Live Link
                   </span>
                 ) : null}
               </div>
