@@ -1454,6 +1454,27 @@ button {
   }
 }
 
+/* Short-viewport fallback: the modal's `max-height: calc(100vh - 32px)`
+   + 16:9 hero combination squeezes .jh-sn-body to 0 height on any
+   viewport shorter than ~900 device px (most laptops with browser
+   chrome). Without remaining flex space, the .jh-sn-scroll viewport
+   collapses and the body content is unreachable. Match the mobile
+   fallback's escape hatch: drop the inner's max-height + internal
+   scroll, keep the two-column grid, and let the outer .jh-modal
+   handle overflow. The sidenav loses its stay-pinned behavior at
+   these viewport heights — same compromise as on mobile. */
+@media (max-height: 900px) and (min-width: 701px) {
+  .jh-modal__inner--tech {
+    max-height: none;
+    display: block;
+  }
+  .jh-modal__inner--tech .jh-modal__body { display: block; }
+  .jh-sn-scroll {
+    overflow: visible;
+    padding-right: 0;
+  }
+}
+
 /* Tech modal — Phase 5 embed (Power BI iframe).
    Iframe fills the existing 16:9 hero. Topbar above the hero owns
    the embed label/caption + INTERACTIVE badge (see .jh-modal__topbar
