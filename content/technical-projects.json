@@ -174,7 +174,7 @@
   },
   {
     "id": "tech-9",
-    "title": "ConBon — Internal Kanban for a Commercial Construction Team",
+    "title": "ConBon - Project Controls Team Kanban Board",
     "blurb": "Internal kanban tool for a 4 to 8 person commercial construction team — estimators, schedulers, analysts, and a commercial manager — that surfaces work assignments, priorities, and blockers across active contracts. Built end-to-end through an AI-assisted, phased workflow on a compressed timeline as a venue to practice phased delivery, token discipline, and TDD at the phase-gate level on a real shipping product, not a prototype.",
     "tags": ["Next.js", "React", "tRPC", "Prisma", "Postgres", "TypeScript", "Docker", "Claude Code"],
     "swatch": "#1f2a2a",
