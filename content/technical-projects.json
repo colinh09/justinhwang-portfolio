@@ -75,6 +75,9 @@
       { "lead": "Status-history-driven cycle-time metrics", "body": "The status history table is in the model but not yet visualized; add average cycle time per stage and bottleneck detection to the program-owner view." },
       { "lead": "Margin-by-recruiter rollup", "body": "Now that gross margin is modeled at the placement level, roll it up by recruiter to support compensation and coaching conversations." }
     ],
+    "embedUrl": "https://app.powerbi.com/view?r=eyJrIjoiZWZhZWI2YWQtMzA0OS00NjIzLTljYjAtMmE5MDQ3OWRiMTUwIiwidCI6IjFiNDRmNDM5LWI1MDMtNDY1MS1hZWFiLTBjNTc3ZWIxMzM3MCJ9",
+    "embedLabel": "Agency Contingent Employee Staffing Tracker — Hiring Pipeline & Margin",
+    "embedCaption": "Live Power BI report — click, filter, and drill down directly.",
     "images": ["/images/projects/technical/scapbi1.png", "/images/projects/technical/scapbi2.png"]
   },
   {
@@ -145,7 +148,7 @@
   },
   {
     "id": "tech-9",
-    "title": "ConBon - Project Controls Team Kanban Board",
+    "title": "ConBon.app — Project Controls Team Kanban Board",
     "blurb": "Internal kanban tool for a 4 to 8 person commercial construction team — estimators, schedulers, analysts, and a commercial manager — that surfaces work assignments, priorities, and blockers across active contracts. Built end-to-end through an AI-assisted, phased workflow on a compressed timeline as a venue to practice phased delivery, token discipline, and TDD at the phase-gate level on a real shipping product, not a prototype.",
     "tags": ["Next.js", "React", "tRPC", "Prisma", "Postgres", "TypeScript", "Docker", "Claude Code"],
     "swatch": "#1f2a2a",
@@ -214,7 +217,7 @@
   },
   {
     "id": "tech-7",
-    "title": "d3bi — Construction PM Dashboards Capstone (in progress)",
+    "title": "d3bi.app — Construction PM Dashboards Capstone (in progress)",
     "blurb": "Personal capstone closing out a Power BI and reporting learning track for a construction project controls engineer, built on the thesis that manual data entry is the tax most PM software still charges its users. Two deliverables: a Power BI report of a vehicular concrete bridge project with a CSI MasterFormat- and PMIS-anchored schema, and a full-stack web app (Next.js, Supabase, D3.js) that generates the same dashboards directly from a team's existing SharePoint logs — no upload step.",
     "tags": ["Power BI", "Next.js", "Supabase", "D3.js", "Microsoft Graph", "Drizzle", "Claude Code"],
     "swatch": "#1a2540",
