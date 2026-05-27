@@ -74,6 +74,7 @@ export default function Modal({ project, onClose }: Props) {
   const repo = tech ? project.repo : undefined;
   const embedUrl = tech ? project.embedUrl : undefined;
   const liveHref = tech ? project.liveUrl ?? project.embedUrl : undefined;
+  const liveStyle = tech ? project.liveStyle : undefined;
   const images = tech
     ? project.images ?? []
     : project.image
@@ -137,6 +138,15 @@ export default function Modal({ project, onClose }: Props) {
                       {" · POWER BI"}
                     </span>
                   </span>
+                </span>
+              )}
+              {!embedUrl && liveStyle === "demo" && (
+                <span
+                  className="jh-embed__badge jh-embed__badge--demo"
+                  aria-label="This project gates access behind a demo request"
+                >
+                  <span className="jh-embed__badge-dot" aria-hidden="true" />
+                  <span>REQUEST DEMO</span>
                 </span>
               )}
             </div>
