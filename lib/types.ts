@@ -57,10 +57,11 @@ export interface TechProject {
       When set, a "View live" pill appears in the modal topbar. For embed
       projects, embedUrl is used as the View-live target if liveUrl is unset. */
   liveUrl?: string;
-  /** CTA style for the liveUrl pill. Defaults to "live" (green "Live Link"
-      chip on card, "View live ↗" in modal topbar). "demo" switches both
-      to a burgundy "Request Demo" / "Request demo ↗" CTA for projects
-      that gate access behind a contact step rather than a public link. */
+  /** Card-chip style for projects with a liveUrl. Defaults to "live"
+      (green "Live Link" chip). "demo" switches the card chip to a
+      burgundy "Request Demo" pill for projects that gate access behind
+      a contact step rather than a public sign-up. Doesn't affect the
+      modal topbar's "View live ↗" pill, which still links to liveUrl. */
   liveStyle?: "live" | "demo";
   /** Power BI "Publish to web" URL. When set, the modal renders a live
       iframe in place of the photo carousel. Added in Phase 2. */
