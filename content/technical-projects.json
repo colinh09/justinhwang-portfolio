@@ -179,6 +179,7 @@
       { "lead": "Quantitative workload analytics", "body": "The current board is a qualitative tool where dragging a card claims it and dragging it back surfaces a blocker. A future pass would mine the AuditLog (already accumulating per-mutation history) for cycle-time per assignee, blocker dwell time, and contract-level throughput, so the commercial manager can spot where work is stuck without reading every card." }
     ],
     "liveUrl": "https://conbon.app",
+    "liveStyle": "demo",
     "images": ["/images/projects/technical/conbon1.png"]
   },
   {

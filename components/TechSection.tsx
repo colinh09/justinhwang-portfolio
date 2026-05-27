@@ -50,16 +50,29 @@ export default function TechSection({ onOpen }: Props) {
                     INTERACTIVE
                   </span>
                 ) : p.liveUrl ? (
-                  <span
-                    className="jh-chip jh-chip--interactive jh-chip--live"
-                    aria-label="Live deployed app — opens in new tab"
-                  >
+                  p.liveStyle === "demo" ? (
                     <span
-                      className="jh-embed__badge-dot"
-                      aria-hidden="true"
-                    />
-                    Live Link
-                  </span>
+                      className="jh-chip jh-chip--interactive jh-chip--demo"
+                      aria-label="Request a demo — opens contact link in new tab"
+                    >
+                      <span
+                        className="jh-embed__badge-dot"
+                        aria-hidden="true"
+                      />
+                      Request Demo
+                    </span>
+                  ) : (
+                    <span
+                      className="jh-chip jh-chip--interactive jh-chip--live"
+                      aria-label="Live deployed app — opens in new tab"
+                    >
+                      <span
+                        className="jh-embed__badge-dot"
+                        aria-hidden="true"
+                      />
+                      Live Link
+                    </span>
+                  )
                 ) : null}
               </div>
               <div className="jh-card__blurb">{p.blurb}</div>
