@@ -505,6 +505,12 @@ button {
   color: #c8e8d8;
   background: var(--jh-accent);
   border-color: var(--jh-accent);
+  font-size: 9px;
+  /* Pin line-height to the 11px title-case variants' line-box (11 × 1.2)
+     so this all-caps 9px chip keeps the same pill height as --live and
+     --demo. Without this, .jh-chip's 1.2 multiplier shrinks the box to
+     9 × 1.2 = 10.8px and the row of chips reads uneven. */
+  line-height: 13.2px;
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -512,10 +518,32 @@ button {
 }
 
 /* "Live Link" variant — keeps the green pill + pulsing dot of
-   .jh-chip--interactive but reads in title case rather than all-caps. */
+   .jh-chip--interactive but reads in title case rather than all-caps.
+   Title case includes lowercase x-height, so it optically reads smaller
+   than uppercase at the same px; this variant stays at 11px while
+   .jh-chip--interactive drops to 9px (with a pinned 13.2px line-box so
+   the pill height still matches this variant). */
 .jh-chip.jh-chip--interactive.jh-chip--live {
+  font-size: 11px;
   letter-spacing: 0.02em;
   text-transform: none;
+}
+
+/* "Request Demo" variant — burgundy pill for projects gated behind a
+   contact step rather than a public live URL. Title case + 11px to
+   match --live's optical size; recolors the chip and overrides the dot
+   to red via --jh-dot-color so the pulse animation reuses the existing
+   jh-embed-pulse keyframes with the burgundy palette. */
+.jh-chip.jh-chip--interactive.jh-chip--demo {
+  color: #F0D8D8;
+  background: #6B1F2A;
+  border-color: #6B1F2A;
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  text-transform: none;
+}
+.jh-chip.jh-chip--interactive.jh-chip--demo .jh-embed__badge-dot {
+  --jh-dot-color: 255, 107, 107;
 }
 
 /* Title row: title (left, may wrap) + optional interactive chip (right,
@@ -1507,18 +1535,24 @@ button {
   white-space: nowrap;
 }
 
+/* Dot color is themed by the nearest parent via the --jh-dot-color
+   custom property (an "R, G, B" triplet, comma-separated). Default is
+   the live-link green; .jh-chip--demo overrides to red. Modern browsers
+   evaluate custom properties inside keyframes per element, so the pulse
+   shadow picks up whichever value cascades into the dot. */
 .jh-embed__badge-dot {
+  --jh-dot-color: 109, 210, 154;
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: #6dd29a;
-  box-shadow: 0 0 0 0 rgba(109, 210, 154, 0.6);
+  background: rgb(var(--jh-dot-color));
+  box-shadow: 0 0 0 0 rgba(var(--jh-dot-color), 0.6);
   animation: jh-embed-pulse 1.4s ease-in-out infinite;
 }
 
 @keyframes jh-embed-pulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(109, 210, 154, 0.55); }
-  60%      { box-shadow: 0 0 0 6px rgba(109, 210, 154, 0); }
+  0%, 100% { box-shadow: 0 0 0 0 rgba(var(--jh-dot-color), 0.55); }
+  60%      { box-shadow: 0 0 0 6px rgba(var(--jh-dot-color), 0); }
 }
 
 .jh-embed__overlay {
