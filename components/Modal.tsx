@@ -74,12 +74,6 @@ export default function Modal({ project, onClose }: Props) {
   const repo = tech ? project.repo : undefined;
   const embedUrl = tech ? project.embedUrl : undefined;
   const liveHref = tech ? project.liveUrl ?? project.embedUrl : undefined;
-  const liveStyle = tech ? project.liveStyle : undefined;
-  const liveLabel = liveStyle === "demo" ? "Request demo" : "View live";
-  const liveAria =
-    liveStyle === "demo"
-      ? `Request a demo of ${project.title} (opens in a new tab)`
-      : `View ${project.title} live in a new tab`;
   const images = tech
     ? project.images ?? []
     : project.image
@@ -205,9 +199,9 @@ export default function Modal({ project, onClose }: Props) {
                   href={liveHref}
                   target="_blank"
                   rel="noreferrer"
-                  aria-label={liveAria}
+                  aria-label={`View ${project.title} live in a new tab`}
                 >
-                  {liveLabel} <span aria-hidden="true">↗</span>
+                  View live <span aria-hidden="true">↗</span>
                 </a>
               )}
               <button
