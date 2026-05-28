@@ -4,7 +4,14 @@
  * Display: Newsreader · Hero: Editorial Split · Cards: Bordered
  */
 
+/* Root font-size scales the whole design 10% above the browser default
+   (16px → 17.6px). Every spec value in this file is in `rem`, so the
+   layout enlarges with the root. This replaces the legacy
+   `html { zoom: 1.1 }` rule, which broke 100vh math, IntersectionObserver,
+   and getBoundingClientRect vs scrollTop parity. */
 :root {
+  font-size: 110%;
+
   --jh-bg: #EFEAE0;
   --jh-ink: #111111;
   --jh-ink-2: #2a2a28;
@@ -14,15 +21,11 @@
   --jh-accent: #1F4E3C;
   --jh-display-font: "Newsreader", "Fraunces", Georgia, serif;
   --jh-sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --jh-sidebar-w: clamp(280px, 16vw, 320px);
-  --jh-pad: 96px;
+  --jh-sidebar-w: clamp(17.5rem, 16vw, 20rem);
+  --jh-pad: 6rem;
 }
 
 * { box-sizing: border-box; }
-
-/* Global 10% enlargement — matches the "looks better at 110% browser zoom" feel
-   without forcing users to zoom themselves. */
-html { zoom: 1.1; }
 
 html, body {
   margin: 0;
@@ -30,7 +33,7 @@ html, body {
   background: var(--jh-bg);
   color: var(--jh-ink);
   font-family: var(--jh-sans);
-  font-size: 16px;
+  font-size: 1rem;
   line-height: 1.55;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -52,13 +55,13 @@ button {
 .jh-app {
   display: grid;
   grid-template-columns: var(--jh-sidebar-w) 1fr;
-  min-height: calc(100vh / 1.1);
+  min-height: 100vh;
 }
 
 .jh-sidebar-wrap {
   position: sticky;
   top: 0;
-  height: calc(100vh / 1.1);
+  height: 100vh;
   will-change: transform;
   transform: translateZ(0);
 }
@@ -67,10 +70,10 @@ button {
 
 /* ───────── Sidebar (Bold variant baked in) ───────── */
 .jh-sidebar {
-  height: calc(100vh / 1.1);
+  height: 100vh;
   display: flex;
   flex-direction: column;
-  padding: 40px 36px 32px;
+  padding: 2.5rem 2.25rem 2rem;
   background: #14110D;
   color: #f3ece0;
   border-right: 0;
@@ -79,13 +82,13 @@ button {
 .jh-sidebar__id {
   display: flex;
   align-items: center;
-  gap: 16px;
-  margin-bottom: 16px;
+  gap: 1rem;
+  margin-bottom: 1rem;
 }
 
 .jh-sidebar__avatar {
-  width: 64px;
-  height: 64px;
+  width: 4rem;
+  height: 4rem;
   border-radius: 50%;
   object-fit: cover;
   object-position: center 30%;
@@ -96,7 +99,7 @@ button {
 
 .jh-sidebar__name {
   font-family: var(--jh-display-font);
-  font-size: 34px;
+  font-size: 2.125rem;
   line-height: 0.95;
   letter-spacing: -0.025em;
   font-weight: 500;
@@ -106,7 +109,7 @@ button {
 .jh-sidebar__name > span { white-space: nowrap; }
 
 .jh-sidebar__title {
-  font-size: 11px;
+  font-size: 0.6875rem;
   letter-spacing: 0;
   color: #a59986;
   line-height: 1.5;
@@ -116,25 +119,25 @@ button {
 .jh-divider {
   height: 1px;
   background: #2c261e;
-  margin: 28px 0;
+  margin: 1.75rem 0;
 }
 
-.jh-sep { color: #4a4338; margin: 0 2px; }
+.jh-sep { color: #4a4338; margin: 0 0.125rem; }
 
 /* Nav */
 .jh-nav {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 0.125rem;
   flex: 1;
 }
 
 .jh-nav__item {
   display: flex;
   align-items: baseline;
-  gap: 14px;
-  padding: 9px 0;
-  font-size: 14px;
+  gap: 0.875rem;
+  padding: 0.5625rem 0;
+  font-size: 0.875rem;
   letter-spacing: -0.005em;
   color: #d8cdb9;
   position: relative;
@@ -142,11 +145,11 @@ button {
 }
 
 .jh-nav__num {
-  font-size: 10px;
+  font-size: 0.625rem;
   font-feature-settings: "tnum";
   color: #a59986;
   letter-spacing: 0.06em;
-  width: 18px;
+  width: 1.125rem;
   transition: color 0.18s ease;
 }
 
@@ -157,7 +160,7 @@ button {
   position: absolute;
   left: 0;
   right: 100%;
-  bottom: -2px;
+  bottom: -0.125rem;
   height: 1px;
   background: currentColor;
   opacity: 0.35;
@@ -168,7 +171,7 @@ button {
 
 .jh-nav__item.is-active {
   color: var(--jh-accent);
-  padding-left: 4px;
+  padding-left: 0.25rem;
 }
 
 .jh-nav__item.is-active .jh-nav__num { color: var(--jh-accent); }
@@ -178,24 +181,24 @@ button {
 .jh-sidebar__bottom {
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 1.125rem;
 }
 
 .jh-status {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 10px 12px;
+  gap: 0.625rem;
+  padding: 0.625rem 0.75rem;
   border: 1px solid #2c261e;
   background: #1a160f;
   border-radius: 999px;
   width: fit-content;
-  font-size: 11px;
+  font-size: 0.6875rem;
 }
 
 .jh-status__dot {
-  width: 7px;
-  height: 7px;
+  width: 0.4375rem;
+  height: 0.4375rem;
   border-radius: 50%;
   background: var(--jh-accent);
   position: relative;
@@ -209,12 +212,12 @@ button {
   100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--jh-accent) 0%, transparent); }
 }
 
-.jh-status__text { display: flex; gap: 5px; align-items: baseline; }
+.jh-status__text { display: flex; gap: 0.3125rem; align-items: baseline; }
 .jh-status__live { color: #a59986; }
 .jh-status__co { font-weight: 500; letter-spacing: -0.005em; }
 
 .jh-meta {
-  font-size: 12px;
+  font-size: 0.75rem;
   color: #a59986;
   line-height: 1.7;
 }
@@ -225,52 +228,52 @@ button {
 .jh-meta a:hover { color: var(--jh-accent); }
 
 .jh-sidebar__mark {
-  margin-top: 8px;
+  margin-top: 0.5rem;
   opacity: 0.5;
   display: flex;
 }
 .jh-sidebar__mark img {
   display: block;
-  border-radius: 4px;
+  border-radius: 0.25rem;
 }
 
 /* ───────── Main / Sections ───────── */
 .jh-section {
   padding: var(--jh-pad);
-  max-width: 1320px;
+  max-width: 82.5rem;
   margin: 0 auto;
   scroll-margin-top: 0;
 }
 
 
 @media (min-width: 1500px) {
-  .jh-section { max-width: 1680px; padding: 108px 88px; }
-  .jh-hero.jh-section { max-width: 1720px; }
+  .jh-section { max-width: 105rem; padding: 6.75rem 5.5rem; }
+  .jh-hero.jh-section { max-width: 107.5rem; }
 }
 
 @media (min-width: 1800px) {
-  .jh-section { max-width: 1920px; padding: 132px 112px; }
-  .jh-hero.jh-section { max-width: 1920px; }
+  .jh-section { max-width: 120rem; padding: 8.25rem 7rem; }
+  .jh-hero.jh-section { max-width: 120rem; }
 }
 
 /* Ultrawide tier — 2560+ catches 27" 1440p monitors and true ultrawides. */
 @media (min-width: 2560px) {
-  :root { --jh-sidebar-w: 340px; }
-  .jh-sidebar { padding: 48px 44px 40px; }
-  .jh-sidebar__avatar { width: 72px; height: 72px; }
-  .jh-sidebar__name { font-size: 38px; }
-  .jh-nav__item { font-size: 15px; padding: 11px 0; }
-  .jh-nav__num { font-size: 11px; width: 22px; }
-  .jh-section { max-width: 2560px; padding: 168px 144px; }
-  .jh-hero.jh-section { max-width: 2560px; }
+  :root { --jh-sidebar-w: 21.25rem; }
+  .jh-sidebar { padding: 3rem 2.75rem 2.5rem; }
+  .jh-sidebar__avatar { width: 4.5rem; height: 4.5rem; }
+  .jh-sidebar__name { font-size: 2.375rem; }
+  .jh-nav__item { font-size: 0.9375rem; padding: 0.6875rem 0; }
+  .jh-nav__num { font-size: 0.6875rem; width: 1.375rem; }
+  .jh-section { max-width: 160rem; padding: 10.5rem 9rem; }
+  .jh-hero.jh-section { max-width: 160rem; }
 }
 
 .jh-eyebrow {
-  font-size: 11px;
+  font-size: 0.6875rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--jh-mute);
-  margin-bottom: 28px;
+  margin-bottom: 1.75rem;
 }
 
 /* Hero */
@@ -278,8 +281,8 @@ button {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding-top: clamp(96px, 14vh, 160px);
-  padding-bottom: clamp(96px, 14vh, 160px);
+  padding-top: clamp(6rem, 14vh, 10rem);
+  padding-bottom: clamp(6rem, 14vh, 10rem);
 }
 
 .jh-display {
@@ -296,7 +299,7 @@ button {
 }
 
 .jh-display--xl {
-  font-size: clamp(64px, 9.4vw, 158px);
+  font-size: clamp(4rem, 9.4vw, 9.875rem);
   letter-spacing: -0.03em;
   font-weight: 350;
 }
@@ -317,10 +320,10 @@ button {
 .jh-lede {
   font-family: var(--jh-display-font);
   font-style: normal;
-  font-size: clamp(22px, calc(14px + 2cqi), 40px);
+  font-size: clamp(1.375rem, calc(0.875rem + 2cqi), 2.5rem);
   line-height: 1.35;
-  max-width: 640px;
-  margin: 28px 0 0;
+  max-width: 40rem;
+  margin: 1.75rem 0 0;
   color: var(--jh-ink);
   letter-spacing: -0.01em;
   font-weight: 400;
@@ -333,10 +336,10 @@ button {
 }
 
 .jh-sub {
-  font-size: clamp(15px, 1.2vw, 17px);
+  font-size: clamp(0.9375rem, 1.2vw, 1.0625rem);
   color: var(--jh-mute);
-  max-width: 480px;
-  margin-top: 24px;
+  max-width: 30rem;
+  margin-top: 1.5rem;
   line-height: 1.65;
 }
 
@@ -344,14 +347,14 @@ button {
 .jh-hero__split-grid {
   display: grid;
   grid-template-columns: 1.2fr 1fr;
-  gap: 80px;
+  gap: 5rem;
   align-items: center;
 }
 
 .jh-hero__divider {
   height: 1px;
   background: var(--jh-line);
-  margin: clamp(30px, 3.7vh, 48px) 0 clamp(24px, 3vh, 36px);
+  margin: clamp(1.875rem, 3.7vh, 3rem) 0 clamp(1.5rem, 3vh, 2.25rem);
 }
 
 
@@ -365,39 +368,39 @@ button {
    maxes below cap the size on bigger monitors so the name doesn't get
    absurdly large. */
 .jh-hero .jh-display {
-  font-size: clamp(28px, 16cqi, 88px);
+  font-size: clamp(1.75rem, 16cqi, 5.5rem);
   white-space: nowrap;
 }
 
 .jh-eyebrow--under {
-  margin: 8px 0 0;
+  margin: 0.5rem 0 0;
 }
 
 /* Section header */
 .jh-sec-head {
-  margin-bottom: 56px;
-  max-width: 760px;
+  margin-bottom: 3.5rem;
+  max-width: 47.5rem;
 }
 
 .jh-sec-head__top {
   display: flex;
   align-items: baseline;
-  gap: 16px;
-  margin-bottom: 22px;
-  padding-bottom: 16px;
+  gap: 1rem;
+  margin-bottom: 1.375rem;
+  padding-bottom: 1rem;
   border-bottom: 1px solid var(--jh-line);
 }
 
 .jh-sec-num {
   font-family: var(--jh-display-font);
-  font-size: 18px;
+  font-size: 1.125rem;
   font-style: italic;
   color: var(--jh-accent);
   font-feature-settings: "tnum";
 }
 
 .jh-kicker {
-  font-size: 11px;
+  font-size: 0.6875rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--jh-mute);
@@ -405,7 +408,7 @@ button {
 
 .jh-sec-title {
   font-family: var(--jh-display-font);
-  font-size: clamp(34px, 4.4vw, 60px);
+  font-size: clamp(2.125rem, 4.4vw, 3.75rem);
   font-weight: 600;
   letter-spacing: -0.025em;
   line-height: 1;
@@ -413,17 +416,17 @@ button {
 }
 
 .jh-sec-intro {
-  font-size: 18px;
-  max-width: 560px;
+  font-size: 1.125rem;
+  max-width: 35rem;
   color: var(--jh-ink-2);
-  margin: -28px 0 48px;
+  margin: -1.75rem 0 3rem;
   line-height: 1.55;
 }
 
 /* Grids */
 .jh-grid {
   display: grid;
-  gap: 28px 24px;
+  gap: 1.75rem 1.5rem;
 }
 .jh-grid--tech { grid-template-columns: repeat(2, 1fr); }
 .jh-grid--const { grid-template-columns: repeat(3, 1fr); }
@@ -434,7 +437,7 @@ button {
   flex-direction: column;
   background: transparent;
   border: 1px solid var(--jh-line);
-  border-radius: 8px;
+  border-radius: 0.5rem;
   overflow: hidden;
   container-type: inline-size;
   transition: transform 0.4s cubic-bezier(.2, .7, .2, 1),
@@ -444,7 +447,7 @@ button {
 }
 
 .jh-card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-0.25rem);
   box-shadow: 0 22px 44px -28px rgba(20, 16, 10, 0.25);
   border-color: var(--jh-faint);
 }
@@ -469,7 +472,7 @@ button {
   background-image:
     linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-  background-size: 32px 32px;
+  background-size: 2rem 2rem;
   transition: transform 0.7s cubic-bezier(.2, .7, .2, 1);
 }
 
@@ -500,16 +503,16 @@ button {
 .jh-chip.jh-chip--interactive {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 0.375rem;
   color: #c8e8d8;
   background: var(--jh-accent);
   border-color: var(--jh-accent);
-  font-size: 9px;
+  font-size: 0.5625rem;
   /* Pin line-height to the 11px title-case variants' line-box (11 × 1.2)
      so this all-caps 9px chip keeps the same pill height as --live and
      --demo. Without this, .jh-chip's 1.2 multiplier shrinks the box to
      9 × 1.2 = 10.8px and the row of chips reads uneven. */
-  line-height: 13.2px;
+  line-height: 0.825rem;
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -523,7 +526,7 @@ button {
    .jh-chip--interactive drops to 9px (with a pinned 13.2px line-box so
    the pill height still matches this variant). */
 .jh-chip.jh-chip--interactive.jh-chip--live {
-  font-size: 11px;
+  font-size: 0.6875rem;
   letter-spacing: 0.02em;
   text-transform: none;
 }
@@ -537,7 +540,7 @@ button {
   color: #F0D8D8;
   background: #6B1F2A;
   border-color: #6B1F2A;
-  font-size: 11px;
+  font-size: 0.6875rem;
   letter-spacing: 0.02em;
   text-transform: none;
 }
@@ -551,7 +554,7 @@ button {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 12px;
+  gap: 0.75rem;
 }
 .jh-card__title-row .jh-card__title {
   flex: 1;
@@ -559,16 +562,16 @@ button {
 }
 
 .jh-card__body {
-  padding: 22px 22px 24px;
+  padding: 1.375rem 1.375rem 1.5rem;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 0.5rem;
   flex: 1;
 }
 
 .jh-card__title {
   font-family: var(--jh-display-font);
-  font-size: 18px;
+  font-size: 1.125rem;
   letter-spacing: -0.012em;
   line-height: 1.2;
   font-weight: 450;
@@ -580,26 +583,26 @@ button {
 }
 
 .jh-card__location, .jh-card__blurb {
-  font-size: 13.5px;
+  font-size: 0.8438rem;
   color: var(--jh-mute);
   line-height: 1.5;
 }
-.jh-card__blurb { margin-top: 2px; }
+.jh-card__blurb { margin-top: 0.125rem; }
 
 /* Chips */
 .jh-chips {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
-  margin-top: 10px;
+  gap: 0.375rem;
+  margin-top: 0.625rem;
 }
 
 .jh-chip {
   display: inline-block;
-  padding: 4px 10px;
+  padding: 0.25rem 0.625rem;
   border: 1px solid var(--jh-line);
   border-radius: 999px;
-  font-size: 11px;
+  font-size: 0.6875rem;
   /* Explicit line-height — without this, chips inherit the body's 1.55, which
      adds ~3px of invisible line-box buffer above and below the glyph and makes
      the row-to-row vertical breathing room feel cramped relative to the wider
@@ -625,35 +628,35 @@ button {
 .jh-filters {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  margin-bottom: 32px;
-  padding: 22px 24px;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  padding: 1.375rem 1.5rem;
   border: 1px solid var(--jh-line);
-  border-radius: 10px;
+  border-radius: 0.625rem;
   background: color-mix(in srgb, var(--jh-bg) 80%, black 4%);
 }
 
 .jh-filter {
   display: grid;
-  grid-template-columns: 80px 1fr;
-  gap: 16px;
+  grid-template-columns: 5rem 1fr;
+  gap: 1rem;
   align-items: center;
 }
 
 .jh-filter__label {
-  font-size: 11px;
+  font-size: 0.6875rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--jh-mute);
 }
 
-.jh-filter__chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.jh-filter__chips { display: flex; flex-wrap: wrap; gap: 0.375rem; }
 
 .jh-fchip {
-  padding: 6px 12px;
+  padding: 0.375rem 0.75rem;
   border: 1px solid var(--jh-line);
   border-radius: 999px;
-  font-size: 12px;
+  font-size: 0.75rem;
   color: var(--jh-ink-2);
   transition: all 0.2s ease;
   background: transparent;
@@ -668,43 +671,43 @@ button {
 }
 
 .jh-result-count {
-  font-size: 12px;
+  font-size: 0.75rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--jh-mute);
-  margin-bottom: 20px;
+  margin-bottom: 1.25rem;
 }
 
 .jh-empty {
-  padding: 60px;
+  padding: 3.75rem;
   text-align: center;
   color: var(--jh-mute);
   font-style: italic;
   border: 1px dashed var(--jh-line);
-  border-radius: 10px;
+  border-radius: 0.625rem;
 }
 
 /* About */
 .jh-about-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) clamp(220px, calc(30vw - 78px), 540px);
-  gap: clamp(40px, 5vw, 112px);
+  grid-template-columns: minmax(0, 1fr) clamp(13.75rem, calc(30vw - 4.875rem), 33.75rem);
+  gap: clamp(2.5rem, 5vw, 7rem);
   align-items: start;
 }
 
 
 .jh-prose {
-  font-size: clamp(15px, calc(13px + 0.6cqi), 21px);
+  font-size: clamp(0.9375rem, calc(0.8125rem + 0.6cqi), 1.3125rem);
   line-height: 1.65;
   color: var(--jh-ink-2);
-  margin: 0 0 22px;
+  margin: 0 0 1.375rem;
   max-width: 60ch;
   text-wrap: pretty;
 }
 
 .jh-prose--lg {
   font-family: var(--jh-display-font);
-  font-size: 19px;
+  font-size: 1.1875rem;
   line-height: 1.45;
   color: var(--jh-ink);
   font-weight: 380;
@@ -713,28 +716,28 @@ button {
 
 .jh-about-side {
   position: sticky;
-  top: 60px;
+  top: 3.75rem;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 1.25rem;
   will-change: transform;
   transform: translateZ(0);
 }
 
 .jh-about-card {
-  padding: 24px 26px;
-  border-radius: 10px;
+  padding: 1.5rem 1.625rem;
+  border-radius: 0.625rem;
   background: #14110D;
   color: #f3ece0;
   border: 1px solid #14110D;
 }
 
 .jh-about-h {
-  font-size: 11px;
+  font-size: 0.6875rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: #a59986;
-  margin-bottom: 16px;
+  margin-bottom: 1rem;
 }
 
 .jh-about-list {
@@ -743,20 +746,20 @@ button {
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 0.875rem;
 }
 
-.jh-about-list li { display: flex; flex-direction: column; gap: 1px; }
+.jh-about-list li { display: flex; flex-direction: column; gap: 0.0625rem; }
 
 .jh-about-list strong {
   font-family: var(--jh-display-font);
-  font-size: 17px;
+  font-size: 1.0625rem;
   font-weight: 450;
   letter-spacing: -0.01em;
 }
 
 .jh-about-list span {
-  font-size: 12px;
+  font-size: 0.75rem;
   color: #a59986;
 }
 
@@ -766,12 +769,12 @@ button {
   padding: 0;
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
+  gap: 0.375rem;
 }
 
 .jh-about-tools li {
-  padding: 5px 11px;
-  font-size: 12px;
+  padding: 0.3125rem 0.6875rem;
+  font-size: 0.75rem;
   border: 1px solid #2c261e;
   border-radius: 999px;
   color: #d8cdb9;
@@ -790,9 +793,9 @@ button {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  padding: 14px 0;
+  padding: 0.875rem 0;
   font-family: var(--jh-display-font);
-  font-size: 17px;
+  font-size: 1.0625rem;
   letter-spacing: -0.01em;
   color: #d8cdb9;
   transition: color 0.15s ease;
@@ -800,13 +803,13 @@ button {
 .jh-connect-list a:hover { color: var(--jh-accent); }
 .jh-connect-list__cue {
   font-family: var(--jh-sans);
-  font-size: 13px;
+  font-size: 0.8125rem;
   color: #a59986;
   transition: color 0.15s ease, transform 0.15s ease;
 }
 .jh-connect-list a:hover .jh-connect-list__cue {
   color: var(--jh-accent);
-  transform: translate(2px, -1px);
+  transform: translate(0.125rem, -0.0625rem);
 }
 
 /* Services */
@@ -819,12 +822,12 @@ button {
 }
 
 .jh-service {
-  padding: 36px 32px 40px;
+  padding: 2.25rem 2rem 2.5rem;
   border-right: 1px solid var(--jh-line);
   border-bottom: 1px solid var(--jh-line);
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 0.75rem;
   transition: background-color 0.3s ease;
 }
 
@@ -835,35 +838,35 @@ button {
 .jh-service__num {
   font-family: var(--jh-display-font);
   font-style: italic;
-  font-size: 14px;
+  font-size: 0.875rem;
   color: var(--jh-accent);
 }
 
 .jh-service__title {
   font-family: var(--jh-display-font);
-  font-size: 24px;
+  font-size: 1.5rem;
   letter-spacing: -0.015em;
   line-height: 1.1;
   font-weight: 450;
 }
 
 .jh-service__desc {
-  font-size: 14.5px;
+  font-size: 0.9062rem;
   color: var(--jh-mute);
   line-height: 1.6;
   max-width: 38ch;
 }
 
 /* Footer / Contact */
-.jh-footer { padding-bottom: 60px; }
+.jh-footer { padding-bottom: 3.75rem; }
 
 .jh-contact-block {
-  max-width: 640px;
-  margin-bottom: 80px;
+  max-width: 40rem;
+  margin-bottom: 5rem;
 }
 
 .jh-contact-intro {
-  margin: 0 0 40px;
+  margin: 0 0 2.5rem;
 }
 .jh-contact-intro a {
   color: var(--jh-ink);
@@ -878,7 +881,7 @@ button {
 
 .jh-contact__big {
   font-family: var(--jh-display-font);
-  font-size: clamp(34px, 5vw, 72px);
+  font-size: clamp(2.125rem, 5vw, 4.5rem);
   letter-spacing: -0.025em;
   line-height: 1;
   font-weight: 380;
@@ -888,9 +891,9 @@ button {
 
 .jh-contact__row {
   display: flex;
-  gap: 12px;
+  gap: 0.75rem;
   align-items: baseline;
-  font-size: 14px;
+  font-size: 0.875rem;
   color: var(--jh-mute);
 }
 
@@ -898,9 +901,9 @@ button {
 .jh-contact__sep { color: var(--jh-faint); }
 
 .jh-copyright {
-  padding-top: 24px;
+  padding-top: 1.5rem;
   border-top: 1px solid var(--jh-line);
-  font-size: 11px;
+  font-size: 0.6875rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--jh-mute);
@@ -910,24 +913,24 @@ button {
 .jh-form {
   display: flex;
   flex-direction: column;
-  gap: 22px;
-  padding-top: 8px;
+  gap: 1.375rem;
+  padding-top: 0.5rem;
 }
 
 .jh-form__row {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 22px;
+  gap: 1.375rem;
 }
 
 .jh-form__field {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 0.375rem;
 }
 
 .jh-form__label {
-  font-size: 11px;
+  font-size: 0.6875rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--jh-mute);
@@ -940,7 +943,7 @@ button {
   background: transparent;
   border: 0;
   border-bottom: 1px solid var(--jh-line);
-  padding: 8px 0 10px;
+  padding: 0.5rem 0 0.625rem;
   outline: none;
   border-radius: 0;
   resize: vertical;
@@ -952,7 +955,7 @@ button {
 .jh-form__field textarea {
   font-family: var(--jh-sans);
   line-height: 1.55;
-  padding-top: 10px;
+  padding-top: 0.625rem;
 }
 
 .jh-form__field input::placeholder,
@@ -974,14 +977,14 @@ button {
 .jh-form__actions {
   display: flex;
   justify-content: flex-start;
-  margin-top: 8px;
+  margin-top: 0.5rem;
 }
 
 .jh-form__submit {
   font-family: var(--jh-sans);
-  font-size: 13px;
+  font-size: 0.8125rem;
   letter-spacing: 0.04em;
-  padding: 14px 24px;
+  padding: 0.875rem 1.5rem;
   background: var(--jh-ink);
   color: var(--jh-bg);
   border-radius: 999px;
@@ -996,37 +999,37 @@ button {
 }
 
 .jh-form__error {
-  padding: 12px 16px;
+  padding: 0.75rem 1rem;
   border: 1px solid color-mix(in srgb, #B23A2A 40%, transparent);
   background: color-mix(in srgb, #B23A2A 6%, transparent);
   color: #8a2a1f;
-  font-size: 13px;
-  border-radius: 6px;
+  font-size: 0.8125rem;
+  border-radius: 0.375rem;
 }
 
 .jh-form--success {
-  padding: 28px 0;
+  padding: 1.75rem 0;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 0.625rem;
 }
 .jh-form__success-h {
   font-family: var(--jh-display-font);
-  font-size: 28px;
+  font-size: 1.75rem;
   letter-spacing: -0.015em;
   color: var(--jh-accent);
 }
 .jh-form__success-p {
-  font-size: 15px;
+  font-size: 0.9375rem;
   color: var(--jh-ink-2);
-  margin: 0 0 12px;
+  margin: 0 0 0.75rem;
 }
 .jh-form__reset {
   align-self: flex-start;
-  font-size: 13px;
+  font-size: 0.8125rem;
   color: var(--jh-mute);
   border-bottom: 1px solid var(--jh-line);
-  padding-bottom: 2px;
+  padding-bottom: 0.125rem;
 }
 .jh-form__reset:hover { color: var(--jh-accent); border-color: var(--jh-accent); }
 
@@ -1037,7 +1040,7 @@ button {
    IntersectionObserver mis-fires, content stays visible. */
 .jh-fadeup--prime {
   opacity: 0;
-  transform: translateY(20px);
+  transform: translateY(1.25rem);
   transition: opacity 0.9s cubic-bezier(.2, .7, .2, 1),
               transform 0.9s cubic-bezier(.2, .7, .2, 1);
 }
@@ -1055,7 +1058,7 @@ button {
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  padding: 56px 24px;
+  padding: 3.5rem 1.5rem;
   overflow-y: auto;
   animation: jh-modal-in 0.15s ease-out;
   will-change: opacity;
@@ -1068,9 +1071,9 @@ button {
 
 .jh-modal__inner {
   background: var(--jh-bg);
-  max-width: 920px;
+  max-width: 57.5rem;
   width: 100%;
-  border-radius: 12px;
+  border-radius: 0.75rem;
   overflow: hidden;
   position: relative;
   box-shadow: 0 40px 80px -30px rgba(0, 0, 0, 0.4);
@@ -1080,28 +1083,28 @@ button {
 }
 
 @keyframes jh-modal-pop {
-  from { transform: translateY(12px); opacity: 0; }
+  from { transform: translateY(0.75rem); opacity: 0; }
   to   { transform: translateY(0); opacity: 1; }
 }
 
 /* Tech modal — Phase 1 responsive sizing fix.
    Construction modal keeps the shared .jh-modal / .jh-modal__inner sizing. */
 .jh-modal--tech {
-  padding: clamp(16px, 2.5vw, 40px);
+  padding: clamp(1rem, 2.5vw, 2.5rem);
 }
 .jh-modal__inner--tech {
-  max-width: clamp(920px, 70vw, 1240px);
+  max-width: clamp(57.5rem, 70vw, 77.5rem);
 }
 .jh-modal__inner--tech .jh-modal__head .jh-display {
-  font-size: clamp(22px, 0.6vw + 18px, 32px);
+  font-size: clamp(1.375rem, 0.6vw + 1.125rem, 2rem);
 }
 
 .jh-modal__close {
   position: absolute;
-  top: 18px;
-  right: 18px;
-  width: 36px;
-  height: 36px;
+  top: 1.125rem;
+  right: 1.125rem;
+  width: 2.25rem;
+  height: 2.25rem;
   border-radius: 50%;
   background: rgba(0, 0, 0, 0.5);
   color: white;
@@ -1140,15 +1143,15 @@ button {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 44px;
-  height: 44px;
+  width: 2.75rem;
+  height: 2.75rem;
   display: flex;
   align-items: center;
   justify-content: center;
   background: rgba(0, 0, 0, 0.45);
   color: #fff;
   border-radius: 999px;
-  font-size: 26px;
+  font-size: 1.625rem;
   line-height: 1;
   cursor: pointer;
   border: 0;
@@ -1159,20 +1162,20 @@ button {
   background: rgba(0, 0, 0, 0.7);
   transform: translateY(-50%) scale(1.05);
 }
-.jh-modal__hero-nav--prev { left: 16px; }
-.jh-modal__hero-nav--next { right: 16px; }
+.jh-modal__hero-nav--prev { left: 1rem; }
+.jh-modal__hero-nav--next { right: 1rem; }
 
 .jh-modal__hero-dots {
   position: absolute;
-  bottom: 18px;
-  right: 24px;
+  bottom: 1.125rem;
+  right: 1.5rem;
   display: flex;
-  gap: 8px;
+  gap: 0.5rem;
   z-index: 3;
 }
 .jh-modal__hero-dot {
-  width: 8px;
-  height: 8px;
+  width: 0.5rem;
+  height: 0.5rem;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.4);
   border: 0;
@@ -1187,34 +1190,34 @@ button {
 }
 
 .jh-modal__body {
-  padding: 44px 56px 56px;
+  padding: 2.75rem 3.5rem 3.5rem;
 }
 
 .jh-modal__head {
   display: flex;
   justify-content: space-between;
-  gap: 32px;
+  gap: 2rem;
   align-items: flex-start;
-  margin-bottom: 40px;
-  padding-bottom: 32px;
+  margin-bottom: 2.5rem;
+  padding-bottom: 2rem;
   border-bottom: 1px solid var(--jh-line);
 }
 
 .jh-modal__head .jh-display {
-  font-size: clamp(24px, 3.1vw, 38px);
+  font-size: clamp(1.5rem, 3.1vw, 2.375rem);
   font-weight: 420;
   letter-spacing: -0.02em;
   line-height: 1.05;
 }
 
 .jh-modal__sub {
-  margin-top: 8px;
-  font-size: 14px;
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
   color: var(--jh-mute);
 }
 
 .jh-modal__head .jh-chips {
-  margin-top: 14px;
+  margin-top: 0.875rem;
   flex-shrink: 0;
 }
 
@@ -1237,7 +1240,7 @@ button {
 .jh-modal__inner--tech .jh-modal__head {
   display: grid;
   grid-template-columns: 1fr auto;
-  gap: 28px;
+  gap: 1.75rem;
   align-items: start;
 }
 .jh-modal__inner--tech .jh-modal__head .jh-chips { margin-top: 0; }
@@ -1248,10 +1251,10 @@ button {
 .jh-pill {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 7px 12px;
+  gap: 0.375rem;
+  padding: 0.4375rem 0.75rem;
   font-family: var(--jh-sans);
-  font-size: 11.5px;
+  font-size: 0.7188rem;
   font-weight: 500;
   line-height: 1;
   color: var(--jh-ink);
@@ -1270,8 +1273,8 @@ button {
   border-color: var(--jh-ink);
 }
 .jh-pill__icon {
-  width: 14px;
-  height: 14px;
+  width: 0.875rem;
+  height: 0.875rem;
   display: block;
   opacity: 0.8;
 }
@@ -1279,8 +1282,8 @@ button {
 .jh-pill:focus-visible .jh-pill__icon { opacity: 1; }
 
 .jh-pill--close {
-  width: 28px;
-  height: 28px;
+  width: 1.75rem;
+  height: 1.75rem;
   padding: 0;
   justify-content: center;
 }
@@ -1291,58 +1294,38 @@ button {
    under .jh-modal__inner--tech or .jh-sn-* / .jh-sec* / .jh-ni*.
    ─────────────────────────────────────────────────────────────── */
 
-/* Re-introduce the spec's max-height now that internal scrolling
-   exists (the right sidenav column is the new scroller). The inner
-   becomes a flex column so hero + body share the viewport budget. */
-.jh-modal__inner--tech {
-  max-height: calc(100vh - 32px);
-  display: flex;
-  flex-direction: column;
-}
+/* The tech modal inner extends to its content height. The outer
+   `.jh-modal` overlay is the only scroller — there is no internal
+   max-height or per-column overflow. This keeps body text reachable on
+   any viewport height; the trade-off is the sidenav no longer feels
+   pinned in place (it scrolls with the rest of the modal). Scroll-spy
+   in `TechModalBody.tsx` listens to the outer modal's scroll events
+   instead of an internal scroller. */
 
-.jh-modal__inner--tech .jh-modal__topbar,
-.jh-modal__inner--tech .jh-modal__hero,
-.jh-modal__inner--tech .jh-modal__head {
-  flex-shrink: 0;
-}
-
-.jh-modal__inner--tech .jh-modal__body {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  min-height: 0;
-}
-
-/* Two-column body: fixed-feel nav on the left, the actual scroll-spy
-   scroller on the right. The grid plus overflow-y on the right column
-   gives us the prototype's sticky-nav effect without needing
-   position: sticky (which would require dropping the inner's
-   overflow/contain). */
+/* Two-column body: nav on the left, content on the right. */
 .jh-sn-body {
   display: grid;
-  grid-template-columns: clamp(140px, 14%, 200px) 1fr;
-  gap: clamp(24px, 3vw, 48px);
-  flex: 1;
-  min-height: 0;
+  grid-template-columns: clamp(8.75rem, 14%, 12.5rem) 1fr;
+  gap: clamp(1.5rem, 3vw, 3rem);
 }
 
 .jh-sn-nav {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 0.25rem;
   align-self: start;
-  padding-top: 4px;
+  padding-top: 0.25rem;
 }
 
 .jh-sn-link {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  padding: 6px 0;
+  gap: 0.625rem;
+  padding: 0.375rem 0;
   background: transparent;
   border: 0;
   font-family: var(--jh-sans);
-  font-size: 12.5px;
+  font-size: 0.7812rem;
   line-height: 1.3;
   color: var(--jh-mute);
   text-align: left;
@@ -1356,8 +1339,8 @@ button {
 }
 
 .jh-sn-dot {
-  width: 6px;
-  height: 6px;
+  width: 0.375rem;
+  height: 0.375rem;
   border-radius: 50%;
   background: var(--jh-line);
   flex-shrink: 0;
@@ -1369,21 +1352,9 @@ button {
 }
 
 .jh-sn-scroll {
-  position: relative;
-  overflow-y: auto;
-  min-height: 0;
   display: flex;
   flex-direction: column;
-  gap: 28px;
-  padding-right: 6px;
-  scrollbar-width: thin;
-  scrollbar-color: var(--jh-line) transparent;
-}
-.jh-sn-scroll::-webkit-scrollbar { width: 6px; }
-.jh-sn-scroll::-webkit-scrollbar-track { background: transparent; }
-.jh-sn-scroll::-webkit-scrollbar-thumb {
-  background: var(--jh-line);
-  border-radius: 999px;
+  gap: 1.75rem;
 }
 
 /* Section label — Inter caps + letter-spacing with a hairline filler.
@@ -1391,10 +1362,10 @@ button {
 .jh-sec-label {
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 14px;
+  gap: 0.75rem;
+  margin-bottom: 0.875rem;
   font-family: var(--jh-sans);
-  font-size: 10.5px;
+  font-size: 0.6562rem;
   font-weight: 500;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -1412,12 +1383,12 @@ button {
 .jh-sec-desc {
   margin: 0;
   font-family: var(--jh-display-font);
-  font-size: 17px;
+  font-size: 1.0625rem;
   line-height: 1.55;
   color: var(--jh-ink);
   text-wrap: pretty;
 }
-.jh-sec-desc + .jh-sec-desc { margin-top: 14px; }
+.jh-sec-desc + .jh-sec-desc { margin-top: 0.875rem; }
 
 /* Numbered items — `1.` `2.` `3.` counters + Inter body. */
 .jh-ni-list {
@@ -1426,24 +1397,24 @@ button {
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 1.125rem;
 }
 .jh-ni {
   display: grid;
-  grid-template-columns: 22px 1fr;
-  gap: 8px;
+  grid-template-columns: 1.375rem 1fr;
+  gap: 0.5rem;
   align-items: baseline;
 }
 .jh-ni-num {
   font-family: var(--jh-sans);
-  font-size: 11px;
+  font-size: 0.6875rem;
   font-weight: 500;
   letter-spacing: 0.04em;
   color: var(--jh-faint);
 }
 .jh-ni-text {
   font-family: var(--jh-sans);
-  font-size: 14px;
+  font-size: 0.875rem;
   line-height: 1.6;
   color: var(--jh-ink-2);
 }
@@ -1459,50 +1430,19 @@ button {
 }
 
 /* Mobile fallback: collapse the sidenav into a pill row above the
-   content, drop the inner's max-height + internal scroll, and let the
-   outer .jh-modal handle overflow as it did pre-Phase-4. */
+   content. The desktop layout already extends to content height with
+   outer-modal scrolling, so the only mobile-specific change is the
+   nav direction. */
 @media (max-width: 700px) {
-  .jh-modal__inner--tech {
-    max-height: none;
-    display: block;
-  }
-  .jh-modal__inner--tech .jh-modal__body { display: block; }
   .jh-sn-body {
     grid-template-columns: 1fr;
-    gap: 16px;
+    gap: 1rem;
   }
   .jh-sn-nav {
     flex-direction: row;
     flex-wrap: wrap;
-    gap: 6px 14px;
+    gap: 0.375rem 0.875rem;
     padding-top: 0;
-  }
-  .jh-sn-scroll {
-    overflow: visible;
-    padding-right: 0;
-  }
-}
-
-/* Short-viewport fallback: the modal's `max-height: calc(100vh - 32px)`
-   + 16:9 hero combination squeezes .jh-sn-body to 0 height on
-   viewports too short to fit topbar + 16:9 hero + head + a usable
-   body scroll area. The threshold accounts for the `html { zoom: 1.1 }`
-   rendering scale: a CSS 100vh box is rendered 1.1x taller in device
-   pixels, so even monitors with ~960-1080 CSS-px viewports (1080p
-   monitors with Chrome chrome) overflow without this fallback. The
-   escape hatch matches the mobile fallback: drop the inner's
-   max-height + internal scroll, keep the two-column grid, and let the
-   outer .jh-modal handle overflow. Sidenav loses its stay-pinned
-   behavior at these viewport heights — same compromise as on mobile. */
-@media (max-height: 1100px) and (min-width: 701px) {
-  .jh-modal__inner--tech {
-    max-height: none;
-    display: block;
-  }
-  .jh-modal__inner--tech .jh-modal__body { display: block; }
-  .jh-sn-scroll {
-    overflow: visible;
-    padding-right: 0;
   }
 }
 
@@ -1524,10 +1464,10 @@ button {
 .jh-embed__badge {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 4px 9px;
+  gap: 0.375rem;
+  padding: 0.25rem 0.5625rem;
   font-family: var(--jh-sans);
-  font-size: 9.5px;
+  font-size: 0.5938rem;
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -1558,8 +1498,8 @@ button {
    shadow picks up whichever value cascades into the dot. */
 .jh-embed__badge-dot {
   --jh-dot-color: 109, 210, 154;
-  width: 6px;
-  height: 6px;
+  width: 0.375rem;
+  height: 0.375rem;
   border-radius: 50%;
   background: rgb(var(--jh-dot-color));
   box-shadow: 0 0 0 0 rgba(var(--jh-dot-color), 0.6);
@@ -1598,15 +1538,15 @@ button {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 14px;
-  padding: 20px 24px;
+  gap: 0.875rem;
+  padding: 1.25rem 1.5rem;
   color: #f3ece0;
   text-align: center;
 }
 
 .jh-embed__spinner {
-  width: 28px;
-  height: 28px;
+  width: 1.75rem;
+  height: 1.75rem;
   border-radius: 50%;
   border: 2px solid rgba(243, 236, 224, 0.18);
   border-top-color: #6dd29a;
@@ -1619,7 +1559,7 @@ button {
 
 .jh-embed__loading-text {
   font-family: var(--jh-sans);
-  font-size: 12.5px;
+  font-size: 0.7812rem;
   letter-spacing: 0.02em;
   color: #a59986;
 }
@@ -1629,7 +1569,7 @@ button {
 .jh-embed__failure-msg {
   margin: 0;
   font-family: var(--jh-display-font);
-  font-size: 17px;
+  font-size: 1.0625rem;
   line-height: 1.4;
   color: #f3ece0;
   max-width: 32ch;
@@ -1638,10 +1578,10 @@ button {
 .jh-embed__cta {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 8px 14px;
+  gap: 0.375rem;
+  padding: 0.5rem 0.875rem;
   font-family: var(--jh-sans);
-  font-size: 12px;
+  font-size: 0.75rem;
   font-weight: 500;
   letter-spacing: 0.02em;
   color: #0d0a07;
@@ -1653,7 +1593,7 @@ button {
 .jh-embed__cta:hover,
 .jh-embed__cta:focus-visible {
   background: #6dd29a;
-  transform: translateY(-1px);
+  transform: translateY(-0.0625rem);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1675,20 +1615,20 @@ button {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
-  padding: 10px 16px;
+  gap: 1rem;
+  padding: 0.625rem 1rem;
   background: #14110D;
   color: #f3ece0;
   border-bottom: 1px solid rgba(243, 236, 224, 0.08);
-  border-top-left-radius: 12px;
-  border-top-right-radius: 12px;
+  border-top-left-radius: 0.75rem;
+  border-top-right-radius: 0.75rem;
   flex-shrink: 0;
 }
 
 .jh-modal__topbar-left {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 0.875rem;
   min-width: 0;
   flex: 1;
 }
@@ -1696,7 +1636,7 @@ button {
 .jh-modal__topbar-right {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 0.5rem;
   flex-shrink: 0;
 }
 
@@ -1718,8 +1658,8 @@ button {
    don't crowd. Below ~600px we also drop the badge's " · POWER BI"
    suffix; full label stays available via aria-label. */
 @media (max-width: 600px) {
-  .jh-modal__topbar { padding: 8px 12px; gap: 10px; }
-  .jh-modal__topbar-right { gap: 6px; }
+  .jh-modal__topbar { padding: 0.5rem 0.75rem; gap: 0.625rem; }
+  .jh-modal__topbar-right { gap: 0.375rem; }
   .jh-modal__topbar .jh-embed__badge-suffix { display: none; }
 }
 
@@ -1734,37 +1674,37 @@ button {
 .jh-modal__meta {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
-  padding: 24px;
+  gap: 1.5rem;
+  padding: 1.5rem;
   background: #14110D;
   color: #f3ece0;
-  border-radius: 8px;
-  margin-bottom: 36px;
+  border-radius: 0.5rem;
+  margin-bottom: 2.25rem;
 }
 
 .jh-modal__meta-k {
-  font-size: 10px;
+  font-size: 0.625rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: #a59986;
-  margin-bottom: 6px;
+  margin-bottom: 0.375rem;
 }
 
 .jh-modal__meta-v {
   font-family: var(--jh-display-font);
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 450;
   letter-spacing: -0.005em;
 }
 
-.jh-modal__section { margin-bottom: 32px; }
+.jh-modal__section { margin-bottom: 2rem; }
 
 .jh-modal__h {
-  font-size: 11px;
+  font-size: 0.6875rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--jh-mute);
-  margin-bottom: 14px;
+  margin-bottom: 0.875rem;
 }
 
 .jh-list {
@@ -1773,13 +1713,13 @@ button {
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 0.625rem;
 }
 
 .jh-list li {
-  padding-left: 24px;
+  padding-left: 1.5rem;
   position: relative;
-  font-size: 15.5px;
+  font-size: 0.9688rem;
   line-height: 1.55;
   color: var(--jh-ink-2);
 }
@@ -1789,7 +1729,7 @@ button {
   position: absolute;
   left: 0;
   top: 0.7em;
-  width: 12px;
+  width: 0.75rem;
   height: 1px;
   background: var(--jh-accent);
 }
@@ -1797,43 +1737,43 @@ button {
 .jh-related {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
+  gap: 0.75rem;
 }
 
 .jh-related__item {
   display: flex;
-  gap: 12px;
-  padding: 12px;
+  gap: 0.75rem;
+  padding: 0.75rem;
   border: 1px solid var(--jh-line);
-  border-radius: 8px;
+  border-radius: 0.5rem;
   align-items: center;
 }
 
 .jh-related__sw {
-  width: 44px;
-  height: 44px;
-  border-radius: 6px;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 0.375rem;
   flex-shrink: 0;
 }
 
 .jh-related__t {
   font-family: var(--jh-display-font);
-  font-size: 14px;
+  font-size: 0.875rem;
   line-height: 1.2;
   letter-spacing: -0.005em;
 }
 
 .jh-related__l {
-  font-size: 11px;
+  font-size: 0.6875rem;
   color: var(--jh-mute);
-  margin-top: 2px;
+  margin-top: 0.125rem;
 }
 
 /* Mobile */
 .jh-mobile-toggle { display: none; }
 
 @media (max-width: 900px) {
-  :root { --jh-pad: 28px; }
+  :root { --jh-pad: 1.75rem; }
 
   .jh-app { grid-template-columns: 1fr; }
 
@@ -1843,7 +1783,7 @@ button {
     top: 0;
     z-index: 30;
     width: 100%;
-    padding: 16px 24px;
+    padding: 1rem 1.5rem;
     background: #14110D;
     color: #f3ece0;
     border-bottom: 1px solid #2c261e;
@@ -1853,13 +1793,13 @@ button {
 
   .jh-mobile-name {
     font-family: var(--jh-display-font);
-    font-size: 22px;
+    font-size: 1.375rem;
     letter-spacing: -0.02em;
   }
 
-  .jh-mobile-burger { display: flex; flex-direction: column; gap: 4px; }
+  .jh-mobile-burger { display: flex; flex-direction: column; gap: 0.25rem; }
   .jh-mobile-burger span {
-    width: 22px;
+    width: 1.375rem;
     height: 1.5px;
     background: #f3ece0;
     display: block;
@@ -1869,8 +1809,8 @@ button {
     position: fixed;
     top: 0;
     left: 0;
-    height: calc(100vh / 1.1);
-    width: 280px;
+    height: 100vh;
+    width: 17.5rem;
     z-index: 40;
     transform: translateX(-100%);
     transition: transform 0.3s ease;
@@ -1882,24 +1822,24 @@ button {
   .jh-grid--const { grid-template-columns: 1fr; }
   .jh-grid--tech { grid-template-columns: 1fr; }
   .jh-services { grid-template-columns: 1fr; }
-  .jh-about-grid { grid-template-columns: 1fr; gap: 40px; }
+  .jh-about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
   .jh-about-side { position: static; }
-  .jh-modal { padding: 16px; }
-  .jh-modal__body { padding: 28px 24px; }
+  .jh-modal { padding: 1rem; }
+  .jh-modal__body { padding: 1.75rem 1.5rem; }
   .jh-modal__head { flex-direction: column; }
   .jh-modal__meta { grid-template-columns: repeat(2, 1fr); }
   .jh-related { grid-template-columns: 1fr; }
-  .jh-hero__split-grid { grid-template-columns: 1fr; gap: 32px; }
+  .jh-hero__split-grid { grid-template-columns: 1fr; gap: 2rem; }
   .jh-filter { grid-template-columns: 1fr; }
   .jh-form__row { grid-template-columns: 1fr; }
-  .jh-contact { margin-bottom: 48px; }
+  .jh-contact { margin-bottom: 3rem; }
 }
 
 @media (min-width: 901px) and (max-width: 1320px) {
-  :root { --jh-pad: 56px; --jh-sidebar-w: 280px; }
+  :root { --jh-pad: 3.5rem; --jh-sidebar-w: 17.5rem; }
   .jh-grid--const { grid-template-columns: repeat(2, 1fr); }
   /* On tight laptops, stack hero so the text isn't crushed by the sidebar. */
-  .jh-about-grid { grid-template-columns: 1fr; gap: 48px; }
+  .jh-about-grid { grid-template-columns: 1fr; gap: 3rem; }
   .jh-about-side { position: static; }
 }
 
@@ -1908,95 +1848,95 @@ button {
    wide (~30%) sidebar modes use these reduced card sizes. The 2600+
    ultrawide tier overrides them back up. */
 @media (min-width: 1321px) and (max-width: 2599px) {
-  .jh-hero .jh-about-card { padding: 20px 22px; }
-  .jh-hero .jh-about-h { font-size: 10px; margin-bottom: 12px; letter-spacing: 0.13em; }
-  .jh-hero .jh-about-list { gap: 12px; }
-  .jh-hero .jh-about-list strong { font-size: 16px; }
-  .jh-hero .jh-about-list span { font-size: 11.5px; }
-  .jh-hero .jh-about-tools li { font-size: 11.5px; padding: 4px 10px; }
-  .jh-hero .jh-connect-list a { font-size: 16px; padding: 12px 0; }
-  .jh-hero .jh-connect-list__cue { font-size: 12px; }
+  .jh-hero .jh-about-card { padding: 1.25rem 1.375rem; }
+  .jh-hero .jh-about-h { font-size: 0.625rem; margin-bottom: 0.75rem; letter-spacing: 0.13em; }
+  .jh-hero .jh-about-list { gap: 0.75rem; }
+  .jh-hero .jh-about-list strong { font-size: 1rem; }
+  .jh-hero .jh-about-list span { font-size: 0.7188rem; }
+  .jh-hero .jh-about-tools li { font-size: 0.7188rem; padding: 0.25rem 0.625rem; }
+  .jh-hero .jh-connect-list a { font-size: 1rem; padding: 0.75rem 0; }
+  .jh-hero .jh-connect-list__cue { font-size: 0.75rem; }
 }
 
 /* Scale the hero up on larger screens so it doesn't feel stranded.
    Below 1500px we keep the original laptop-friendly proportions. */
 @media (min-width: 1500px) {
-  .jh-hero .jh-display { font-size: clamp(46px, 16cqi, 100px); }
-  .jh-hero .jh-lede { max-width: 880px; }
+  .jh-hero .jh-display { font-size: clamp(2.875rem, 16cqi, 6.25rem); }
+  .jh-hero .jh-lede { max-width: 55rem; }
   .jh-hero .jh-prose { max-width: 64ch; }
   .jh-grid--const { grid-template-columns: repeat(4, 1fr); }
-  .jh-grid { gap: 36px 32px; }
-  .jh-sec-title { font-size: clamp(36px, 4.2vw, 64px); }
-  .jh-sec-head { max-width: 880px; margin-bottom: 64px; }
-  .jh-card__body { padding: 26px 26px 28px; }
+  .jh-grid { gap: 2.25rem 2rem; }
+  .jh-sec-title { font-size: clamp(2.25rem, 4.2vw, 4rem); }
+  .jh-sec-head { max-width: 55rem; margin-bottom: 4rem; }
+  .jh-card__body { padding: 1.625rem 1.625rem 1.75rem; }
 }
 
 @media (min-width: 1800px) {
-  .jh-hero .jh-display { font-size: clamp(56px, 16cqi, 124px); }
-  .jh-hero .jh-lede { max-width: 1080px; }
+  .jh-hero .jh-display { font-size: clamp(3.5rem, 16cqi, 7.75rem); }
+  .jh-hero .jh-lede { max-width: 67.5rem; }
   .jh-hero .jh-prose { max-width: 70ch; }
-  .jh-grid { gap: 40px 36px; }
-  .jh-sec-title { font-size: clamp(46px, 4.6vw, 78px); }
-  .jh-sec-head { max-width: 1000px; margin-bottom: 72px; }
-  .jh-card__body { padding: 30px 30px 32px; }
-  .jh-card__title { font-size: 20px; }
+  .jh-grid { gap: 2.5rem 2.25rem; }
+  .jh-sec-title { font-size: clamp(2.875rem, 4.6vw, 4.875rem); }
+  .jh-sec-head { max-width: 62.5rem; margin-bottom: 4.5rem; }
+  .jh-card__body { padding: 1.875rem 1.875rem 2rem; }
+  .jh-card__title { font-size: 1.25rem; }
 }
 
 /* Ultrawide tier — scales beyond what 16" laptops see. Triggers above the
    MacBook's CSS width (2560px) so only true ultrawides bump up further. */
 @media (min-width: 2600px) {
-  .jh-hero .jh-display { font-size: clamp(80px, 14cqi, 168px); }
-  .jh-hero .jh-lede { font-size: clamp(38px, 2.6vw, 60px); max-width: 1500px; }
-  .jh-hero .jh-prose { font-size: 23px; max-width: 80ch; }
+  .jh-hero .jh-display { font-size: clamp(5rem, 14cqi, 10.5rem); }
+  .jh-hero .jh-lede { font-size: clamp(2.375rem, 2.6vw, 3.75rem); max-width: 93.75rem; }
+  .jh-hero .jh-prose { font-size: 1.4375rem; max-width: 80ch; }
   .jh-hero .jh-about-grid {
-    grid-template-columns: minmax(0, 1fr) minmax(560px, 700px);
-    gap: 168px;
+    grid-template-columns: minmax(0, 1fr) minmax(35rem, 43.75rem);
+    gap: 10.5rem;
   }
-  .jh-grid { gap: 56px 52px; }
-  .jh-sec-title { font-size: clamp(72px, 5.4vw, 116px); }
-  .jh-sec-num { font-size: 28px; }
-  .jh-kicker { font-size: 16px; letter-spacing: 0.22em; }
-  .jh-sec-head { max-width: 1360px; margin-bottom: 100px; }
-  .jh-card__body { padding: 42px 42px 44px; }
-  .jh-card__title { font-size: 26px; }
-  .jh-eyebrow { font-size: 16px; letter-spacing: 0.22em; }
-  .jh-about-h { font-size: 15px; letter-spacing: 0.2em; }
-  .jh-about-list strong { font-size: 24px; }
-  .jh-about-list span { font-size: 16px; }
-  .jh-about-tools li { font-size: 16px; padding: 9px 18px; }
-  .jh-connect-list a { font-size: 24px; padding: 20px 0; }
-  .jh-connect-list__cue { font-size: 17px; }
-  .jh-service__num { font-size: 20px; }
-  .jh-service__title { font-size: 38px; }
-  .jh-service__desc { font-size: 18px; max-width: 54ch; }
-  .jh-service { padding: 64px 60px 68px; }
-  .jh-contact__big { font-size: clamp(64px, 6.0vw, 156px); }
-  .jh-contact__row { font-size: 18px; }
-  .jh-about-card { padding: 32px 34px; }
+  .jh-grid { gap: 3.5rem 3.25rem; }
+  .jh-sec-title { font-size: clamp(4.5rem, 5.4vw, 7.25rem); }
+  .jh-sec-num { font-size: 1.75rem; }
+  .jh-kicker { font-size: 1rem; letter-spacing: 0.22em; }
+  .jh-sec-head { max-width: 85rem; margin-bottom: 6.25rem; }
+  .jh-card__body { padding: 2.625rem 2.625rem 2.75rem; }
+  .jh-card__title { font-size: 1.625rem; }
+  .jh-eyebrow { font-size: 1rem; letter-spacing: 0.22em; }
+  .jh-about-h { font-size: 0.9375rem; letter-spacing: 0.2em; }
+  .jh-about-list strong { font-size: 1.5rem; }
+  .jh-about-list span { font-size: 1rem; }
+  .jh-about-tools li { font-size: 1rem; padding: 0.5625rem 1.125rem; }
+  .jh-connect-list a { font-size: 1.5rem; padding: 1.25rem 0; }
+  .jh-connect-list__cue { font-size: 1.0625rem; }
+  .jh-service__num { font-size: 1.25rem; }
+  .jh-service__title { font-size: 2.375rem; }
+  .jh-service__desc { font-size: 1.125rem; max-width: 54ch; }
+  .jh-service { padding: 4rem 3.75rem 4.25rem; }
+  .jh-contact__big { font-size: clamp(4rem, 6.0vw, 9.75rem); }
+  .jh-contact__row { font-size: 1.125rem; }
+  .jh-about-card { padding: 2rem 2.125rem; }
 }
 
 /* Skip-to-content link (visually hidden until focused) */
 .jh-skip {
   position: absolute;
-  top: -100px;
-  left: 12px;
+  top: -6.25rem;
+  left: 0.75rem;
   z-index: 100;
-  padding: 10px 16px;
+  padding: 0.625rem 1rem;
   background: var(--jh-ink);
   color: var(--jh-bg);
-  border-radius: 6px;
-  font-size: 13px;
+  border-radius: 0.375rem;
+  font-size: 0.8125rem;
   letter-spacing: 0.02em;
   text-decoration: none;
   transition: top 0.15s ease;
 }
-.jh-skip:focus { top: 12px; outline: 2px solid var(--jh-accent); outline-offset: 2px; }
+.jh-skip:focus { top: 0.75rem; outline: 2px solid var(--jh-accent); outline-offset: 2px; }
 
 /* Visible focus rings for keyboard users */
 :focus-visible {
   outline: 2px solid var(--jh-accent);
   outline-offset: 3px;
-  border-radius: 3px;
+  border-radius: 0.1875rem;
 }
 
 /* Honor reduced-motion preference */
@@ -2033,18 +1973,18 @@ button {
 
 /* 404 page */
 .jh-404 {
-  min-height: calc(100vh / 1.1);
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
   padding: var(--jh-pad);
-  max-width: 720px;
-  gap: 28px;
+  max-width: 45rem;
+  gap: 1.75rem;
 }
 .jh-404__num {
   font-family: var(--jh-display-font);
-  font-size: clamp(96px, 18vw, 240px);
+  font-size: clamp(6rem, 18vw, 15rem);
   line-height: 0.9;
   font-weight: 350;
   letter-spacing: -0.04em;
@@ -2052,43 +1992,21 @@ button {
 }
 .jh-404__title {
   font-family: var(--jh-display-font);
-  font-size: clamp(28px, 3.6vw, 44px);
+  font-size: clamp(1.75rem, 3.6vw, 2.75rem);
   font-weight: 450;
   letter-spacing: -0.02em;
   margin: 0;
 }
 .jh-404__back {
   display: inline-block;
-  padding: 12px 22px;
+  padding: 0.75rem 1.375rem;
   border: 1px solid var(--jh-ink);
   border-radius: 999px;
-  font-size: 13px;
+  font-size: 0.8125rem;
   letter-spacing: 0.02em;
   transition: background 0.2s ease, color 0.2s ease;
 }
 .jh-404__back:hover { background: var(--jh-ink); color: var(--jh-bg); }
-
-/* ──────────────────────────────────────────────────────────────────
-   Paper-grain overlay — fixed, full-viewport, pointer-events: none.
-   Lives above body content (z-index: 1) but below the modal (z:50),
-   so the grain doesn't sit on top of dialogs. mix-blend-mode: multiply
-   darkens the cream subtly without visibly affecting the dark sidebar.
-   ─────────────────────────────────────────────────────────────── */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 1;
-  opacity: 0.06;
-  mix-blend-mode: multiply;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.9 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
-  background-size: 240px 240px;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  body::before { display: none; }
-}
 
 /* ──────────────────────────────────────────────────────────────────
    Eyebrow breathing — the section kicker's letter-spacing eases open
