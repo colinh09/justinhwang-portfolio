@@ -14,3 +14,7 @@ design-extract/
 
 # Claude Code (local tooling — skills, settings, etc.)
 .claude/
+
+# Local one-off scripts (kept locally, not committed)
+scripts/build-tech-content-doc.py
+scripts/refactor/
