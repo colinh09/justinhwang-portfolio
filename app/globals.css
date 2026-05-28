@@ -13,7 +13,7 @@
   --jh-line: #e0d8c6;
   --jh-accent: #1F4E3C;
   --jh-display-font: "Newsreader", "Fraunces", Georgia, serif;
-  --jh-sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --jh-sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
   --jh-sidebar-w: clamp(280px, 16vw, 320px);
   --jh-pad: 96px;
 }
@@ -253,17 +253,16 @@ button {
   .jh-hero.jh-section { max-width: 1920px; }
 }
 
-/* Ultrawide tier — only triggers above the MacBook's CSS width (2560px) so
-   16" laptops keep the standard 1800+ layout and only true ultrawides scale up. */
-@media (min-width: 2600px) {
+/* Ultrawide tier — 2560+ catches 27" 1440p monitors and true ultrawides. */
+@media (min-width: 2560px) {
   :root { --jh-sidebar-w: 340px; }
   .jh-sidebar { padding: 48px 44px 40px; }
   .jh-sidebar__avatar { width: 72px; height: 72px; }
   .jh-sidebar__name { font-size: 38px; }
   .jh-nav__item { font-size: 15px; padding: 11px 0; }
   .jh-nav__num { font-size: 11px; width: 22px; }
-  .jh-section { max-width: 2600px; padding: 168px 144px; }
-  .jh-hero.jh-section { max-width: 2600px; }
+  .jh-section { max-width: 2560px; padding: 168px 144px; }
+  .jh-hero.jh-section { max-width: 2560px; }
 }
 
 .jh-eyebrow {
@@ -899,8 +898,6 @@ button {
 .jh-contact__sep { color: var(--jh-faint); }
 
 .jh-copyright {
-  display: flex;
-  justify-content: space-between;
   padding-top: 24px;
   border-top: 1px solid var(--jh-line);
   font-size: 11px;
@@ -1033,14 +1030,18 @@ button {
 }
 .jh-form__reset:hover { color: var(--jh-accent); border-color: var(--jh-accent); }
 
-/* FadeUp wrapper */
-.jh-fadeup {
+/* FadeUp wrapper — progressive enhancement.
+   SSR renders content visible (no --prime class). JS adds .jh-fadeup--prime
+   in a useLayoutEffect (after DOM update, before paint) to enable the
+   pre-hide, then .is-in to play the reveal. If JS fails to hydrate or the
+   IntersectionObserver mis-fires, content stays visible. */
+.jh-fadeup--prime {
   opacity: 0;
   transform: translateY(20px);
   transition: opacity 0.9s cubic-bezier(.2, .7, .2, 1),
               transform 0.9s cubic-bezier(.2, .7, .2, 1);
 }
-.jh-fadeup.is-in {
+.jh-fadeup--prime.is-in {
   opacity: 1;
   transform: translateY(0);
 }
@@ -1483,15 +1484,17 @@ button {
 }
 
 /* Short-viewport fallback: the modal's `max-height: calc(100vh - 32px)`
-   + 16:9 hero combination squeezes .jh-sn-body to 0 height on any
-   viewport shorter than ~900 device px (most laptops with browser
-   chrome). Without remaining flex space, the .jh-sn-scroll viewport
-   collapses and the body content is unreachable. Match the mobile
-   fallback's escape hatch: drop the inner's max-height + internal
-   scroll, keep the two-column grid, and let the outer .jh-modal
-   handle overflow. The sidenav loses its stay-pinned behavior at
-   these viewport heights — same compromise as on mobile. */
-@media (max-height: 900px) and (min-width: 701px) {
+   + 16:9 hero combination squeezes .jh-sn-body to 0 height on
+   viewports too short to fit topbar + 16:9 hero + head + a usable
+   body scroll area. The threshold accounts for the `html { zoom: 1.1 }`
+   rendering scale: a CSS 100vh box is rendered 1.1x taller in device
+   pixels, so even monitors with ~960-1080 CSS-px viewports (1080p
+   monitors with Chrome chrome) overflow without this fallback. The
+   escape hatch matches the mobile fallback: drop the inner's
+   max-height + internal scroll, keep the two-column grid, and let the
+   outer .jh-modal handle overflow. Sidenav loses its stay-pinned
+   behavior at these viewport heights — same compromise as on mobile. */
+@media (max-height: 1100px) and (min-width: 701px) {
   .jh-modal__inner--tech {
     max-height: none;
     display: block;
@@ -1999,7 +2002,7 @@ button {
 /* Honor reduced-motion preference */
 @media (prefers-reduced-motion: reduce) {
   .jh-char,
-  .jh-fadeup,
+  .jh-fadeup--prime,
   .jh-status__dot,
   .jh-card,
   .jh-thumb__grid,
@@ -2008,12 +2011,14 @@ button {
   .jh-modal__hero-img,
   .jh-modal__hero-nav,
   .jh-modal__hero-dot,
-  .jh-nav__label::after {
+  .jh-nav__label::after,
+  .jh-kicker {
     transition: none !important;
     animation: none !important;
   }
   .jh-char { opacity: 1; transform: none; }
-  .jh-fadeup { opacity: 1; transform: none; }
+  .jh-fadeup--prime { opacity: 1; transform: none; }
+  .jh-kicker { letter-spacing: 0.16em; }
 }
 
 /* Focus-ring contrast: the global :focus-visible above uses
@@ -2062,3 +2067,39 @@ button {
   transition: background 0.2s ease, color 0.2s ease;
 }
 .jh-404__back:hover { background: var(--jh-ink); color: var(--jh-bg); }
+
+/* ──────────────────────────────────────────────────────────────────
+   Paper-grain overlay — fixed, full-viewport, pointer-events: none.
+   Lives above body content (z-index: 1) but below the modal (z:50),
+   so the grain doesn't sit on top of dialogs. mix-blend-mode: multiply
+   darkens the cream subtly without visibly affecting the dark sidebar.
+   ─────────────────────────────────────────────────────────────── */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.06;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.9 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  background-size: 240px 240px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body::before { display: none; }
+}
+
+/* ──────────────────────────────────────────────────────────────────
+   Eyebrow breathing — the section kicker's letter-spacing eases open
+   when its FadeUp wrapper enters view. Pure CSS animation gated by a
+   class on the FadeUp wrapper (.jh-fadeup--prime.is-in .jh-kicker)
+   so the effect runs once on first reveal and stays at the wider
+   tracking after.
+   ─────────────────────────────────────────────────────────────── */
+.jh-kicker {
+  display: inline-block;
+  transition: letter-spacing 1.2s cubic-bezier(.2, .7, .2, 1);
+}
+.jh-fadeup--prime .jh-kicker { letter-spacing: 0.16em; }
+.jh-fadeup--prime.is-in .jh-kicker { letter-spacing: 0.22em; }
