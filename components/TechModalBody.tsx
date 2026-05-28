@@ -12,19 +12,17 @@ const prefersReducedMotion = (): boolean =>
   typeof window !== "undefined" &&
   window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-/**
- * The site renders at `html { zoom: 1.1 }` (see CLAUDE.md / globals.css).
- * `getBoundingClientRect()` returns zoomed viewport pixels while
- * `scrollTop` / `scrollTo()` operate in unzoomed CSS pixels, so the BCR
- * delta has to be divided by the zoom factor before being fed back into
- * scroll math — otherwise every jump overshoots by (zoom - 1) × delta.
- */
-const getZoom = (): number => {
-  if (typeof window === "undefined") return 1;
-  const value = parseFloat(
-    window.getComputedStyle(document.documentElement).zoom || "1"
-  );
-  return Number.isFinite(value) && value > 0 ? value : 1;
+/* The tech modal no longer scrolls internally — the outer `.jh-modal`
+ * overlay is the scroller. Spy + click-jump both target that element,
+ * which is resolved lazily because TechModalBody mounts as a child of
+ * the modal. */
+const findOuterScroller = (start: HTMLElement | null): HTMLElement | null => {
+  let el: HTMLElement | null = start;
+  while (el) {
+    if (el.classList.contains("jh-modal")) return el;
+    el = el.parentElement;
+  }
+  return null;
 };
 
 export default function TechModalBody({ project }: Props) {
@@ -32,7 +30,7 @@ export default function TechModalBody({ project }: Props) {
   const [activeId, setActiveId] = useState<string | undefined>(
     () => sections[0]?.id
   );
-  const scrollerRef = useRef<HTMLDivElement | null>(null);
+  const rootRef = useRef<HTMLDivElement | null>(null);
   const refsMap = useRef<Record<string, HTMLElement | null>>({});
   // Suppress the scroll-spy briefly after a click so intermediate scroll
   // frames don't override the just-set activeId.
@@ -45,23 +43,23 @@ export default function TechModalBody({ project }: Props) {
     ? activeId
     : sections[0]?.id;
 
-  const sectionTopWithinScroller = (id: string): number | null => {
+  const sectionTopWithinScroller = (
+    id: string,
+    scroller: HTMLElement
+  ): number | null => {
     const el = refsMap.current[id];
-    const scroller = scrollerRef.current;
-    if (!el || !scroller) return null;
-    const zoom = getZoom();
+    if (!el) return null;
     return (
-      (el.getBoundingClientRect().top -
-        scroller.getBoundingClientRect().top) /
-        zoom +
+      el.getBoundingClientRect().top -
+      scroller.getBoundingClientRect().top +
       scroller.scrollTop
     );
   };
 
   const jump = (id: string) => {
-    const scroller = scrollerRef.current;
+    const scroller = findOuterScroller(rootRef.current);
     if (!scroller) return;
-    const top = sectionTopWithinScroller(id);
+    const top = sectionTopWithinScroller(id, scroller);
     if (top == null) return;
     programmaticScrollRef.current = true;
     if (programmaticTimerRef.current != null) {
@@ -81,7 +79,7 @@ export default function TechModalBody({ project }: Props) {
   };
 
   useEffect(() => {
-    const scroller = scrollerRef.current;
+    const scroller = findOuterScroller(rootRef.current);
     if (!scroller) return;
 
     const onScroll = () => {
@@ -98,7 +96,7 @@ export default function TechModalBody({ project }: Props) {
         cur = sections[sections.length - 1]?.id ?? cur;
       } else {
         for (const s of sections) {
-          const top = sectionTopWithinScroller(s.id);
+          const top = sectionTopWithinScroller(s.id, scroller);
           if (top != null && top - 6 <= scroller.scrollTop) cur = s.id;
         }
       }
@@ -118,7 +116,7 @@ export default function TechModalBody({ project }: Props) {
   if (sections.length === 0) return null;
 
   return (
-    <div className="jh-sn-body">
+    <div ref={rootRef} className="jh-sn-body">
       <aside className="jh-sn-nav" aria-label="Project section navigation">
         {sections.map((s) => {
           const active = renderedActiveId === s.id;
@@ -136,7 +134,7 @@ export default function TechModalBody({ project }: Props) {
           );
         })}
       </aside>
-      <div ref={scrollerRef} className="jh-sn-scroll">
+      <div className="jh-sn-scroll">
         {sections.map((sec) => (
           <section
             key={sec.id}
