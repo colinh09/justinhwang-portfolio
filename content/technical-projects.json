@@ -112,15 +112,15 @@
   },
   {
     "id": "tech-2b",
-    "title": "Power BI - Risk Register Revamp using Claude Code",
-    "blurb": "AI-assisted Power BI dashboard revamp built with Claude Code: phased planning, MCP integration, Test-Driven Development, and a markdown-tracked workflow that compresses token usage and locks decisions between sessions.",
-    "tags": ["Power BI", "Power Query", "Excel", "DAX", "Python", "Claude Code"],
+    "title": "Power BI - Risk Dashboard Revamp using Claude Code",
+    "blurb": "Revamp of a Risk Power BI dashboard with Claude Code, driving edits through the Power BI MCP server and visual review through the Chrome MCP server",
+    "tags": ["Power BI", "Power Query", "Excel", "DAX", "Python", "Claude Code", "MCP Servers"],
     "swatch": "#2d2218",
     "label": "DASHBOARD",
     "detail": [
       "Revamp of a risk dashboard that was initially created by a project controls engineer learning the basic mechanical skills of Power BI. The revamped dashboard utilizes an AI-assisted workflow defined by the learning goals below."
     ],
-    "description": "Revamp of a risk dashboard that was initially created by a project controls engineer learning the basic mechanical skills of Power BI. The revamped dashboard utilizes an AI-assisted workflow defined by the learning goals below.",
+    "description": "A dashboard revamp where Claude Code edits the files directly, the Power BI MCP server updates the data model, and the Chrome MCP server lets Claude review the rendered report in the browser.",
     "objectives": [
       { "lead": "AI-assisted workflow", "body": "Use an AI-assisted workflow to create high-quality dashboards following industry-recommended architecture and visual design." },
       { "lead": "Token & context discipline", "body": "Follow an AI-assisted workflow that reduces token usage and context bloat through phased planning, explicit assignment of subagents to subtasks, and a project-level markdown file that updates and clears context at the end of every phase." },
