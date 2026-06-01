@@ -49,7 +49,14 @@ export function getActiveSections(project: TechProject): ActiveSection[] {
     if (def.kind === "prose") {
       const description = project.description;
       if (description && description.trim().length > 0) {
-        out.push({ ...def, value: [description] });
+        // Allow authors to split a `description` into multiple paragraphs
+        // by inserting blank lines. Single-paragraph descriptions still
+        // collapse to one <p>, so existing records render unchanged.
+        const paragraphs = description
+          .split(/\n\s*\n+/)
+          .map((p) => p.trim())
+          .filter((p) => p.length > 0);
+        out.push({ ...def, value: paragraphs });
         continue;
       }
       const paragraphs = project.detail.filter((p) => p.trim().length > 0);
