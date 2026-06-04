@@ -281,6 +281,7 @@
       { "lead": "Seed finalization", "body": "Split the seed into per-log fixtures that mirror real ingestion, and convert the queued decisions into atomic ADRs." },
       { "lead": "Chart-layer implementation", "body": "Begin once the shell pattern is proven on the simplest chart and validated on a combination chart, then extend to the Gantt, risk heatmap, earned-value S-curve, and quality visuals." }
     ],
+    "liveUrl": "https://www.d3bi.app/overview",
     "images": ["/images/projects/technical/d3bi-phase2-1.png", "/images/projects/technical/d3bi-phase2-2.png"]
   }
 ]
