@@ -351,6 +351,7 @@
       { "lead": "Public self-serve signup and billing", "body": "Convert trials to paid without hand-onboarding; activation-gated signup becomes open signup." },
       { "lead": "debi gets deeper", "body": "User-defined measures first, then a composable chart grammar so debi can compose novel visuals — not only the prebuilt vocabulary — while every output stays validated against the data and on-brand." },
       { "lead": "The formal SOC 2 audit", "body": "Type I, then Type II, assessed against the controls this phase builds — the compliance program as the named outcome of the security ladder." }
-    ]
+    ],
+    "images": ["/images/projects/technical/d3bi-v2-login.png"]
   }
 ]
