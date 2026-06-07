@@ -254,7 +254,7 @@
     "id": "tech-7",
     "title": "d3bi.app — Construction PM Dashboards Capstone (Phase 2, D3.js)",
     "blurb": "Standalone successor to the d3bi Power BI capstone, rebuilt to author the visualization layer directly: project-controls dashboards rendered from raw D3 math (d3-scale, d3-shape, d3-axis) through React JSX rather than composed from a chart library. Now shipped — a login-gated V1.0 in production renders six manifest-driven dashboards live against real program data pulled daily from the team's own OneDrive into a canonical Postgres model, with no data-entry forms anywhere in the path. The seed is modeled on two real Sound Transit East Link (2 Line) packages — E130 and E320 — at a 31 March 2021 data date.",
-    "tags": ["D3.js", "React", "TypeScript", "Postgres", "Claude Code"],
+    "tags": ["D3.js", "React", "TypeScript", "Postgres", "Opus 4.8"],
     "swatch": "#1a2540",
     "label": "CAPSTONE",
     "detail": [
@@ -289,7 +289,7 @@
     "id": "tech-7b",
     "title": "d3bi.app — The Reframe (Accelerated V1.1)",
     "blurb": "Current version of d3bi — internally \"the reframe\" — turning the shipped, login-gated V1.0 dashboard app into a branded, multi-tenant-ready product workspace: a public marketing front door, a multi-template dashboard gallery, a three-panel drag-and-drop schema-assignment surface, and debi — an in-app AI assistant that builds a complete, data-validated dashboard from a plain-language request and saves it as a private template. Surface A — a persistent app shell with a two-skin token seam that re-skins the chrome without disturbing the proven dashboard visuals — is being built now, with the security architecture designed toward SOC 2 along an auth → app-layer ownership → row-level security → tenant-isolation ladder.",
-    "tags": ["Next.js", "React", "TypeScript", "Postgres", "Supabase", "D3.js", "Claude Code"],
+    "tags": ["Next.js", "React", "TypeScript", "Postgres", "Supabase", "D3.js", "Opus 4.8"],
     "swatch": "#1a2540",
     "label": "CAPSTONE",
     "detail": [
@@ -326,7 +326,7 @@
     "id": "tech-7c",
     "title": "d3bi.app — Early Access & SOC 2 Hardening (V2.0)",
     "blurb": "The next phase of d3bi — taking the reframe from demo to something a handful of real customers can run on their own data, and making debi sustainable at that scale. Four pillars: an MCP server and CLI so a customer drives debi from their own Claude subscription (moving inference cost off d3bi); a direct-manipulation build/edit mode for fast, zero-token changes; the SOC 2 security layer (database-enforced row-level security + audit logging); and a controlled release — six-month trials for up to five customers with usage metering and quotas live.",
-    "tags": ["Next.js", "React", "TypeScript", "Postgres", "Supabase", "MCP", "Claude API", "Claude Code"],
+    "tags": ["Next.js", "React", "TypeScript", "Postgres", "Supabase", "MCP", "Claude Console API", "Opus 4.8", "GPT 5.5", "Cursor", "Greptile"],
     "swatch": "#1a2540",
     "label": "CAPSTONE",
     "detail": [
