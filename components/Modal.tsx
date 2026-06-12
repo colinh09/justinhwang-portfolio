@@ -5,6 +5,7 @@ import { CONSTRUCTION_PROJECTS } from "@/lib/content";
 import { isTechProject, type AnyProject } from "@/lib/types";
 import TechModalBody from "@/components/TechModalBody";
 import TechEmbed from "@/components/TechEmbed";
+import TechVideo from "@/components/TechVideo";
 
 interface Props {
   project: AnyProject | null;
@@ -73,6 +74,7 @@ export default function Modal({ project, onClose }: Props) {
   const pdf = tech ? project.pdf : undefined;
   const repo = tech ? project.repo : undefined;
   const embedUrl = tech ? project.embedUrl : undefined;
+  const video = tech ? project.video : undefined;
   const liveHref = tech ? project.liveUrl ?? project.embedUrl : undefined;
   const liveStyle = tech ? project.liveStyle : undefined;
   const images = tech
@@ -147,6 +149,15 @@ export default function Modal({ project, onClose }: Props) {
                 >
                   <span className="jh-embed__badge-dot" aria-hidden="true" />
                   <span>REQUEST DEMO</span>
+                </span>
+              )}
+              {!liveHref && video && (
+                <span
+                  className="jh-embed__badge"
+                  aria-label="This project includes a video"
+                >
+                  <span className="jh-embed__badge-dot" aria-hidden="true" />
+                  <span>VIDEO</span>
                 </span>
               )}
             </div>
@@ -242,7 +253,8 @@ export default function Modal({ project, onClose }: Props) {
         <div
           className={`jh-modal__hero${tech ? " jh-modal__hero--tech" : ""}`}
           style={{
-            background: embedUrl || hasImages ? "#0d0a07" : project.swatch,
+            background:
+              embedUrl || video || hasImages ? "#0d0a07" : project.swatch,
           }}
           onKeyDown={
             hasImages && images.length > 1
@@ -260,6 +272,8 @@ export default function Modal({ project, onClose }: Props) {
         >
           {tech && embedUrl ? (
             <TechEmbed key={embedUrl} project={project} embedUrl={embedUrl} />
+          ) : tech && video ? (
+            <TechVideo key={video} src={video} title={project.title} />
           ) : hasImages ? (
             <>
               {images.map((src, i) => (

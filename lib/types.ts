@@ -47,6 +47,11 @@ export interface TechProject {
   label: string;
   detail: string[];
   images?: string[];
+  /** Path under /public to an mp4. On the card it plays as a muted, looping
+      hover video over the first images[] entry (the poster); in the modal it
+      renders a click-to-play (Play → Replay) muted player in place of the
+      image carousel, again using images[0] as the poster. */
+  video?: string;
   /** Path under /public to a downloadable PDF. When set, a download link
       appears inline beside the title in the project modal. */
   pdf?: string;

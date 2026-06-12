@@ -34,6 +34,7 @@ export default function TechSection({ onOpen }: Props) {
               swatch={p.swatch}
               label={p.label}
               image={p.images?.[0]}
+              video={p.video}
             />
             <div className="jh-card__body">
               <div className="jh-card__title-row">
@@ -73,6 +74,17 @@ export default function TechSection({ onOpen }: Props) {
                       Live Link
                     </span>
                   )
+                ) : p.video ? (
+                  <span
+                    className="jh-chip jh-chip--interactive jh-chip--video"
+                    aria-label="Includes a video — play it in the modal"
+                  >
+                    <span
+                      className="jh-embed__badge-dot"
+                      aria-hidden="true"
+                    />
+                    Video
+                  </span>
                 ) : null}
               </div>
               <div className="jh-card__blurb">{p.blurb}</div>
