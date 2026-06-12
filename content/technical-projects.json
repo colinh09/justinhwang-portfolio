@@ -383,6 +383,7 @@
       { "lead": "Migration from incumbent systems", "body": "V2 turns a customer's existing-PMIS API token into an hour-long import that maps their custom fields to canonical primitives and lands their existing RFIs, submittals, drawings, and directory in the new schema." },
       { "lead": "Full multi-tenant self-serve", "body": "Public credit-card sign-up turns five hand-picked design partners into open tenancy. Activation-gated signup becomes open signup." }
     ],
-    "images": ["/images/projects/technical/pond1.jpg"]
+    "images": ["/images/projects/technical/pond1.jpg"],
+    "video": "/videos/pond-ripple-loop.mp4"
   }
 ]

@@ -492,6 +492,33 @@ button {
    does use contain (see .jh-modal__hero--tech .jh-modal__hero-img). */
 .jh-card--tech .jh-thumb__img { object-fit: cover; }
 
+/* Hover video (Pond): layered over the static poster img inside the thumb,
+   hidden at rest so the img shows through. Fades + scales in while the
+   thumbnail is hovered — ProjectThumb plays/pauses it on mouse enter/leave,
+   and the fade is keyed off .jh-thumb:hover so visibility and playback stay
+   in lockstep. pointer-events:none keeps clicks flowing to the card button. */
+.jh-thumb__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s ease,
+    transform 0.7s cubic-bezier(.2, .7, .2, 1);
+}
+
+.jh-thumb:hover .jh-thumb__video {
+  opacity: 1;
+  transform: scale(1.04);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .jh-thumb__video { display: none; }
+}
+
 /* Interactive chip on the card. Sits to the right of the title, top-
    aligned with the title's first line. Solid forest-green on cream
    with the same pulsing dot as the modal topbar badge.
@@ -525,7 +552,8 @@ button {
    than uppercase at the same px; this variant stays at 11px while
    .jh-chip--interactive drops to 9px (with a pinned 13.2px line-box so
    the pill height still matches this variant). */
-.jh-chip.jh-chip--interactive.jh-chip--live {
+.jh-chip.jh-chip--interactive.jh-chip--live,
+.jh-chip.jh-chip--interactive.jh-chip--video {
   font-size: 0.6875rem;
   letter-spacing: 0.02em;
   text-transform: none;
@@ -1138,6 +1166,109 @@ button {
    app/dashboard screenshots, minimizing letterbox bands. */
 .jh-modal__hero--tech { aspect-ratio: 16 / 9; }
 .jh-modal__hero--tech .jh-modal__hero-img { object-fit: contain; }
+
+/* Modal hero video (Pond). Fills the 16:9 tech hero like the embed iframe;
+   `contain` matches the hero-img convention so the 16:9 clip never crops. */
+.jh-video {
+  position: absolute;
+  inset: 0;
+  background: #0d0a07;
+}
+
+.jh-video__el {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+/* One full-bleed toggle button over the video: a centered Play / Replay badge
+   when idle, paused, or ended; chrome-less but still clickable (to pause)
+   while playing. The radial scrim lifts the glyph off the poster. */
+.jh-video__btn {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(0, 0, 0, 0.3),
+    rgba(0, 0, 0, 0.12) 45%,
+    transparent 72%
+  );
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  z-index: 3;
+  transition: background 0.3s ease;
+}
+
+.jh-video__btn.is-playing { background: transparent; }
+
+.jh-video__btn-icon {
+  width: 4.5rem;
+  height: 4.5rem;
+  padding: 1.125rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #f3ece0;
+  background: rgba(13, 10, 7, 0.55);
+  border: 1px solid rgba(243, 236, 224, 0.5);
+  border-radius: 999px;
+  box-shadow: 0 0.5rem 1.5rem -0.5rem rgba(0, 0, 0, 0.6);
+  animation: jh-video-pulse 2.6s ease-out infinite;
+  transition: transform 0.18s ease, background-color 0.18s ease,
+    border-color 0.18s ease, color 0.18s ease, opacity 0.3s ease;
+}
+
+/* Play triangle reads right-heavy; nudge it for optical centering. */
+.jh-video__play-glyph { margin-left: 0.15rem; }
+
+.jh-video__btn:hover .jh-video__btn-icon,
+.jh-video__btn:focus-visible .jh-video__btn-icon {
+  transform: scale(1.08);
+  background: var(--jh-accent);
+  border-color: var(--jh-accent);
+  color: #fff;
+  animation: none;
+}
+
+/* While playing the badge fades out, but the button stays clickable to pause. */
+.jh-video__btn.is-playing .jh-video__btn-icon {
+  opacity: 0;
+  transform: scale(0.85);
+  animation: none;
+}
+
+.jh-video__btn:focus-visible {
+  outline: 2px solid var(--jh-accent);
+  outline-offset: -3px;
+}
+
+/* Slow accent pulse echoes the nav-dot / embed-badge motion language; the
+   drop shadow rides along in each keyframe so it isn't lost mid-animation. */
+@keyframes jh-video-pulse {
+  0% {
+    box-shadow: 0 0.5rem 1.5rem -0.5rem rgba(0, 0, 0, 0.6),
+      0 0 0 0 color-mix(in srgb, var(--jh-accent) 55%, transparent);
+  }
+  70% {
+    box-shadow: 0 0.5rem 1.5rem -0.5rem rgba(0, 0, 0, 0.6),
+      0 0 0 1.1rem color-mix(in srgb, var(--jh-accent) 0%, transparent);
+  }
+  100% {
+    box-shadow: 0 0.5rem 1.5rem -0.5rem rgba(0, 0, 0, 0.6),
+      0 0 0 0 color-mix(in srgb, var(--jh-accent) 0%, transparent);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .jh-video__btn-icon { animation: none; }
+}
 
 .jh-modal__hero-nav {
   position: absolute;
